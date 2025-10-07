@@ -1,0 +1,16 @@
+@model MeuProjetoMVC.Models.Fornecedor
+@{
+    ViewData["Title"] = "Excluir Fornecedor";
+}
+
+<h2>Excluir Fornecedor</h2>
+
+<div class="alert alert-danger">
+    Tem certeza que deseja excluir o fornecedor <strong>@Model.Nome</strong> (CNPJ: @Model.CNPJ)?
+</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="CodF" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

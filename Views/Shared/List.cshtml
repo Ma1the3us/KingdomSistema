@@ -1,0 +1,48 @@
+@model List<MeuProjetoMVC.Models.Produto>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+}
+
+<h2>Lista de Produtos</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <p style="color:green;">@TempData["Mensagem"]</p>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in Model)
+            {
+                <tr>
+                    <td>@produto.nomeProduto</td>
+                    <td>@produto.Descricao</td>
+                    <td>R$ @produto.Valor</td>
+                    <td>@produto.Quantidade</td>
+                  
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@produto.codProd">Editar</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@produto.codProd">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum produto cadastrado.</p>
+}

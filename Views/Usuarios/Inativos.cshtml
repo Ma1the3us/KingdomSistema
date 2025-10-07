@@ -1,0 +1,41 @@
+@model IEnumerable<MeuProjetoMVC.Models.Usuario>
+@{
+    ViewData["Title"] = "Usuários Inativos";
+}
+
+<h2>Usuários Inativos</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-info">@TempData["Mensagem"]</div>
+}
+
+<p>
+    <a class="btn btn-secondary float-end" asp-action="Index">Ver Ativos</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Role</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var u in Model)
+{
+        <tr>
+            <td>@u.CodUsuario</td>
+            <td>@u.Role</td>
+            <td>@u.Nome</td>
+            <td>@u.Email</td>
+            <td>
+                <a class="btn btn-sm btn-success" asp-action="Reativar" asp-route-id="@u.CodUsuario">Reativar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,66 @@
+﻿@model List<MeuProjetoMVC.Models.Produto>
+
+<h2 style="margin-bottom:20px;">Produtos</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+{
+    <p style="color:red;">@ViewBag.Mensagem</p>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <ul style="list-style:none; padding-left:0;">
+        @foreach (var produto in Model)
+        {
+            <li style="border-bottom:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <strong>@produto.nomeProduto</strong><br />
+
+               
+             @if (produto.Imagens != null && produto.Imagens.Length > 0)
+{
+    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))" 
+         alt="@produto.nomeProduto"
+         style="max-width:200px; display:block; margin:8px 0;" />
+}
+else
+{
+    <span style="color:gray;">(Sem imagem)</span><br />
+}
+
+
+                <span>Preço: R$ @produto.Valor.ToString("F2")</span><br />
+
+                <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span><br />
+
+                <button class="btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Nenhum produto encontrado.</p>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $(".btn-adicionar").click(function () {
+                var produtoId = $(this).data("id");
+
+                $.ajax({
+                    url: '@Url.Action("Add", "Cart")',
+                    type: 'POST',
+                    data: { id: produtoId },
+                    success: function () {
+                        alert("Produto adicionado ao carrinho!");
+                    },
+                    error: function () {
+                        alert("Erro ao adicionar o produto.");
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,33 @@
+@model IEnumerable<MeuProjetoMVC.Models.Categoria>
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<h2>Categorias</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Criar">Nova Categoria</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>Código</th>
+            <th>Nome da Categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (Categoria item in Model)
+    {
+        <tr>
+            <td>@item.CodCat</td>
+            <td>@item.NomeCategoria</td>
+            <td>
+                <a class="btn btn-warning btn-sm" asp-action="Editar" asp-route-id="@item.CodCat">Editar</a>
+                <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@item.CodCat">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

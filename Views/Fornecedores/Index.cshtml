@@ -1,0 +1,35 @@
+@model IEnumerable<MeuProjetoMVC.Models.Fornecedor>
+@{
+    ViewData["Title"] = "Fornecedores";
+}
+
+<h2>Fornecedores</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Criar">Novo Fornecedor</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>Código</th>
+            <th>CNPJ</th>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CodF</td>
+            <td>@item.CNPJ</td>
+            <td>@item.Nome</td>
+            <td>
+                <a class="btn btn-warning btn-sm" asp-action="Editar" asp-route-id="@item.CodF">Editar</a>
+                <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@item.CodF">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

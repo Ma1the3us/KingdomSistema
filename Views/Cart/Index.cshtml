@@ -1,0 +1,88 @@
+@model List<MeuProjetoMVC.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Carrinho de Compras";
+}
+
+<h2>Carrinho de Compras</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <p style="color: green; font-weight: bold;">
+        @TempData["Mensagem"]
+    </p>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>Seu carrinho está vazio.</p>
+}
+else
+{
+    <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+        <thead>
+            <tr style="background-color:#f5f5f5;">
+                <th style="padding:8px; text-align:left;">Produto</th>
+                <th style="padding:8px; text-align:center;">Preço Unitário</th>
+                <th style="padding:8px; text-align:center;">Quantidade</th>
+                <th style="padding:8px; text-align:center;">Total</th>
+                <th style="padding:8px; text-align:center;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="padding:8px;">@item.Nome</td>
+                    <td style="padding:8px; text-align:center;">R$ @item.Preco</td>
+                    <td style="padding:8px; text-align:center;">
+                        <form asp-action="UpdateQuantity" method="post" style="display:inline;">
+                            <input type="hidden" name="produtoId" value="@item.ProdutoId" />
+                            <input type="number" name="quantidade" value="@item.Quantidade"
+                                   min="1" style="width:60px; text-align:center;" />
+                            <button type="submit" style="padding:3px 8px;">Atualizar</button>
+                        </form>
+                    </td>
+                    <td style="padding:8px; text-align:center;">R$ @item.Total</td>
+                    <td style="padding:8px; text-align:center;">
+                        <a asp-action="Remove" asp-route-id="@item.ProdutoId"
+                           style="color:red; text-decoration:none;">Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3 style="margin-top:15px;">
+        Total da Compra: <strong>R$ @ViewBag.TotalCompra</strong>
+    </h3>
+
+    <hr />
+
+    <h3>Finalizar Compra</h3>
+
+    <form method="post" asp-action="Checkout" style="margin-top:10px;">
+        <div style="margin-bottom:10px;">
+            <label>Nome do Cliente:</label><br />
+            <input type="text" name="nomeCliente" required style="width:250px;" />
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <label>Email:</label><br />
+            <input type="email" name="emailCliente" required style="width:250px;" />
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <label>Forma de Pagamento:</label><br />
+            <select name="formaPagamento" required style="width:250px;">
+                <option value="PIX">PIX</option>
+                <option value="Credito">Crédito</option>
+                <option value="Parcelado 6x">Parcelado 6x sem juros</option>
+            </select>
+        </div>
+
+        <button type="submit" style="padding:10px 20px; font-size:16px;">
+            Concluir Compra
+        </button>
+    </form>
+}

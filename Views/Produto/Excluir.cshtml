@@ -1,0 +1,32 @@
+@model MeuProjetoMVC.Models.Produto
+
+@{
+    ViewData["Title"] = "Excluir Produto";
+}
+
+<h2>Excluir Produto</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <p style="color:red;">@TempData["Mensagem"]</p>
+}
+
+<div class="card p-3 mb-3">
+    <h4>@Model.nomeProduto</h4>
+    <p><strong>Descrição:</strong> @(!string.IsNullOrEmpty(Model.Descricao) ? Model.Descricao : "Sem descrição")</p>
+    <p><strong>Quantidade:</strong> @Model.Quantidade</p>
+    <p><strong>Valor:</strong> R$ @Model.Valor</p>
+
+    @if (Model.Imagens != null && Model.Imagens.Length > 0)
+    {
+        <p><strong>Imagem do Produto:</strong></p>
+        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Imagens))" 
+             alt="Imagem do Produto" style="max-width:300px; max-height:300px;" />
+    }
+</div>
+
+<form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="codProd" />
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a asp-action="List" class="btn btn-secondary">Cancelar</a>
+</form>

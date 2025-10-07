@@ -1,0 +1,31 @@
+@model MeuProjetoMVC.Models.Usuario
+
+@{
+    ViewData["Title"] = "Desativar Usuário";
+}
+
+<h2>Desativar Usuário</h2>
+
+<div>
+    <h4>Você tem certeza que deseja desativar este usuário?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Código</dt>
+        <dd class="col-sm-10">@Model.CodUsuario</dd>
+
+        <dt class="col-sm-2">Nome</dt>
+        <dd class="col-sm-10">@Model.Nome</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Role</dt>
+        <dd class="col-sm-10">@Model.Role</dd>
+    </dl>
+
+   <form asp-action="Excluir" method="post">
+    <input type="hidden" asp-for="CodUsuario" />
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+</div>
