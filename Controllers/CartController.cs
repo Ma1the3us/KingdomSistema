@@ -165,14 +165,15 @@ namespace MeuProjetoMVC.Controllers
                     {
                         using var cmdItem = new MySqlCommand(
                             @"INSERT INTO ItensPedido 
-                              (PedidoId, ProdutoId, Quantidade, PrecoUnitario)
-                              VALUES (@pedidoId, @produtoId, @quantidade, @preco)",
+                              (PedidoId, ProdutoId, Quantidade, ValorUnitario)
+                              VALUES (@pedidoId, @produtoId, @quantidade, @ValorUnitario)",
                             conn, tran);
 
                         cmdItem.Parameters.AddWithValue("@pedidoId", pedidoId);
                         cmdItem.Parameters.AddWithValue("@produtoId", item.ProdutoId);
                         cmdItem.Parameters.AddWithValue("@quantidade", item.Quantidade);
                         cmdItem.Parameters.AddWithValue("@preco", item.Preco);
+                        cmdItem.Parameters.AddWithValue("@ValorUnitario", item.ValorUnitario);
 
                         cmdItem.ExecuteNonQuery();
                     }

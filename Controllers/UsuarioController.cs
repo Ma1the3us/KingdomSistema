@@ -9,7 +9,7 @@ using BCrypt.Net;
 
 namespace MeuProjetoMVC.Controllers
 {
-    [SessionAuthorize(RoleAnyOf = "Admin")] // apenas Admin pode gerenciar
+     [SessionAuthorize(RoleAnyOf = "Admin")]// apenas Admin pode gerenciar
     public class UsuariosController : Controller
     {
         private readonly string _connectionString;

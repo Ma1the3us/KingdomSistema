@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ivrW2BDVq84=",
+  "dgSpecHash": "0iwaPPV6C4A=",
   "success": true,
-  "projectFilePath": "/home/matheus/Desktop/MeuProjetoMVC/MeuProjetoMVC.csproj",
+  "projectFilePath": "/home/matheus/Área de trabalho/MeuProjetoMVC/MeuProjetoMVC.csproj",
   "expectedPackageFiles": [
     "/home/matheus/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/matheus/.nuget/packages/bouncycastle.cryptography/2.5.1/bouncycastle.cryptography.2.5.1.nupkg.sha512",
