@@ -1,0 +1,38 @@
+@model MeuProjetoMVC.Models.Usuario
+
+@{
+    ViewBag.Title = "Cadastro de Cliente";
+}
+
+<h2>Cadastro de Cliente</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Senha)
+        @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Senha)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmarSenha)
+        @Html.PasswordFor(m => m.ConfirmarSenha, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmarSenha)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+}

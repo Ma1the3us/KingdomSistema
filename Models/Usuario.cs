@@ -20,6 +20,9 @@ namespace MeuProjetoMVC.Models
         [Display(Name = "Senha")]
         public string? Senha { get; set; }
 
+        [Compare("Senha", ErrorMessage = "As senhas não coincidem.")]
+        public string ConfirmarSenha { get; set; }
+
         [Display(Name = "Ativo")]
         public string Ativo { get; set; } = "S"; // S ou N
     }

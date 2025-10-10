@@ -142,7 +142,7 @@ INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
 -- =====================================================
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS sp_usuario_criar;
+DROP PROCEDURE IF EXISTS sp_usuario_criar $$
 CREATE PROCEDURE sp_usuario_criar (
     IN p_role ENUM('Funcionario','Admin','Cliente'),
     IN p_nome VARCHAR(100),
@@ -160,28 +160,28 @@ BEGIN
 END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_usuario_listar_ativos;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_listar_ativos$$
 CREATE PROCEDURE sp_usuario_listar_ativos()
 BEGIN
     SELECT codUsuario, Nome, Email, Role, Ativo
     FROM Usuario
     WHERE Ativo = 'S';
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_usuario_listar_inativos;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_listar_inativos $$
 CREATE PROCEDURE sp_usuario_listar_inativos()
 BEGIN
     SELECT codUsuario, Nome, Email, Role, Ativo
     FROM Usuario
     WHERE Ativo = 'N';
-END //
+END $$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS sp_usuario_atualizar;
+DROP PROCEDURE IF EXISTS sp_usuario_atualizar $$
 CREATE PROCEDURE sp_usuario_atualizar(
     IN p_codUsuario INT,
     IN p_role ENUM('Funcionario','Admin','Cliente'),
@@ -205,7 +205,7 @@ DELIMITER ;
 -- Procedures de Produto
 -- =====================================================
 DELIMITER $$
-DROP PROCEDURE IF EXISTS cad_Produto;
+DROP PROCEDURE IF EXISTS cad_Produto $$
 CREATE PROCEDURE cad_Produto(
     IN p_quantidade INT,
     IN p_imagens LONGBLOB,
@@ -226,7 +226,7 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS editar_produto;
+DROP PROCEDURE IF EXISTS editar_produto $$
 CREATE PROCEDURE editar_produto(
     IN p_cod INT,
     IN p_quant INT,
@@ -250,7 +250,7 @@ DELIMITER ;
 -- Procedures de Fornecedor
 -- =====================================================
 DELIMITER $$
-DROP PROCEDURE IF EXISTS cad_Fornecedor;
+DROP PROCEDURE IF EXISTS cad_Fornecedor $$
 CREATE PROCEDURE cad_Fornecedor(
     IN p_CNPJ BIGINT,
     IN p_Nome VARCHAR(100)
@@ -270,7 +270,7 @@ DELIMITER ;
 -- Procedures de Categoria
 -- =====================================================
 DELIMITER $$
-DROP PROCEDURE IF EXISTS cad_Categoria;
+DROP PROCEDURE IF EXISTS cad_Categoria $$
 CREATE PROCEDURE cad_Categoria(
     IN p_Nome VARCHAR(100)
 )
@@ -282,49 +282,49 @@ BEGIN
 END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_listar_categorias;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_listar_categorias $$
 CREATE PROCEDURE sp_listar_categorias()
 BEGIN
     SELECT codCat, nomeCategoria
     FROM Categorias
     ORDER BY nomeCategoria;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_obter_categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_obter_categoria $$
 CREATE PROCEDURE sp_obter_categoria(IN p_id INT)
 BEGIN
     SELECT codCat, nomeCategoria
     FROM Categorias
     WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_atualizar_categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_atualizar_categoria $$
 CREATE PROCEDURE sp_atualizar_categoria(IN p_id INT, IN p_nome VARCHAR(100))
 BEGIN
     UPDATE Categorias
     SET nomeCategoria = p_nome
     WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_excluir_categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_excluir_categoria $$
 CREATE PROCEDURE sp_excluir_categoria(IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
 -- =====================================================
 -- Procedure de Vendas
 -- =====================================================
 DELIMITER $$
-DROP PROCEDURE IF EXISTS sp_registrar_venda;
+DROP PROCEDURE IF EXISTS sp_registrar_venda $$
 CREATE PROCEDURE sp_registrar_venda (
     IN p_codUsuario INT,
     IN p_valorTotal DECIMAL(10,2),
@@ -339,8 +339,8 @@ DELIMITER ;
 
 
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_finalizar_compra;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_finalizar_compra $$
 CREATE PROCEDURE sp_finalizar_compra (
     IN p_idCliente INT,
     IN p_formaPagamento VARCHAR(50),
@@ -355,11 +355,11 @@ BEGIN
     INSERT INTO Pedidos (NomeCliente, EmailCliente, Total, FormaPagamento)
     VALUES (v_nome, v_email, p_total, p_formaPagamento);
     SELECT LAST_INSERT_ID() AS NovoPedidoId;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_inserir_usuario;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_inserir_usuario $$
 CREATE PROCEDURE sp_inserir_usuario (
     IN p_nome VARCHAR(100),
     IN p_email VARCHAR(150),
@@ -369,55 +369,55 @@ CREATE PROCEDURE sp_inserir_usuario (
 BEGIN
     INSERT INTO Usuario (Nome, Email, Senha, Role)
     VALUES (p_nome, p_email, p_senha, p_role);
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_obter_cliente;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_obter_cliente $$
 CREATE PROCEDURE sp_obter_cliente (IN p_id INT)
 BEGIN
     SELECT codUsuario, Nome, Email
     FROM Usuario
     WHERE codUsuario = p_id AND Role = 'Cliente';
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_usuario_desativar;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_desativar $$
 CREATE PROCEDURE sp_usuario_desativar(IN p_id INT)
 BEGIN
     UPDATE Usuario SET Ativo = 'N' WHERE codUsuario = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_usuario_ativar;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_ativar $$
 CREATE PROCEDURE sp_usuario_ativar(IN p_id INT)
 BEGIN
     UPDATE Usuario SET Ativo = 'S' WHERE codUsuario = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_inserir_categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_inserir_categoria $$
 CREATE PROCEDURE sp_inserir_categoria (
     IN p_nome VARCHAR(100)
 )
 BEGIN
     INSERT INTO Categorias (nomeCategoria) VALUES (p_nome);
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_excluir_categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_excluir_categoria $$
 CREATE PROCEDURE sp_excluir_categoria (IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_inserir_produto;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_inserir_produto $$
 CREATE PROCEDURE sp_inserir_produto (
     IN p_nome VARCHAR(200),
     IN p_descricao VARCHAR(255),
@@ -430,58 +430,71 @@ CREATE PROCEDURE sp_inserir_produto (
 BEGIN
     INSERT INTO Produto (nomeProduto, Descricao, Valor, Quantidade, codCat, codF, Imagens)
     VALUES (p_nome, p_descricao, p_valor, p_quantidade, p_codCat, p_codF, p_imagens);
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_listar_produtos;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_listar_produtos $$
 CREATE PROCEDURE sp_listar_produtos ()
 BEGIN
     SELECT p.codProd, p.nomeProduto, p.Descricao, p.Valor, p.Quantidade, c.nomeCategoria, f.Nome AS Fornecedor
     FROM Produto p
     LEFT JOIN Categorias c ON p.codCat = c.codCat
     LEFT JOIN Fornecedor f ON p.codF = f.codF;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_excluir_produto;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_excluir_produto $$
 CREATE PROCEDURE sp_excluir_produto (IN p_id INT)
 BEGIN
     DELETE FROM Produto WHERE codProd = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS del_Categoria;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS del_Categoria $$
 CREATE PROCEDURE del_Categoria(IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS get_categoria_by_id;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS get_categoria_by_id $$
 CREATE PROCEDURE get_categoria_by_id(IN p_id INT)
 BEGIN
     SELECT codCat, nomeCategoria 
     FROM Categorias 
     WHERE codCat = p_id;
-END //
+END $$
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_obter_produto_por_id;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_obter_produto_por_id $$
 CREATE PROCEDURE sp_obter_produto_por_id(IN p_id INT)
 BEGIN
     SELECT codProd, nomeProduto, Descricao, Valor
     FROM Produto
     WHERE codProd = p_id;
-END //
+END $$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS sp_usuario_atualizar_status;
+
+DROP PROCEDURE IF EXISTS sp_usuario_buscar_por_id $$
+
+CREATE PROCEDURE sp_usuario_buscar_por_id(IN p_id INT)
+BEGIN
+    SELECT codUsuario, Role, Nome, Email, Ativo
+    FROM Usuario
+    WHERE codUsuario = p_id;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_atualizar_status $$
 CREATE PROCEDURE sp_usuario_atualizar_status (
     IN p_id INT,
     IN p_status CHAR(1)

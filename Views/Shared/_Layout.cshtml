@@ -32,7 +32,7 @@
                             var role = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserRole) ?? "";
                             var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName);
                         }
-
+                      
                         @* Admin vê Produtos e Gestao de Usuários *@
                         @if (!string.IsNullOrEmpty(role) && role == "Admin" )
                         {
