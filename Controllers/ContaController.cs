@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/*using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MeuProjetoMVC.Models;
 using MySql.Data.MySqlClient;
@@ -58,3 +58,4 @@ namespace MeuProjetoMVC.Controllers
         }
     }
 }
+*/
