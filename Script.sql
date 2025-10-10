@@ -6,7 +6,7 @@ CREATE DATABASE IF NOT EXISTS MeuProjetoMVC
     COLLATE utf8mb4_general_ci;
 
 USE MeuProjetoMVC;
- 
+
 -- =====================================================
 -- 1. Tabela Usuario
 -- =====================================================
@@ -16,20 +16,22 @@ CREATE TABLE Usuario (
     Email      VARCHAR(150) NOT NULL UNIQUE,
     Senha      VARCHAR(255) NOT NULL,
     Role       ENUM('Admin','Cliente') NOT NULL DEFAULT 'Cliente'
+    
 );
 
--- Ajustes da Tabela Usuario
 ALTER TABLE Usuario
     ADD COLUMN Ativo CHAR(1) NOT NULL DEFAULT 'S';
+    ALTER TABLE Usuario
+    MODIFY Role ENUM('Admin','Cliente','Funcionario');
 
 -- =====================================================
 -- 2. Tabela Fornecedor
 -- =====================================================
 CREATE TABLE Fornecedor (
-    codF INT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- Código único do fornecedor
-    CNPJ BIGINT NOT NULL,                         -- CNPJ do fornecedor (apenas números)
-    Nome VARCHAR(100) NOT NULL,                   -- Nome do fornecedor
-    UNIQUE KEY uq_fornecedor_cnpj (CNPJ)          -- Garante que não haja CNPJ duplicado
+    codF INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    CNPJ BIGINT NOT NULL,
+    Nome VARCHAR(100) NOT NULL,
+    UNIQUE KEY uq_fornecedor_cnpj (CNPJ)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =====================================================
@@ -39,19 +41,15 @@ CREATE TABLE Produto (
     CodProd INT AUTO_INCREMENT PRIMARY KEY,
     nomeProduto VARCHAR(150) NOT NULL,
     Descricao TEXT NULL,
-    Valor     DECIMAL(10,2) NOT NULL,
-    Imagens   LONGBLOB NULL
+    Valor DECIMAL(10,2) NOT NULL,
+    Imagens LONGBLOB NULL
 );
 
--- Ajustes da Tabela Produto
 ALTER TABLE Produto ADD COLUMN Quantidade INT NOT NULL DEFAULT 1;
 ALTER TABLE Produto ADD COLUMN quantidadeTotal INT NOT NULL DEFAULT 1;
 ALTER TABLE Produto ADD COLUMN codCat INT DEFAULT NULL;
 ALTER TABLE Produto ADD COLUMN codF INT DEFAULT NULL;
-ALTER TABLE Produto ADD COLUMN imagemTipo VARCHAR(255) NOT NULL DEFAULT '';
-ALTER TABLE Produto drop COLUMN imagemTipo;
-ALTER TABLE Produto
-    MODIFY COLUMN Descricao VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE Produto MODIFY COLUMN Descricao VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE Produto
     ADD CONSTRAINT fk_produto_fornecedor
     FOREIGN KEY (codF) REFERENCES Fornecedor(codF)
@@ -62,25 +60,25 @@ ALTER TABLE Produto
 -- 4. Tabela Pedidos
 -- =====================================================
 CREATE TABLE Pedidos (
-    PedidoId       INT AUTO_INCREMENT PRIMARY KEY,
-    NomeCliente    VARCHAR(150) NOT NULL,
-    EmailCliente   VARCHAR(150) NOT NULL,
-    Total          DECIMAL(10,2) NOT NULL,
+    PedidoId INT AUTO_INCREMENT PRIMARY KEY,
+    NomeCliente VARCHAR(150) NOT NULL,
+    EmailCliente VARCHAR(150) NOT NULL,
+    Total DECIMAL(10,2) NOT NULL,
     FormaPagamento VARCHAR(50) NOT NULL,
-    DataPedido     DATETIME DEFAULT CURRENT_TIMESTAMP
+    DataPedido DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
 -- 5. Tabela ItensPedido
 -- =====================================================
 CREATE TABLE ItensPedido (
-    ItemId        INT AUTO_INCREMENT PRIMARY KEY,
-    PedidoId      INT NOT NULL,
-    ProdutoId     INT NOT NULL,
-    Quantidade    INT NOT NULL,
-    PrecoUnitario DECIMAL(10,2) NOT NULL,
+    ItemId INT AUTO_INCREMENT PRIMARY KEY,
+    PedidoId INT NOT NULL,
+    ProdutoId INT NOT NULL,
+    Quantidade INT NOT NULL,
+    ValorUnitario DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (PedidoId) REFERENCES Pedidos(PedidoId) ON DELETE CASCADE,
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(ProdutoId) ON DELETE CASCADE
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(codProd) ON DELETE CASCADE
 );
 
 -- =====================================================
@@ -91,55 +89,50 @@ CREATE TABLE Categorias (
     nomeCategoria VARCHAR(100)
 );
 
--- Ajustes da Tabela Produto dependentes de Categorias
 ALTER TABLE Produto
     ADD FOREIGN KEY (codCat) REFERENCES Categorias(codCat);
 
 -- =====================================================
--- 1. Tabela Vendas
+-- 7. Tabela Vendas
 -- =====================================================
 CREATE TABLE Vendas (
-    codVenda INT AUTO_INCREMENT PRIMARY KEY,    -- Código único da venda
-    codUsuario INT NOT NULL,                    -- Cliente que fez a compra
-    valorTotal DECIMAL(10,2) NOT NULL,          -- Valor total da venda
-    formaPagamento VARCHAR(50) NOT NULL,        -- Forma de pagamento usada
-    dataVenda DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data da venda
+    codVenda INT AUTO_INCREMENT PRIMARY KEY,
+    codUsuario INT NOT NULL,
+    valorTotal DECIMAL(10,2) NOT NULL,
+    formaPagamento VARCHAR(50) NOT NULL,
+    dataVenda DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 -- =====================================================
--- 2. Tabela ItensVenda
+-- 8. Tabela ItensVenda
 -- =====================================================
 CREATE TABLE ItensVenda (
-    codItemVenda INT AUTO_INCREMENT PRIMARY KEY, -- Código do item
-    codVenda INT NOT NULL,                       -- Relacionado a uma venda
-    codProduto INT NOT NULL,                     -- Produto vendido
-    quantidade INT NOT NULL,                     -- Quantidade do produto
-    precoUnitario DECIMAL(10,2) NOT NULL,        -- Preço unitário no momento da venda
-    subtotal DECIMAL(10,2) GENERATED ALWAYS AS (quantidade * precoUnitario) STORED,
+    codItemVenda INT AUTO_INCREMENT PRIMARY KEY,
+    codVenda INT NOT NULL,
+    codProduto INT NOT NULL,
+    quantidade INT NOT NULL,
+    valorUnitario DECIMAL(10,2) NOT NULL,
+    subtotal DECIMAL(10,2) GENERATED ALWAYS AS (quantidade * valorUnitario) STORED,
     FOREIGN KEY (codVenda) REFERENCES Vendas(codVenda) ON DELETE CASCADE,
-    FOREIGN KEY (codProduto) REFERENCES Produto(ProdutoId) ON DELETE CASCADE
+    FOREIGN KEY (codProduto) REFERENCES Produto(codProd) ON DELETE CASCADE
 );
 
 -- =====================================================
--- Usuários de Teste (com senhas BCrypt)
+-- Usuários de Teste
 -- =====================================================
--- Hash gerado para senha: 123456
 INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
 ('Administrador', 'admin@meuprojeto.com',
  '$2a$12$ExID6a2jgxZ5CfdgkbtiUu7bm51jAzG7xqYw.3C3Z/qZ6jNobY7sG', 'Admin'),
 ('Cliente Padrão', 'cliente@meuprojeto.com',
  '$2a$12$ExID6a2jgxZ5CfdgkbtiUu7bm51jAzG7xqYw.3C3Z/qZ6jNobY7sG', 'Cliente');
 
--- Produto de Exemplo (opcional)
-INSERT INTO Produto (Nome, Descricao, Preco)
+INSERT INTO Produto (NomeProduto, Descricao, Valor)
 VALUES
 ('Camiseta MVC', 'Camiseta personalizada MeuProjetoMVC', 59.90),
 ('Caneca MVC', 'Caneca oficial do projeto', 29.90);
-
-SELECT * FROM Usuario;
 
 INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
 ('Administrador', 'admin@meuprojeto1.com', '123', 'Admin');
@@ -149,9 +142,10 @@ INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
 -- =====================================================
 DELIMITER $$
 
+DROP PROCEDURE IF EXISTS sp_usuario_criar;
 CREATE PROCEDURE sp_usuario_criar (
-    IN p_role  ENUM('Funcionario','Admin','Cliente'),
-    IN p_nome  VARCHAR(100),
+    IN p_role ENUM('Funcionario','Admin','Cliente'),
+    IN p_nome VARCHAR(100),
     IN p_email VARCHAR(150),
     IN p_senha VARCHAR(100),
     IN p_ativo CHAR(1)
@@ -167,34 +161,34 @@ END $$
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_usuario_listar_ativos;
 CREATE PROCEDURE sp_usuario_listar_ativos()
 BEGIN
-    SELECT codUsuario, nome, email,Role, Ativo
+    SELECT codUsuario, Nome, Email, Role, Ativo
     FROM Usuario
     WHERE Ativo = 'S';
 END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_usuario_listar_inativos;
 CREATE PROCEDURE sp_usuario_listar_inativos()
 BEGIN
-    SELECT codUsuario, nome, email,Role, Ativo
+    SELECT codUsuario, Nome, Email, Role, Ativo
     FROM Usuario
     WHERE Ativo = 'N';
 END //
 DELIMITER ;
 
-
-
-
 DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_atualizar;
 CREATE PROCEDURE sp_usuario_atualizar(
     IN p_codUsuario INT,
-    IN p_role       ENUM('Funcionario','Admin','Cliente'),
-    IN p_nome       VARCHAR(100),
-    IN p_email      VARCHAR(150),
-    IN p_senha      VARCHAR(100),
-    IN p_ativo      CHAR(1)
+    IN p_role ENUM('Funcionario','Admin','Cliente'),
+    IN p_nome VARCHAR(100),
+    IN p_email VARCHAR(150),
+    IN p_senha VARCHAR(100),
+    IN p_ativo CHAR(1)
 )
 BEGIN
     UPDATE Usuario
@@ -206,19 +200,20 @@ BEGIN
      WHERE codUsuario = p_codUsuario;
 END $$
 DELIMITER ;
-sp_usuario_buscar_por_id
+
 -- =====================================================
 -- Procedures de Produto
 -- =====================================================
 DELIMITER $$
+DROP PROCEDURE IF EXISTS cad_Produto;
 CREATE PROCEDURE cad_Produto(
-    IN p_quantidade  INT,
-    IN p_imagens     LONGBLOB,
-    IN p_valor       DOUBLE,
-    IN p_descricao   VARCHAR(255),
+    IN p_quantidade INT,
+    IN p_imagens LONGBLOB,
+    IN p_valor DOUBLE,
+    IN p_descricao VARCHAR(255),
     IN p_nomeproduto VARCHAR(100),
-    IN p_codCat      INT,
-    IN p_codF        INT
+    IN p_codCat INT,
+    IN p_codF INT
 )
 BEGIN
     IF NOT EXISTS (SELECT codProd FROM Produto WHERE nomeProduto = p_nomeproduto) THEN
@@ -231,21 +226,22 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS editar_produto;
 CREATE PROCEDURE editar_produto(
-    IN p_cod       INT,
-    IN p_quant     INT,
-    IN p_valor     DOUBLE,
-    IN p_nome      VARCHAR(100),
+    IN p_cod INT,
+    IN p_quant INT,
+    IN p_valor DOUBLE,
+    IN p_nome VARCHAR(100),
     IN p_descricao VARCHAR(255),
-    IN p_imagens   LONGBLOB
+    IN p_imagens LONGBLOB
 )
 BEGIN
     UPDATE Produto
-       SET Quantidade  = p_quant,
-           Valor       = p_valor,
+       SET Quantidade = p_quant,
+           Valor = p_valor,
            nomeProduto = p_nome,
-           Descricao   = p_descricao,
-           Imagens     = p_imagens
+           Descricao = p_descricao,
+           Imagens = p_imagens
      WHERE codProd = p_cod;
 END $$
 DELIMITER ;
@@ -270,11 +266,11 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 -- =====================================================
 -- Procedures de Categoria
 -- =====================================================
 DELIMITER $$
+DROP PROCEDURE IF EXISTS cad_Categoria;
 CREATE PROCEDURE cad_Categoria(
     IN p_Nome VARCHAR(100)
 )
@@ -287,6 +283,7 @@ END $$
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_listar_categorias;
 CREATE PROCEDURE sp_listar_categorias()
 BEGIN
     SELECT codCat, nomeCategoria
@@ -294,8 +291,9 @@ BEGIN
     ORDER BY nomeCategoria;
 END //
 DELIMITER ;
--- Buscar Categoria por ID
+
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_obter_categoria;
 CREATE PROCEDURE sp_obter_categoria(IN p_id INT)
 BEGIN
     SELECT codCat, nomeCategoria
@@ -304,8 +302,8 @@ BEGIN
 END //
 DELIMITER ;
 
--- Atualizar Categoria
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_atualizar_categoria;
 CREATE PROCEDURE sp_atualizar_categoria(IN p_id INT, IN p_nome VARCHAR(100))
 BEGIN
     UPDATE Categorias
@@ -314,39 +312,35 @@ BEGIN
 END //
 DELIMITER ;
 
--- Excluir Categoria
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_excluir_categoria;
 CREATE PROCEDURE sp_excluir_categoria(IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
 END //
 DELIMITER ;
 
+-- =====================================================
+-- Procedure de Vendas
+-- =====================================================
 DELIMITER $$
-
+DROP PROCEDURE IF EXISTS sp_registrar_venda;
 CREATE PROCEDURE sp_registrar_venda (
     IN p_codUsuario INT,
     IN p_valorTotal DECIMAL(10,2),
     IN p_formaPagamento VARCHAR(50)
 )
 BEGIN
-    -- Cria uma nova venda
     INSERT INTO Vendas (codUsuario, valorTotal, formaPagamento)
     VALUES (p_codUsuario, p_valorTotal, p_formaPagamento);
-
-    -- Retorna o ID da venda recém-criada
     SELECT LAST_INSERT_ID() AS codVenda;
 END $$
-
 DELIMITER ;
 
--- =====================================================
--- Ajuste Final
--- =====================================================
-ALTER TABLE Usuario
-    MODIFY Role ENUM('Admin','Cliente','Funcionario');
+
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_finalizar_compra;
 CREATE PROCEDURE sp_finalizar_compra (
     IN p_idCliente INT,
     IN p_formaPagamento VARCHAR(50),
@@ -355,24 +349,17 @@ CREATE PROCEDURE sp_finalizar_compra (
 BEGIN
     DECLARE v_nome VARCHAR(150);
     DECLARE v_email VARCHAR(150);
-
-    -- Buscar dados do cliente
     SELECT Nome, Email INTO v_nome, v_email
     FROM Usuario
     WHERE codUsuario = p_idCliente;
-
-    -- Inserir o pedido
     INSERT INTO Pedidos (NomeCliente, EmailCliente, Total, FormaPagamento)
     VALUES (v_nome, v_email, p_total, p_formaPagamento);
-
-    -- Retornar ID do pedido
     SELECT LAST_INSERT_ID() AS NovoPedidoId;
 END //
 DELIMITER ;
 
-
--- Inserir Usuário
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_inserir_usuario;
 CREATE PROCEDURE sp_inserir_usuario (
     IN p_nome VARCHAR(100),
     IN p_email VARCHAR(150),
@@ -385,8 +372,8 @@ BEGIN
 END //
 DELIMITER ;
 
--- Obter Cliente por ID
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_obter_cliente;
 CREATE PROCEDURE sp_obter_cliente (IN p_id INT)
 BEGIN
     SELECT codUsuario, Nome, Email
@@ -396,25 +383,23 @@ END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_usuario_desativar;
 CREATE PROCEDURE sp_usuario_desativar(IN p_id INT)
 BEGIN
-    UPDATE Usuario
-    SET Ativo = 'N'
-    WHERE codUsuario = p_id;
+    UPDATE Usuario SET Ativo = 'N' WHERE codUsuario = p_id;
 END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_usuario_ativar;
 CREATE PROCEDURE sp_usuario_ativar(IN p_id INT)
 BEGIN
-    UPDATE Usuario
-    SET Ativo = 'S'
-    WHERE codUsuario = p_id;
+    UPDATE Usuario SET Ativo = 'S' WHERE codUsuario = p_id;
 END //
 DELIMITER ;
 
--- Inserir Categoria
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_inserir_categoria;
 CREATE PROCEDURE sp_inserir_categoria (
     IN p_nome VARCHAR(100)
 )
@@ -423,78 +408,80 @@ BEGIN
 END //
 DELIMITER ;
 
--- Excluir Categoria
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_excluir_categoria;
 CREATE PROCEDURE sp_excluir_categoria (IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
 END //
 DELIMITER ;
 
--- Inserir Produto
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_inserir_produto;
 CREATE PROCEDURE sp_inserir_produto (
     IN p_nome VARCHAR(200),
     IN p_descricao VARCHAR(255),
-    IN p_preco DECIMAL(10,2),
+    IN p_valor DECIMAL(10,2),
     IN p_quantidade INT,
     IN p_codCat INT,
     IN p_codF INT,
     IN p_imagens LONGBLOB
 )
 BEGIN
-    INSERT INTO Produto (nomeProduto, Descricao, Preco, Quantidade, codCat, codF, Imagens)
-    VALUES (p_nome, p_descricao, p_preco, p_quantidade, p_codCat, p_codF, p_imagens);
+    INSERT INTO Produto (nomeProduto, Descricao, Valor, Quantidade, codCat, codF, Imagens)
+    VALUES (p_nome, p_descricao, p_valor, p_quantidade, p_codCat, p_codF, p_imagens);
 END //
 DELIMITER ;
 
--- Listar Produtos
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_listar_produtos;
 CREATE PROCEDURE sp_listar_produtos ()
 BEGIN
-    SELECT p.ProdutoId, p.nomeProduto, p.Descricao, p.Preco, p.Quantidade, c.nomeCategoria, f.Nome AS Fornecedor
+    SELECT p.codProd, p.nomeProduto, p.Descricao, p.Valor, p.Quantidade, c.nomeCategoria, f.Nome AS Fornecedor
     FROM Produto p
     LEFT JOIN Categorias c ON p.codCat = c.codCat
     LEFT JOIN Fornecedor f ON p.codF = f.codF;
 END //
 DELIMITER ;
 
--- Excluir Produto
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_excluir_produto;
 CREATE PROCEDURE sp_excluir_produto (IN p_id INT)
 BEGIN
-    DELETE FROM Produto WHERE ProdutoId = p_id;
+    DELETE FROM Produto WHERE codProd = p_id;
 END //
 DELIMITER ;
+
 DELIMITER //
+DROP PROCEDURE IF EXISTS del_Categoria;
 CREATE PROCEDURE del_Categoria(IN p_id INT)
 BEGIN
     DELETE FROM Categorias WHERE codCat = p_id;
-END;
+END //
 DELIMITER ;
-DELIMITER //
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_categoria_by_id;
 CREATE PROCEDURE get_categoria_by_id(IN p_id INT)
 BEGIN
     SELECT codCat, nomeCategoria 
     FROM Categorias 
     WHERE codCat = p_id;
-END;
-
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE sp_obter_produto_por_id(IN p_id INT)
-BEGIN
-    SELECT ProdutoId, nomeProduto, Descricao, Valor
-    FROM Produto
-    WHERE ProdutoId = p_id;
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS sp_obter_produto_por_id;
+CREATE PROCEDURE sp_obter_produto_por_id(IN p_id INT)
+BEGIN
+    SELECT codProd, nomeProduto, Descricao, Valor
+    FROM Produto
+    WHERE codProd = p_id;
+END //
+DELIMITER ;
 
 DELIMITER $$
-
+DROP PROCEDURE IF EXISTS sp_usuario_atualizar_status;
 CREATE PROCEDURE sp_usuario_atualizar_status (
     IN p_id INT,
     IN p_status CHAR(1)
@@ -504,6 +491,4 @@ BEGIN
     SET Ativo = p_status
     WHERE codUsuario = p_id;
 END $$
-
 DELIMITER ;
-
