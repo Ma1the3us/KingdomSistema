@@ -8,7 +8,7 @@ namespace MeuProjetoMVC.Models
 
         [Required]
         [Display(Name = "Tipo de Usuário")]
-        public string? Role { get; set; } = "Cliente"; // Enum: Funcionario, Admin, Cliente
+        public string? Role { get; set; } = "Cliente";
 
         [Required, StringLength(100)]
         public string? Nome { get; set; }
@@ -16,12 +16,15 @@ namespace MeuProjetoMVC.Models
         [Required, EmailAddress, StringLength(150)]
         public string? Email { get; set; }
 
-        [Required, StringLength(100)]
+        [StringLength(100)]
         [Display(Name = "Senha")]
-        public string? Senha { get; set; }
+        public string? Senha { get; set; } // 🔹 removido [Required]
 
+        [Compare("Senha", ErrorMessage = "As senhas não coincidem.")]
+        [Display(Name = "Confirmar Nova Senha")]
+        public string? ConfirmarSenha { get; set; }
 
         [Display(Name = "Ativo")]
-        public string? Ativo { get; set; } = "S"; // S ou N
+        public string? Ativo { get; set; } = "S";
     }
 }

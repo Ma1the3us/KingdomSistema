@@ -1,0 +1,36 @@
+@model MeuProjetoMVC.Models.Usuario
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+<h2>Cadastrar - Cliente</h2>
+
+<div class="card p-3">
+    <form asp-action="Cadastrar" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-2">
+            <label asp-for="Nome"></label>
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="Senha"></label>
+            <input asp-for="Senha" class="form-control" type="password" />
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label for="ConfirmSenha">Confirmar Senha</label>
+            <input id="ConfirmSenha" name="ConfirmSenha" class="form-control" type="password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a asp-action="Login" asp-controller="Auth" class="btn btn-secondary">Voltar ao Login</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,24 @@
+@model MeuProjetoMVC.Models.Usuario
+@{
+    ViewData["Title"] = "Reativar Conta";
+}
+<h2>Reativar Conta</h2>
+
+<div class="card p-3">
+    <p>O email <strong>@Model.Email</strong> está vinculado a uma conta desativada.</p>
+    <p>Se deseja reativar, informe uma nova senha abaixo.</p>
+
+    <form asp-action="ConfirmarReativacaoPost" method="post">
+        <input type="hidden" name="id" value="@Model.CodUsuario" />
+        <div class="form-group mb-2">
+            <label for="NovaSenha">Nova Senha</label>
+            <input id="NovaSenha" name="NovaSenha" class="form-control" type="password" />
+        </div>
+        <div class="form-group mb-2">
+            <label for="ConfirmNovaSenha">Confirmar Nova Senha</label>
+            <input id="ConfirmNovaSenha" name="ConfirmNovaSenha" class="form-control" type="password" />
+        </div>
+        <button type="submit" class="btn btn-success">Reativar Conta</button>
+        <a asp-action="Cadastrar" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

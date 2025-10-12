@@ -28,47 +28,66 @@
                         </li>
 
                         @{
-                            // pega role e nome do usuário da sessão (null-safe)
                             var role = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserRole) ?? "";
                             var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName);
                         }
-                      
-                        @* Admin vê Produtos e Gestao de Usuários *@
-                        @if (!string.IsNullOrEmpty(role) && role == "Admin" )
+
+                        @* ADMIN *@
+                        @if (role == "Admin")
                         {
-                            
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Funcionários</a>
+                                <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Index">Funcionários</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
                             </li>
                         }
-                         @if (!string.IsNullOrEmpty(role) && (role == "Funcionario" || role =="Admin") )
+
+                        @* FUNCIONÁRIO *@
+                        @if (role == "Funcionario")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Produto" asp-action="List">Produtos</a>
+                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
                             </li>
                         }
-                        @* Admin e Funcionario vêem Categorias e Fornecedores *@
-                        @if (!string.IsNullOrEmpty(role) && (role == "Admin" || role == "Funcionario"))
+
+                        @* CLIENTE *@
+                        @if (role == "Cliente")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                                <a class="nav-link text-dark" asp-controller="Conta" asp-action="Editar">Minha Conta</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
+                                <a class="nav-link text-dark" asp-controller="Conta" asp-action="Desativar">Desativar Conta</a>
                             </li>
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Carrinho</a>
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Carrinho</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav">
-                        @* Se não logado: mostrar botão Login *@
+                        @* Usuários não logados veem Login e Criar Conta *@
                         @if (string.IsNullOrEmpty(userName))
                         {
                             <li class="nav-item">
                                 <a class="nav-link btn btn-outline-primary" asp-controller="Auth" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-success ms-2" asp-controller="Conta" asp-action="Registrar">Criar Conta</a>
                             </li>
                         }
                         else
@@ -94,7 +113,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Kingdom of Games - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - Kingdom of Games - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

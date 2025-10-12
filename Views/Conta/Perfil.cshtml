@@ -1,0 +1,23 @@
+@model MeuProjetoMVC.Models.Usuario
+@{
+    ViewData["Title"] = "Meu Perfil";
+}
+<h2>Meu Perfil</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-info">@TempData["Mensagem"]</div>
+}
+
+<div class="card p-3">
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9">@Model.Nome</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+    </dl>
+
+    <a asp-action="Editar" class="btn btn-primary">Editar meus dados</a>
+    <a asp-action="Desativar" class="btn btn-danger">Desativar minha conta</a>
+</div>
