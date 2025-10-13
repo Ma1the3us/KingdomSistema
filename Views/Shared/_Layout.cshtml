@@ -37,55 +37,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-<<<<<<< HEAD
-=======
-
-                        @{
-                            var role = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserRole) ?? "";
-                            var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName);
-                        }
-
-                        @* ADMIN *@
-                        @if (role == "Admin")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Index">Usuários</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
-                            </li>
-                        }
-
-                        @* FUNCIONÁRIO *@
-                        @if (role == "Funcionario")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
-                            </li>
-                        }
-
-                        @* CLIENTE *@
-                        @if (role == "Cliente")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Conta" asp-action="Editar">Minha Conta</a>
-                            </li>
-                            
-                        }
-
->>>>>>> b73412f872621812a507bc82b863cfbf11ca512b
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">Carrinho</a>
                         </li>
