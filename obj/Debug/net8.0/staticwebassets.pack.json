@@ -5,12 +5,56 @@
       "PackagePath": "staticwebassets/MeuProjetoMVC.bundle.scp.css"
     },
     {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/carrinho.css",
+      "PackagePath": "staticwebassets/css/carrinho.css"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/excluir.css",
+      "PackagePath": "staticwebassets/css/excluir.css"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/form.css",
+      "PackagePath": "staticwebassets/css/form.css"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/lista.css",
+      "PackagePath": "staticwebassets/css/lista.css"
+    },
+    {
       "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/css/vitrine.css",
+      "PackagePath": "staticwebassets/css/vitrine.css"
+    },
+    {
       "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/favicon.ico",
       "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/Kingdom.png",
+      "PackagePath": "staticwebassets/img/Kingdom.png"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/KingdomOfGamesLogoVet1.ico",
+      "PackagePath": "staticwebassets/img/KingdomOfGamesLogoVet1.ico"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/KingdomOfGamesLogoVet1.svg",
+      "PackagePath": "staticwebassets/img/KingdomOfGamesLogoVet1.svg"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/editar.png",
+      "PackagePath": "staticwebassets/img/editar.png"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/emailIco.png",
+      "PackagePath": "staticwebassets/img/emailIco.png"
+    },
+    {
+      "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/img/usuario.png",
+      "PackagePath": "staticwebassets/img/usuario.png"
     },
     {
       "Id": "/home/matheus/Desktop/KingdomSistema/wwwroot/js/site.js",

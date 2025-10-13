@@ -19,6 +19,11 @@
         <label asp-for="Senha"></label>
         <input asp-for="Senha" class="form-control" type="password" />
     </div>
+       <div class="form-group">
+        <label asp-for="ConfirmarSenha"></label>
+        <input asp-for="ConfirmarSenha" class="form-control" type="password" />
+        <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+    </div>
     <div>
         <label asp-for="Role"></label>
         <select asp-for="Role" class="form-control">
