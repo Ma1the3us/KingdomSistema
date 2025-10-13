@@ -1,0 +1,30 @@
+﻿section {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #57005780;
+    padding: 10px 15px;
+}
+
+    section div input, section div select {
+        border-radius: 30px;
+        color: black;
+    }
+
+        section div select * {
+            color: black;
+        }
+
+    section div label {
+        color: white;
+        margin-right: 30px;
+    }
+
+.btn-primary {
+    background-color: darkmagenta;
+}
+
+    .btn-primary:hover {
+        background-color: rgb(52, 0, 52);
+    }

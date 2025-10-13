@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Editar Conta";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
 <h2 class="mb-4">Editar Minha Conta</h2>
 
@@ -15,7 +16,7 @@
     <div class="alert alert-danger">@ViewBag.Erro</div>
 }
 
-<form asp-action="Editar" method="post" class="card shadow p-4 col-md-6">
+<form asp-action="Editar" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group mb-3">
@@ -32,7 +33,7 @@
 
     <hr />
 
-    <p class="text-muted">Deixe os campos de senha em branco se não quiser alterá-la.</p>
+    <p class="text-muted fw-bold">Deixe os campos de senha em branco se não quiser alterá-la.</p>
 
     <div class="form-group mb-3">
         <label for="Senha" class="form-label">Nova Senha</label>
@@ -45,7 +46,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-    <a asp-action="Desativar" class="btn btn-outline-danger ms-2">Desativar Conta</a>
+    <a asp-action="Desativar" class="btn btn-danger ms-2">Desativar Conta</a>
 </form>
 
 @section Scripts {

@@ -4,29 +4,60 @@
     ViewData["Title"] = "Excluir Produto";
 }
 
-<h2>Excluir Produto</h2>
+<link href="~/css/form.css" rel="stylesheet" />
+
+<h2 class="text-center mt-4">Excluir Produto</h2>
 
 @if (TempData["Mensagem"] != null)
 {
-    <p style="color:red;">@TempData["Mensagem"]</p>
+    <p class="text-danger text-center">@TempData["Mensagem"]</p>
 }
 
-<div class="card p-3 mb-3">
-    <h4>@Model.nomeProduto</h4>
-    <p><strong>Descrição:</strong> @(!string.IsNullOrEmpty(Model.Descricao) ? Model.Descricao : "Sem descrição")</p>
-    <p><strong>Quantidade:</strong> @Model.Quantidade</p>
-    <p><strong>Valor:</strong> R$ @Model.Valor</p>
-
-    @if (Model.Imagens != null && Model.Imagens.Length > 0)
-    {
-        <p><strong>Imagem do Produto:</strong></p>
-        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Imagens))" 
-             alt="Imagem do Produto" style="max-width:300px; max-height:300px;" />
-    }
-</div>
-
 <form asp-action="Excluir" method="post">
+    <p class="text-warning text-center mb-3">
+        Tem certeza que deseja excluir o produto <strong>@Model.nomeProduto</strong>?
+    </p>
+
     <input type="hidden" asp-for="codProd" />
-    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
-    <a asp-action="List" class="btn btn-secondary">Cancelar</a>
+
+    <section>
+        <div>
+            <label>Código:</label>
+            <span>@Model.codProd</span>
+        </div>
+
+        <div>
+            <label>Nome:</label>
+            <span>@Model.nomeProduto</span>
+        </div>
+
+        <div>
+            <label>Descrição:</label>
+            <span>@(!string.IsNullOrEmpty(Model.Descricao) ? Model.Descricao : "Sem descrição")</span>
+        </div>
+
+        <div>
+            <label>Quantidade:</label>
+            <span>@Model.Quantidade</span>
+        </div>
+
+        <div>
+            <label>Valor:</label>
+            <span>R$ @Model.Valor</span>
+        </div>
+
+        @if (Model.Imagens != null && Model.Imagens.Length > 0)
+        {
+            <div>
+                <label>Imagem:</label>
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Imagens))"
+                     alt="Imagem do Produto" style="max-width:300px; max-height:300px;" />
+            </div>
+        }
+    </section>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+        <a asp-action="List" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>

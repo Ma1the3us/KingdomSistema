@@ -1,18 +1,47 @@
 @model MeuProjetoMVC.Models.Usuario
+
 @{
     ViewData["Title"] = "Reativar Conta";
 }
 
-<h2>Reativar Conta</h2>
+<link href="~/css/form.css" rel="stylesheet" />
 
-<div class="alert alert-warning">
+<h2 class="text-center mt-4">Reativar Conta</h2>
+
+<p class="text-warning text-center mb-3">
     Já existe uma conta associada ao email <strong>@Model.Email</strong> que está desativada.
-</div>
+</p>
 
-<p>Deseja reativar esta conta?</p>
+<form asp-action="ReativarConta" method="post" style="width: 40%;">
 
-<form asp-action="ReativarConta" method="post">
+    <p class="text-center mb-3">Deseja reativar esta conta?</p>
+
     <input type="hidden" name="codUsuario" value="@ViewBag.ReativarId" />
-    <button type="submit" class="btn btn-success">Reativar Conta</button>
-    <a asp-controller="Auth" asp-action="Login" class="btn btn-secondary">Cancelar</a>
+
+    <section>
+        <div>
+            <label>Código:</label>
+            <span>@Model.CodUsuario</span>
+        </div>
+
+        <div>
+            <label>Nome:</label>
+            <span>@Model.Nome</span>
+        </div>
+
+        <div>
+            <label>Email:</label>
+            <span>@Model.Email</span>
+        </div>
+
+        <div>
+            <label>Função:</label>
+            <span>@Model.Role</span>
+        </div>
+    </section>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">Reativar Conta</button>
+        <a asp-controller="Auth" asp-action="Login" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>

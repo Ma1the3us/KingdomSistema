@@ -1,16 +1,34 @@
 @model MeuProjetoMVC.Models.Categoria
+
 @{
     ViewData["Title"] = "Excluir Categoria";
 }
 
-<h2>Excluir Categoria</h2>
+<link href="~/css/form.css" rel="stylesheet" />
 
-<div class="alert alert-danger">
-    Tem certeza que deseja excluir a categoria <strong>@Model.NomeCategoria</strong>?
-</div>
+<h2 class="text-center mt-4">Excluir Categoria</h2>
 
 <form asp-action="Excluir" method="post">
+    <p class="text-warning text-center mb-3">
+        Tem certeza que deseja excluir a categoria <strong>@Model.NomeCategoria</strong>?
+    </p>
+
     <input type="hidden" asp-for="CodCat" />
-    <button type="submit" class="btn btn-danger">Excluir</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+    <section>
+        <div>
+            <label>Código:</label>
+            <span>@Model.CodCat</span>
+        </div>
+
+        <div>
+            <label>Nome:</label>
+            <span>@Model.NomeCategoria</span>
+        </div>
+    </section>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>

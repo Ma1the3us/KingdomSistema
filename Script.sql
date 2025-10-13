@@ -1,6 +1,7 @@
 -- =====================================================
 -- Banco de Dados: MeuProjetoMVC
 -- =====================================================
+drop database if exists meuprojetomvc;
 CREATE DATABASE IF NOT EXISTS MeuProjetoMVC
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_general_ci;
@@ -123,19 +124,19 @@ CREATE TABLE ItensVenda (
 -- =====================================================
 -- Usuários de Teste
 -- =====================================================
-INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
+/*INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
 ('Administrador', 'admin@meuprojeto.com',
  '$2a$12$ExID6a2jgxZ5CfdgkbtiUu7bm51jAzG7xqYw.3C3Z/qZ6jNobY7sG', 'Admin'),
 ('Cliente Padrão', 'cliente@meuprojeto.com',
- '$2a$12$ExID6a2jgxZ5CfdgkbtiUu7bm51jAzG7xqYw.3C3Z/qZ6jNobY7sG', 'Cliente');
+ '$2a$12$ExID6a2jgxZ5CfdgkbtiUu7bm51jAzG7xqYw.3C3Z/qZ6jNobY7sG', 'Cliente');*/
 
 INSERT INTO Produto (NomeProduto, Descricao, Valor)
 VALUES
 ('Camiseta MVC', 'Camiseta personalizada MeuProjetoMVC', 59.90),
 ('Caneca MVC', 'Caneca oficial do projeto', 29.90);
 
-INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
-('Administrador', 'admin@meuprojeto1.com', '123', 'Admin');
+/*INSERT INTO Usuario (Nome, Email, Senha, Role) VALUES
+('Administrador', 'admin@meuprojeto1.com', '123', 'Admin');*/
 
 -- =====================================================
 -- Procedures de Usuário

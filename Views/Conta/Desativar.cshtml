@@ -2,15 +2,19 @@
     ViewData["Title"] = "Desativar Conta";
 }
 
-<h2>Desativar Conta</h2>
+<link href="~/css/form.css" rel="stylesheet" />
 
-<div class="alert alert-danger">
-    Atenção: ao desativar sua conta você perderá acesso ao sistema. Esta ação pode ser revertida somente pelo reativar da conta.
-</div>
-
-<p>Deseja realmente desativar sua conta?</p>
+<h2 class="text-center mt-4">Desativar Conta</h2>
 
 <form asp-action="DesativarConfirmado" method="post">
-    <button type="submit" class="btn btn-danger">Desativar Conta</button>
-    <a asp-controller="Conta" asp-action="Editar" class="btn btn-secondary">Cancelar</a>
+    <p class="text-danger text-center mb-3">
+        <strong>Atenção:</strong> Ao desativar sua conta, você perderá acesso ao sistema. <br /> Esta ação pode ser revertida somente pelo reativar da conta.
+    </p>
+
+    <p style="text-align: center;">Deseja realmente desativar sua conta?</p>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger">Desativar Conta</button>
+        <a asp-action="Editar" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>

@@ -1,0 +1,59 @@
+﻿h2 {
+    text-align: center;
+}
+
+#pVazio {
+    text-align: center;
+}
+
+#dBtnC, #dBtnE {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+#dTable {
+    background-color: rgb(46, 29, 84, 0.8);
+    max-width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 40px 20px;
+    border-radius: 20px;
+}
+
+    #dTable * {
+        margin: 10px 0px;
+        background-color: none;
+    }
+
+table {
+    background-color: #57005780;
+    margin: 0 auto;
+    border-radius: 15px;
+    border-collapse: collapse;
+}
+
+thead {
+    border-radius: 15px;
+    background-color: rgb(104, 0, 104);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+    thead th {
+        text-align: center;
+        padding: 10px 20px;
+    }
+
+    thead tr th:first-child {
+        border-top-left-radius: 15px;
+    }
+
+    thead tr th:last-child {
+        border-top-right-radius: 15px;
+    }
+
+tbody tr td {
+    text-align: center;
+    padding: 10px 20px;
+}

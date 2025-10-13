@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Editar Produto";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
 <h2>Editar Produto</h2>
 
@@ -11,17 +12,17 @@
     <p class="text-danger">@ViewBag.Mensagem</p>
 }
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data" class="w-50 mx-auto mt-4">
+<form asp-action="Edit" method="post" enctype="multipart/form-data" class="w-50 mx-auto mt-4" style="margin-bottom: 22.5%;">
     <input type="hidden" asp-for="codProd" />
 
     <div class="mb-3">
-        <label asp-for="nomeProduto" class="form-label"></label>
+        <label asp-for="nomeProduto" class="form-label">Nome</label>
         <input asp-for="nomeProduto" class="form-control" />
         <span asp-validation-for="nomeProduto" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Descricao" class="form-label"></label>
+        <label asp-for="Descricao" class="form-label">Descrição</label>
         <textarea asp-for="Descricao" class="form-control"></textarea>
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
@@ -42,7 +43,7 @@
         <label class="form-label">Imagem Atual:</label><br />
         @if (Model.Imagens != null && Model.Imagens.Length > 0)
         {
-            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagens)" 
+            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagens)"
                  alt="Imagem do Produto" width="150" />
         }
         else
@@ -61,5 +62,7 @@
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

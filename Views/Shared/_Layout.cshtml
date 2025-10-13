@@ -1,6 +1,13 @@
 ﻿@using MeuProjetoMVC.Autenticacao
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+@{
+    var role = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserRole) ?? "";
+    var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName) ?? "";
+    var userEmail = HttpContextAccessor.HttpContext?.Session?.GetString("UserEmail") ?? "";
+    var userId = HttpContextAccessor.HttpContext?.Session?.GetString("UserId") ?? "";
+}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,100 +17,78 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MeuProjetoMVC.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter" rel="stylesheet">
+    <link rel="icon" href="~/img/kingdomofgameslogovet1.ico" type="image/x-ico" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kingdom of Games</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <header class="custom-header">
+        <nav class="navbar navbar-expand-sm navbar-light justify-content-between" style="display: flex; flex-wrap: nowrap;">
+            <div class="container-fluid d-flex flex-row justify-content-between mx-2">
+                <div id="linksHeader" class="navbar d-flex justify-content-start gap-5">
+                    <div class="d-flex align-items-center gap-3">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="~/img/kingdomofgameslogovet1.svg" id="logo" alt="Logo" />
+                        </a>
+                    </div>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav gap-4">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
-                        @{
-                            var role = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserRole) ?? "";
-                            var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName);
-                        }
-
-                        @* ADMIN *@
-                        @if (role == "Admin")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Index">Funcionários</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
-                            </li>
-                        }
-
-                        @* FUNCIONÁRIO *@
-                        @if (role == "Funcionario")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Produto" asp-action="List">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
-                            </li>
-                        }
-
-                        @* CLIENTE *@
-                        @if (role == "Cliente")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Conta" asp-action="Editar">Minha Conta</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Conta" asp-action="Desativar">Desativar Conta</a>
-                            </li>
-                        }
-
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Carrinho</a>
+                            <a class="nav-link text-white" asp-controller="Cart" asp-action="Index">Carrinho</a>
                         </li>
                     </ul>
+                </div>
 
-                    <ul class="navbar-nav">
-                        @* Usuários não logados veem Login e Criar Conta *@
-                        @if (string.IsNullOrEmpty(userName))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-primary" asp-controller="Auth" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-success ms-2" asp-controller="Conta" asp-action="Registrar">Criar Conta</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item d-flex align-items-center me-2">
-                                <span class="navbar-text">Olá, @userName</span>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-danger" asp-controller="Auth" asp-action="Logout">Sair</a>
-                            </li>
-                        }
-                    </ul>
+                <div class="d-flex align-items-center" id="acoesHeader">
+                    @if (string.IsNullOrEmpty(userName))
+                    {
+                        <a class="btn btn-primary" asp-controller="Auth" asp-action="Login">Login</a>
+                        <a class="btn btn-success ms-2" style="min-width: fit-content;" asp-controller="Conta" asp-action="Registrar">Criar Conta</a>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-items-center">
+                            @if (!string.IsNullOrEmpty(role) && (role == "Funcionario" || role == "Admin"))
+                            {
+                                <img src="~/img/editar.png" id="edicao" alt="Editar" />
+                            }
+                            <img src="~/img/usuario.png" id="imgUsuario" alt="Usuário"
+                                 data-username="@userName"
+                                 data-role="@role"
+                                 data-email="@userEmail" />
+                            <p class="text-white" style="min-width:fit-content">Olá, @userName</p>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
     </header>
+
+    <div id="linkModal" class="hide">
+        <h4><strong>Informações da Conta</strong></h4>
+        <p><strong>Nome:</strong> <span id="modalUserName"></span></p>
+        <p><strong>Cargo:</strong> <span id="modalUserRole"></span></p>
+        <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
+        <div class="flex-row">
+            <a class="btn btn-primary" asp-controller="Conta" asp-action="Editar">Minha Conta</a>
+            <a class="btn btn-danger" asp-controller="Auth" asp-action="Logout">Sair</a>
+        </div>
+    </div>
+
+    <div id="edicaoModal" class="hide">
+        <h4><strong>Acessar Tabelas</strong></h4>
+        <a class="nav-link text-white" asp-controller="Categorias" asp-action="Index">Categorias</a>
+        <a class="nav-link text-white" asp-controller="Fornecedores" asp-action="Index">Fornecedores</a>
+        <a class="nav-link text-white" asp-controller="Produto" asp-action="List">Produtos</a>
+        @if (!string.IsNullOrEmpty(role) && role == "Admin")
+        {
+            <a class="nav-link text-white" asp-controller="Usuarios" asp-action="Index">Usuários</a>
+        }
+    </div>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -111,15 +96,95 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Kingdom of Games - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer text-muted">
+        <div id="dFtr">
+            <img src="~/img/KingdomOfGamesLogoVet1.svg" alt="Logo" style="width: 40px;">
+            <div id="dConteudo">
+                <p>@DateTime.Now.Year Kingdom of Games. Todos os direitos reservados.</p>
+                <div id="dRedes">
+                    <img src="~/img/emailIco.png" onclick="location.href='mailto:kingdomgames000@gmail.com'" alt="email">
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        const linkModal = document.getElementById('linkModal');
+        const edicaoModal = document.getElementById('edicaoModal');
+        const imgUsuario = document.getElementById('imgUsuario');
+        const edicao = document.getElementById('edicao');
+        let modalAberto = false;
+
+        const preencherModal = (target) => {
+            const userName = target.dataset.username || 'Não disponível';
+            const role = target.dataset.role || 'Não disponível';
+            const email = target.dataset.email || 'Não disponível';
+            document.getElementById('modalUserName').textContent = userName;
+            document.getElementById('modalUserRole').textContent = role;
+            document.getElementById('modalUserEmail').textContent = email;
+        };
+
+        const showModalAtMousePosition = (event, target) => {
+            preencherModal(target);
+            const mouseX = event.clientX + 10;
+            const mouseY = event.clientY + 10;
+
+            if (target === imgUsuario) {
+                linkModal.style.left = `${mouseX}px`;
+                linkModal.style.top = `${mouseY}px`;
+                linkModal.classList.remove('hide');
+                linkModal.classList.add('show');
+            } else {
+                edicaoModal.style.left = `${mouseX}px`;
+                edicaoModal.style.top = `${mouseY}px`;
+                edicaoModal.classList.remove('hide');
+                edicaoModal.classList.add('show');
+            }
+
+            modalAberto = true;
+        };
+
+        const fecharModal = () => {
+            linkModal.classList.remove('show');
+            linkModal.classList.add('hide');
+            edicaoModal.classList.remove('show');
+            edicaoModal.classList.add('hide');
+            modalAberto = false;
+        };
+
+        if (edicao) {
+            edicao.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (modalAberto) {
+                    fecharModal();
+                } else {
+                    showModalAtMousePosition(event, edicao);
+                }
+            });
+        }
+
+        if (imgUsuario) {
+            imgUsuario.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (modalAberto) {
+                    fecharModal();
+                } else {
+                    showModalAtMousePosition(event, imgUsuario);
+                }
+            });
+        }
+
+        window.addEventListener('click', (event) => {
+            if (modalAberto && !linkModal.contains(event.target) && event.target !== imgUsuario && event.target !== edicao) {
+                fecharModal();
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

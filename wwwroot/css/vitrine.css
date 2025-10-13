@@ -1,0 +1,81 @@
+﻿#secItensWrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+#secItens {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.dItem {
+    flex: 0 0 18%;
+    min-width: 18%;
+    max-width: 18%;
+    background-color: #57005780;
+    padding: 15px 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 10px #00000050;
+}
+    .dItem img {
+        max-width: 150px;
+        border-radius: 10px;
+    }
+
+.dTxt {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0px;
+}
+
+#secItensWrapper::before,
+#secItensWrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(to right, #1E003F 80%, transparent);
+}
+
+#secItensWrapper::after {
+    right: 0;
+    transform: rotateY(180deg);
+}
+
+#secItensWrapper::before {
+    left: 0;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.carousel-button {
+    background-color: #a020f0;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .carousel-button:hover {
+        background-color: #c236f5;
+    }

@@ -1,41 +1,75 @@
 ﻿@model List<MeuProjetoMVC.Models.Produto>
 
-<h2 style="margin-bottom:20px;">Produtos</h2>
+<h2 style="margin-bottom:20px;">Produtos mais recentes</h2>
+<link href="~/css/vitrine.css" rel="stylesheet" />
 
 @if (!string.IsNullOrEmpty(ViewBag.Mensagem))
 {
     <p style="color:red;">@ViewBag.Mensagem</p>
 }
 
-@if (Model != null && Model.Count > 0)
+@if (Model != null && Model.Count >= 5)
 {
-    <ul style="list-style:none; padding-left:0;">
+    <div id="secItensWrapper">
+        <section id="secItens">
+            @foreach (var produto in Model)
+            {
+                <div class="dItem">
+                    <strong style="text-align:center;">@produto.nomeProduto</strong>
+
+                    @if (produto.Imagens != null && produto.Imagens.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))"
+                             alt="@produto.nomeProduto" />
+                    }
+                    else
+                    {
+                        <span style="color:gray;">(Sem imagem)</span>
+                    }
+
+                    <div style="display: flex; flex-direction: column;">
+                        <span>Preço: R$ @produto.Valor.ToString("F2")</span>
+                        <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
+                    </div>
+                    <button class="btn btn-primary btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
+                </div>
+            }
+        </section>
+    </div>
+
+    <div class="carousel-controls" style="margin-bottom: 80px;">
+        <button class="carousel-button" id="btnAnterior">◀ Anterior</button>
+        <button class="carousel-button" id="btnProximo">Próximo ▶</button>
+    </div>
+}
+else if (Model != null && Model.Count > 0)
+{
+    <section id="secItens" style="display: flex; justify-content:center;">
         @foreach (var produto in Model)
         {
-            <li style="border-bottom:1px solid #ccc; padding:10px; margin-bottom:10px;">
-                <strong>@produto.nomeProduto</strong><br />
+            <div class="dItem">
+                <h4 style="text-align:center;">@produto.nomeProduto</h4>
 
-               
-             @if (produto.Imagens != null && produto.Imagens.Length > 0)
-{
-    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))" 
-         alt="@produto.nomeProduto"
-         style="max-width:200px; display:block; margin:8px 0;" />
-}
-else
-{
-    <span style="color:gray;">(Sem imagem)</span><br />
-}
-
-
-                <span>Preço: R$ @produto.Valor.ToString("F2")</span><br />
-
-                <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span><br />
-
-                <button class="btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
-            </li>
+                @if (produto.Imagens != null && produto.Imagens.Length > 0)
+                {
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))"
+                         alt="@produto.nomeProduto"
+                         style="margin: 10px 0px; max-height: 200px; max-width: 200px;" />
+                }
+                else
+                {
+                    <span style="color:gray;">(Sem imagem)</span>
+                }
+                <div>
+                    <div style="display: flex; flex-direction: column; margin: 5px 0px;">
+                        <span style="margin: 2px 0px;">Preço: R$ @produto.Valor.ToString("F2")</span>
+                        <span style="font-size: 14px; margin: 2px 0px;">@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
+                    </div>
+                    <button class="btn btn-primary btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
+                </div>
+            </div>
         }
-    </ul>
+    </section>
 }
 else
 {
@@ -43,7 +77,6 @@ else
 }
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
             $(".btn-adicionar").click(function () {
@@ -61,6 +94,57 @@ else
                     }
                 });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('secItens');
+            const itemsToMove = 1;
+            const item = container.querySelector('.dItem');
+            const itemWidth = item.offsetWidth + 20;
+            let isAnimating = false;
+
+            function moveNext() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                container.style.transition = 'transform 0.5s ease-in-out';
+                container.style.transform = `translateX(-${itemWidth * itemsToMove}px)`;
+
+                setTimeout(() => {
+                    for (let i = 0; i < itemsToMove; i++) {
+                        const first = container.children[0];
+                        container.appendChild(first);
+                    }
+                    container.style.transition = 'none';
+                    container.style.transform = 'translateX(0)';
+                    isAnimating = false;
+                }, 500);
+            }
+
+            function movePrev() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                for (let i = 0; i < itemsToMove; i++) {
+                    const last = container.children[container.children.length - 1];
+                    container.insertBefore(last, container.firstChild);
+                }
+
+                container.style.transition = 'none';
+                container.style.transform = `translateX(-${itemWidth * itemsToMove}px)`;
+
+                setTimeout(() => {
+                    container.style.transition = 'transform 0.5s ease-in-out';
+                    container.style.transform = 'translateX(0)';
+                }, 20);
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 520);
+            }
+
+            document.getElementById('btnProximo').addEventListener('click', moveNext);
+            document.getElementById('btnAnterior').addEventListener('click', movePrev);
         });
     </script>
 }

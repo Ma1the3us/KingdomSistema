@@ -2,45 +2,50 @@
 @{
     ViewData["Title"] = "Usuários";
 }
+<link href="~/css/lista.css" rel="stylesheet" />
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-center align-items-center mb-3">
     <h2>Usuários Ativos</h2>
-
-    <!-- Botão no canto superior direito -->
-    <a class="btn btn-secondary" asp-action="Inativos">
-        <i class="bi bi-person-dash"></i> Usuários Inativos
-    </a>
 </div>
 
-<p>
-    <a class="btn btn-primary" asp-action="Criar">Novo Usuário</a>
-</p>
 
-<table class="table table-bordered table-striped">
-    <thead class="table-light">
-        <tr>
-            <th>ID</th>
-            <th>Role</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ativo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var u in Model)
-    {
-        <tr>
-            <td>@u.CodUsuario</td>
-            <td>@u.Role</td>
-            <td>@u.Nome</td>
-            <td>@u.Email</td>
-            <td>@u.Ativo</td>
-            <td>
-                <a class="btn btn-sm btn-warning" asp-action="Editar" asp-route-id="@u.CodUsuario">Editar</a>
-                <a class="btn btn-sm btn-danger" asp-action="Excluir" asp-route-id="@u.CodUsuario">Desativar</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+@if (Model != null && Model.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.CodUsuario</td>
+                    <td>@u.Role</td>
+                    <td>@u.Nome</td>
+                    <td>@u.Email</td>
+                    <td>@u.Ativo</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" asp-action="Editar" asp-route-id="@u.CodUsuario">Editar</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Excluir" asp-route-id="@u.CodUsuario">Desativar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum usuário encontrado</p>
+}
+
+<div style="display: flex; justify-content: space-evenly; margin-top: 10px;">
+    <a class="btn btn-primary" asp-action="Criar">Novo Usuário</a>
+    <a class="btn btn-secondary" asp-action="Inativos">Usuários Inativos</a>
+</div>

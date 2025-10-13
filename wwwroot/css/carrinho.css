@@ -1,0 +1,132 @@
+﻿/* ---------- TÍTULO E MENSAGENS ---------- */
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#mensagemSucesso {
+    color: limegreen;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* ---------- CONTAINER DA TABELA ---------- */
+#dTableCarrinho {
+    background-color: rgba(46, 29, 84, 0.8);
+    max-width: fit-content;
+    margin: 20px auto;
+    padding: 30px 25px;
+    border-radius: 20px;
+}
+
+/* ---------- TABELA ---------- */
+#tabelaCarrinho {
+    background-color: #57005780;
+    margin: 0 auto;
+    border-radius: 15px;
+    border-collapse: collapse;
+    width: 100%;
+    color: white;
+}
+
+    #tabelaCarrinho thead {
+        background-color: rgb(104, 0, 104);
+    }
+
+        #tabelaCarrinho thead th {
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        #tabelaCarrinho thead tr th:first-child {
+            border-top-left-radius: 15px;
+        }
+
+        #tabelaCarrinho thead tr th:last-child {
+            border-top-right-radius: 15px;
+        }
+
+    #tabelaCarrinho tbody td {
+        text-align: center;
+        padding: 10px 15px;
+    }
+
+    #tabelaCarrinho input[type="number"] {
+        width: 60px;
+        text-align: center;
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        background-color: white;
+        color: black;
+    }
+
+    #tabelaCarrinho button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #a020f0;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+        #tabelaCarrinho button:hover {
+            background-color: #c236f5;
+        }
+
+/* ---------- TOTAL ---------- */
+#totalCompra {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.3rem;
+}
+
+    #totalCompra strong {
+        color: limegreen;
+    }
+
+/* ---------- FORMULÁRIO DE CHECKOUT ---------- */
+#formCheckout {
+    background-color: rgba(46, 29, 84, 0.8);
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+    #formCheckout label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    #formCheckout input,
+    #formCheckout select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        background-color: white;
+        color: black;
+    }
+
+    #formCheckout button {
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #a020f0;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        #formCheckout button:hover {
+            background-color: #c236f5;
+        }

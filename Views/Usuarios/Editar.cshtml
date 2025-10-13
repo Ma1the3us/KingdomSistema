@@ -2,24 +2,19 @@
 @{
     ViewData["Title"] = "Editar Usuário";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
 <h2>Editar Usuário</h2>
-
-<form asp-action="Editar" method="post">
+<form asp-action="Editar" method="post" class="w-50 mx-auto mt-4" style="margin-bottom: 22.5%;">
     <input type="hidden" asp-for="CodUsuario" />
-
-    <div class="form-group">
+    <div>
         <label asp-for="Nome"></label>
         <input asp-for="Nome" class="form-control" />
-        <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
+    <div>
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-
     <div class="form-group">
         <label asp-for="Senha"></label>
         <input asp-for="Senha" class="form-control" type="password" placeholder="Deixe em branco para manter a atual" />
@@ -31,8 +26,7 @@
         <input asp-for="ConfirmarSenha" class="form-control" type="password" />
         <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
+    <div>
         <label asp-for="Role"></label>
         <select asp-for="Role" class="form-control">
             <option>Cliente</option>
@@ -40,17 +34,16 @@
             <option>Admin</option>
         </select>
     </div>
-
-    <div class="form-group">
+    <div style="margin-bottom: 15px;">
         <label asp-for="Ativo"></label>
         <select asp-for="Ativo" class="form-control">
             <option value="S">Sim</option>
             <option value="N">Não</option>
         </select>
     </div>
-
     <button type="submit" class="btn btn-success">Salvar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
 </form>
 
 @section Scripts {

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Usuários Inativos";
 }
+<link href="~/css/lista.css" rel="stylesheet" />
 
 <h2>Usuários Inativos</h2>
 
@@ -10,32 +11,40 @@
     <div class="alert alert-info">@TempData["Mensagem"]</div>
 }
 
-<p>
-    <a class="btn btn-secondary float-end" asp-action="Index">Ver Ativos</a>
-</p>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Role</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var u in Model)
+@if (Model != null && Model.Any())
 {
-        <tr>
-            <td>@u.CodUsuario</td>
-            <td>@u.Role</td>
-            <td>@u.Nome</td>
-            <td>@u.Email</td>
-            <td>
-                <a class="btn btn-sm btn-success" asp-action="Reativar" asp-route-id="@u.CodUsuario">Reativar</a>
-            </td>
-        </tr>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.CodUsuario</td>
+                    <td>@u.Role</td>
+                    <td>@u.Nome</td>
+                    <td>@u.Email</td>
+                    <td>
+                        <a class="btn btn-sm btn-success" asp-action="Reativar" asp-route-id="@u.CodUsuario">Reativar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <p>Nenhum usuário inativo encontrado.</p>
+}
+
+<div id="dBtnC">
+    <a class="btn btn-secondary" asp-action="Index">Ver Ativos</a>
+</div>

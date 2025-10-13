@@ -2,15 +2,36 @@
 @{
     ViewData["Title"] = "Excluir Fornecedor";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
-<h2>Excluir Fornecedor</h2>
-
-<div class="alert alert-danger">
-    Tem certeza que deseja excluir o fornecedor <strong>@Model.Nome</strong> (CNPJ: @Model.CNPJ)?
-</div>
+<h2 class="text-center mt-4">Excluir Fornecedor</h2>
 
 <form asp-action="Excluir" method="post">
     <input type="hidden" asp-for="CodF" />
-    <button type="submit" class="btn btn-danger">Excluir</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+    <p class="text-warning text-center mb-3">
+        Tem certeza que deseja excluir o fornecedor <strong>@Model.Nome</strong>?
+    </p>
+
+    <section>
+        <div>
+            <label>Código:</label>
+            <p>@Model.CodF</p>
+        </div>
+
+        <div>
+            <label>Nome:</label>
+            <p>@Model.Nome</p>
+        </div>
+
+        <div style="margin-bottom: -10px;">
+            <label>CNPJ:</label>
+            <p>@Model.CNPJ</p>
+        </div>
+    </section>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>
