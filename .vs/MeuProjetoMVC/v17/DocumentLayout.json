@@ -38,8 +38,7 @@
               "RelativeToolTip": "wwwroot\\css\\site.css",
               "ViewState": "AgIAAEQAAAAAAAAAAAAAAGIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-13T00:45:10.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-13T00:45:10.094Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAEMAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-13T00:34:13.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-13T00:34:13.652Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-13T00:31:37.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-13T00:31:37.841Z"
             }
           ]
         }
