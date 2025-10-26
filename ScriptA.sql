@@ -211,7 +211,7 @@ CREATE TABLE Entrega (
     codEnd INT,
     Numero VARCHAR(5),
     Complemento VARCHAR(50),
-    TipoEndereco ENUM('Casa', 'Apartamento') NOT NULL,
+    TipoEndereco ENUM('Casa', 'Apartamento')  NULL,
     Andar VARCHAR(10),
     NomePredio VARCHAR(100),
     Situacao VARCHAR(150),
@@ -219,6 +219,7 @@ CREATE TABLE Entrega (
     dataFinal DATE,
     nomeDestinatario varchar(100),
     emailDestinatario varchar(150),
+    retirada enum ('Local','Entrega'),
     FOREIGN KEY (codVenda) REFERENCES Venda(codVenda),
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
     FOREIGN KEY (codEnd) REFERENCES Endereco(codEndereco)
@@ -1407,39 +1408,55 @@ describe Venda;
 
 -- ???
 DELIMITER $$
+
 DROP PROCEDURE IF EXISTS concluir_compra $$
 CREATE PROCEDURE concluir_compra(
-    IN u_cod INT,               -- Código do usuário
-    IN v_cod INT,               -- Código da venda
+    IN u_cod INT,                 -- Código do usuário
     IN v_codigoCupom VARCHAR(20), -- Código do cupom (pode ser NULL)
-    IN v_frete DOUBLE           -- Valor do frete
+    IN v_frete DOUBLE,            -- Valor do frete
+    IN v_tipoRetirada ENUM('Local','Entrega') -- Tipo da retirada
 )
 BEGIN
-    DECLARE vT DOUBLE DEFAULT 0;          -- Valor total da venda (produtos)
-    DECLARE comP INT DEFAULT NULL;
-    DECLARE vendaExiste INT DEFAULT 0;
+    DECLARE vT DOUBLE DEFAULT 0;           -- Valor total da venda (produtos)
+    DECLARE comP INT DEFAULT NULL;         -- Código do comprovante (se existir)
     DECLARE descontoCupom DOUBLE DEFAULT 0;
     DECLARE codCupom INT DEFAULT NULL;
-    
-    
+    DECLARE codCarr INT DEFAULT NULL;
+    DECLARE codV INT DEFAULT NULL;         -- Código da venda atual
+    DECLARE codEn INT DEFAULT NULL;        -- Código da entrega
 
-    -- 1. Verifica se a venda pertence ao usuário e ainda não foi finalizada
-    SELECT COUNT(*) INTO vendaExiste
+    -- Busca a venda em andamento do usuário
+    SELECT codVenda INTO codV
     FROM Venda
-    WHERE codVenda = v_cod AND codUsuario = u_cod AND situacao != 'Finalizada';
+    WHERE codUsuario = u_cod AND situacao = 'Em andamento'
+    ORDER BY codVenda DESC
+    LIMIT 1;
 
-    IF vendaExiste = 0 THEN
-        SELECT 'Erro: Venda não encontrada, já finalizada ou não pertence ao usuário.' AS Erro;
-    end if;
+    IF codV IS NULL THEN
+        SELECT 'Erro: Nenhuma venda em andamento encontrada para este usuário.' AS Erro;
+        
+       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erro: Nenhuma venda respectiva existe';
+    END IF;
 
-    -- 2. Calcula o valor total dos produtos no carrinho
+    -- Busca o carrinho vinculado à venda
+    SELECT codCarrinho INTO codCarr
+    FROM Carrinho
+    WHERE codVenda = codV
+    LIMIT 1;
+
+    IF codCarr IS NULL THEN
+        SELECT 'Erro: Carrinho não encontrado para esta venda.' AS Erro;
+        
+       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erro, carrinho não existente';
+    END IF;
+
+    -- Calcula o valor total dos produtos
     SELECT COALESCE(SUM(valorProduto * quantidade), 0)
     INTO vT
-    FROM ItemCarrinho ic
-    JOIN Carrinho c ON ic.codCarrinho = c.codCarrinho
-    WHERE c.codVenda = v_cod;
+    FROM ItemCarrinho
+    WHERE codCarrinho = codCarr;
 
-    -- 3. Se código do cupom foi informado, verifica e aplica o desconto
+    -- Verifica e aplica cupom (se houver)
     IF v_codigoCupom IS NOT NULL THEN
         SELECT codCupom, desconto INTO codCupom, descontoCupom
         FROM Cupom
@@ -1450,49 +1467,101 @@ BEGIN
           AND dataValidade >= NOW()
         LIMIT 1;
 
-        -- Aplica o desconto se o cupom for válido
         IF codCupom IS NOT NULL THEN
             SET vT = vT - (vT * (descontoCupom / 100));
-
-            -- Marca o cupom como usado
-            UPDATE Cupom
-            SET usado = TRUE
-            WHERE codCupom = codCupom;
+            UPDATE Cupom SET usado = TRUE WHERE codCupom = codCupom;
         ELSE
             SELECT 'Aviso: Cupom inválido, expirado, já usado ou não pertence ao usuário.' AS Aviso;
         END IF;
     END IF;
 
-    -- 4. Soma o frete ao valor total
-    SET vT = vT + v_frete;
+    -- Soma o frete se for entrega
+    IF v_tipoRetirada = 'Entrega' THEN
+        SET vT = vT + v_frete;
+    END IF;
 
-    -- 5. Verifica se já existe um comprovante
+    -- Verifica se já existe comprovante
     SELECT codComp INTO comP
     FROM Comprovante
-    WHERE codVenda = v_cod AND codUsuario = u_cod
+    WHERE codVenda = codV AND codUsuario = u_cod
     LIMIT 1;
 
     IF comP IS NOT NULL THEN
         SELECT 'Erro: Comprovante já existe para esta venda e usuário.' AS Erro;
+       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erro, comprovante já existe';
     END IF;
 
-    -- 6. Insere o comprovante
+    -- Cria o comprovante
     INSERT INTO Comprovante (codVenda, valorTotal, codUsuario)
-    VALUES (v_cod, vT, u_cod);
+    VALUES (codV, vT, u_cod);
 
-    -- 7. Atualiza a venda com o valor total (com desconto e frete) e finaliza
+    -- Atualiza a venda e finaliza
     UPDATE Venda
     SET valorTotalVenda = vT,
         situacao = 'Finalizada'
-    WHERE codVenda = v_cod AND codUsuario = u_cod;
+    WHERE codVenda = codV AND codUsuario = u_cod;
 
-    -- 8. Mensagem de sucesso
-    SELECT 'Compra finalizada com sucesso!' AS Sucesso,
-           vT AS ValorFinalComFrete;
+	-- Se for entrega, cria registro em Entrega e Entrega_Produto
+    IF v_tipoRetirada = 'Entrega' THEN
+        INSERT INTO Entrega (
+            codVenda,
+            codUsuario,
+            dataInicial,
+            Situacao,
+            valorTotal,
+            retirada
+        )
+        VALUES (
+            codV,
+            u_cod,
+            CURDATE(),
+            'Em andamento',
+            vT,
+            'Entrega'
+        );
+
+        SET codEn = LAST_INSERT_ID();
+
+        INSERT INTO Entrega_Produto (
+            codProd,
+            nomeProduto,
+            Valor,
+            Quantidade,
+            Imagem,
+            codEntrega
+        )
+        SELECT 
+            ic.codProd,
+            p.nomeProduto,
+            ic.valorProduto,
+            ic.quantidade,
+            p.Imagens,
+            codEn
+        FROM ItemCarrinho ic
+        JOIN Produto p ON ic.codProd = p.codProd
+        WHERE ic.codCarrinho = codCarr
+        ON DUPLICATE KEY UPDATE
+            Quantidade = VALUES(Quantidade),
+            Valor = VALUES(Valor),
+            Imagem = VALUES(Imagem);
+
+        INSERT INTO log_debug(mensagem, dataLog)
+        VALUES (CONCAT('Entrega criada e produtos vinculados para venda ', codV), NOW());
+    ELSE
+        -- Retirada local: apenas registra log
+        INSERT INTO log_debug(mensagem, dataLog)
+        VALUES (CONCAT('Venda ', codV, ' finalizada com retirada local.'), NOW());
+    END IF;
+
+    -- Mensagem final
+    SELECT 
+        'Compra finalizada com sucesso!' AS Sucesso,
+        vT AS ValorFinalComFrete,
+        v_tipoRetirada AS TipoRetirada,
+        codV AS CodigoVenda;
 
 END $$
 DELIMITER ;
-
 
 Delimiter $$
 drop procedure if exists deletar_fornecedor $$
@@ -1513,91 +1582,55 @@ select * from Venda;
 select * from Log_debug;
 select * from Comprovante;
 
-DELIMITER $$
-DROP TRIGGER IF EXISTS trigger_finaliza_compras $$
-CREATE TRIGGER trigger_finaliza_compras
+-- VERSÃO 4!
+Delimiter $$
+DROP TRIGGER IF EXISTS trigger_finaliza_venda $$
+CREATE TRIGGER trigger_finaliza_venda
 AFTER UPDATE ON Venda
 FOR EACH ROW
 BEGIN
-  DECLARE codEn INT;
-  DECLARE cComp INT;
-  DECLARE vTotal DOUBLE;
+    DECLARE tipoRetirada ENUM('Local','Entrega');
+    DECLARE existeEntrega INT DEFAULT 0;
 
-  IF NEW.situacao = 'Finalizada' AND OLD.situacao <> 'Finalizada' THEN
+    -- Só atua se a venda mudou de situação e foi finalizada
+    IF NEW.situacao = 'Finalizada' AND OLD.situacao <> 'Finalizada' THEN
+        
+        -- Verifica se já existe uma entrega associada
+        SELECT COUNT(*) INTO existeEntrega
+        FROM Entrega
+        WHERE codVenda = NEW.codVenda;
 
-    -- Log: Trigger acionada
-    INSERT INTO log_debug(mensagem, dataLog) 
-    VALUES ('Trigger de finalização acionada', NOW());
+        -- Se houver entrega registrada, pegamos o tipo
+        IF existeEntrega > 0 THEN
+            SELECT retirada INTO tipoRetirada
+            FROM Entrega
+            WHERE codVenda = NEW.codVenda
+            LIMIT 1;
+        ELSE
+            SET tipoRetirada = 'Local';
+        END IF;
 
-    -- Verifica se existe comprovante
-    SELECT codComp INTO cComp 
-    FROM Comprovante 
-    WHERE codVenda = new.codVenda AND codUsuario = new.codUsuario
-    LIMIT 1;
+        -- Logs conforme o tipo
+        IF tipoRetirada = 'Entrega' THEN
+            INSERT INTO log_debug (mensagem, dataLog)
+            VALUES (
+                CONCAT('Trigger: venda ', NEW.codVenda, 
+                       ' finalizada com ENTREGA registrada. Valor total: ', NEW.valorTotalVenda),
+                NOW()
+            );
+        ELSE
+            INSERT INTO log_debug (mensagem, dataLog)
+            VALUES (
+                CONCAT('Trigger: venda ', NEW.codVenda, 
+                       ' finalizada com RETIRADA LOCAL. Valor total: ', NEW.valorTotalVenda),
+                NOW()
+            );
+        END IF;
 
-	insert into log_debug(mensagem, dataLog)
-				values(Concat('CodCamp VALOR:',cComp), now());
-                
-    IF cComp IS NOT NULL THEN
-
-      -- Pega valor total da venda
-      SET vTotal = NEW.valorTotalVenda;
-
-      -- Insere na tabela Entrega (sem endereço!)
-      INSERT INTO Entrega (
-        codVenda,
-        codUsuario,
-        dataInicial,
-        Situacao,
-        valorTotal
-      )
-      VALUES (
-        NEW.codVenda,
-        NEW.codUsuario,
-        CURDATE(),
-        'Em andamento',
-        vTotal
-      );
-
-      SET codEn = LAST_INSERT_ID();
-
-      -- Insere os produtos da venda na tabela Entrega_Produto
-      INSERT INTO Entrega_Produto (
-        codProd,
-        nomeProduto,
-        Valor,
-        Quantidade,
-        Imagem,
-        codEntrega
-      )
-      SELECT 
-        ic.codProd,
-        p.nomeProduto,
-        ic.valorProduto,
-        ic.quantidade,
-        p.Imagens,
-        codEn
-      FROM ItemCarrinho ic
-      JOIN Produto p ON ic.codProd = p.codProd
-      WHERE ic.codCarrinho = (
-        SELECT codCarrinho FROM Carrinho WHERE codVenda = NEW.codVenda LIMIT 1
-      )
-      ON DUPLICATE KEY UPDATE
-        Quantidade = VALUES(Quantidade),
-        Valor = VALUES(Valor),
-        Imagem = VALUES(Imagem);
-
-      -- Log final
-      INSERT INTO log_debug(mensagem, dataLog) 
-      VALUES ('Entrega e produtos registrados sem endereço', NOW());
-
-    ELSE
-      INSERT INTO log_debug(mensagem, dataLog) 
-      VALUES ('Comprovante não encontrado.', NOW());
     END IF;
-
-  END IF;
 END $$
+
+DELIMITER ;
 
 describe Produto;
 describe Entrega_Produto;

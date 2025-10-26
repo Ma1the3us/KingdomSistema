@@ -8,7 +8,7 @@ namespace MeuProjetoMVC.Models
 
         [Required]
         [Display(Name = "Tipo de Usuário")]
-        public string? Role { get; set; } = "Cliente";
+        public string? Role { get; set; } 
 
         [Required, StringLength(100)]
         public string? Nome { get; set; }
@@ -25,6 +25,9 @@ namespace MeuProjetoMVC.Models
         public string? ConfirmarSenha { get; set; }
 
         [Display(Name = "Ativo")]
-        public string? Ativo { get; set; } = "S";
+        public string? Ativo { get; set; } = "1";
+ 
+        public string? Foto { get; set; }
+
     }
 }
