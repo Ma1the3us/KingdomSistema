@@ -7,12 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\midia\God-Of-War-Logo-Free-PNG-Clip-Art.png" />
+    <None Include="wwwroot\midia\GTA-V-Logo-PNG-Free-Image.png" />
+    <None Include="wwwroot\midia\gta5-360-1-t1l95jg3bm.webp" />
+    <None Include="wwwroot\midia\pngkey.com-zombies-png-279558.png" />
+    <None Include="wwwroot\midia\The-Last-of-Us-Game-Download-Free-PNG.png" />
+    <None Include="wwwroot\midia\Watch-Dogs-Black-Logo-Transparent-Image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MySql.Data" Version="9.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\foto\" />
   </ItemGroup>
 
 </Project>

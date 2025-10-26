@@ -59,9 +59,9 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
-                using var cmd = new MySqlCommand("CALL cad_Fornecedor(@p_CNPJ, @p_Nome);", conn);
-                cmd.Parameters.AddWithValue("@p_CNPJ", fornecedor.CNPJ);
-                cmd.Parameters.AddWithValue("@p_Nome", fornecedor.Nome);
+                using var cmd = new MySqlCommand("cad_fornecedor", conn) {CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("f_cnpj", fornecedor.CNPJ);
+                cmd.Parameters.AddWithValue("f_nome", fornecedor.Nome);
 
                 cmd.ExecuteNonQuery();
 
@@ -112,10 +112,10 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
                 using var cmd = new MySqlCommand(
-                    "UPDATE Fornecedor SET CNPJ=@cnpj, Nome=@nome WHERE codF=@id;", conn);
-                cmd.Parameters.AddWithValue("@cnpj", fornecedor.CNPJ);
-                cmd.Parameters.AddWithValue("@nome", fornecedor.Nome);
-                cmd.Parameters.AddWithValue("@id", fornecedor.CodF);
+                    "editar_fornecedor", conn);
+                cmd.Parameters.AddWithValue("f_cnpj", fornecedor.CNPJ);
+                cmd.Parameters.AddWithValue("f_nome", fornecedor.Nome);
+                cmd.Parameters.AddWithValue("f_cod", fornecedor.CodF);
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Fornecedor atualizado com sucesso!";
@@ -161,8 +161,8 @@ namespace MeuProjetoMVC.Controllers
             {
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
-                using var cmd = new MySqlCommand("DELETE FROM Fornecedor WHERE codF=@id;", conn);
-                cmd.Parameters.AddWithValue("@id", id);
+                using var cmd = new MySqlCommand("deletar_fornecedor", conn) { CommandType = System.Data.CommandType.StoredProcedure};
+                cmd.Parameters.AddWithValue("f_cod", id);
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Fornecedor excluído com sucesso!";

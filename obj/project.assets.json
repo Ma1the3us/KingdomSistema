@@ -4221,24 +4221,32 @@
     ]
   },
   "packageFolders": {
-    "/home/matheus/.nuget/packages/": {}
+    "C:\\Users\\gatin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matheus/Desktop/KingdomSistema/MeuProjetoMVC.csproj",
+      "projectUniqueName": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\MeuProjetoMVC.csproj",
       "projectName": "MeuProjetoMVC",
-      "projectPath": "/home/matheus/Desktop/KingdomSistema/MeuProjetoMVC.csproj",
-      "packagesPath": "/home/matheus/.nuget/packages/",
-      "outputPath": "/home/matheus/Desktop/KingdomSistema/obj/",
+      "projectPath": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\MeuProjetoMVC.csproj",
+      "packagesPath": "C:\\Users\\gatin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/matheus/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\gatin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4296,7 +4304,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

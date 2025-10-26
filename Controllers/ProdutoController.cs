@@ -30,7 +30,7 @@ namespace MeuProjetoMVC.Controllers
 
         [HttpPost]
         [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
-        public IActionResult Create(Produto produto, IFormFile ImagemUpload)
+        public IActionResult Create(Produto produto, IFormFile imagem)
         {
             if (!ModelState.IsValid)
             {
@@ -39,32 +39,37 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                if (ImagemUpload != null && ImagemUpload.Length > 0)
-                {
-                    using var ms = new MemoryStream();
-                    ImagemUpload.CopyTo(ms);
-                    produto.Imagens = ms.ToArray();
-                }
+                string? relPath = null;
 
+                if (imagem != null && imagem.Length > 0)
+                {
+                    var ext = Path.GetExtension(imagem.FileName);
+
+
+                    var fileName = $"{Guid.NewGuid()}{ext}";
+                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
+                    Directory.CreateDirectory(savedir);
+                    var absPath = Path.Combine(savedir, fileName);
+                    using var fs = new FileStream(absPath, FileMode.Create);
+                    imagem.CopyTo(fs);
+                    relPath = Path.Combine("midia", fileName).Replace("\\", "/");
+
+                }
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
                 using var cmd = new MySqlCommand(
-            @"CALL cad_Produto(@quantidade,
-                       @imagens,
-                       @valor,
-                       @descricao,
-                       @nomeProduto,
-                       @codCat,
-                       @codF);", conn);
+                "cad_Produto", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure};
 
-                cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
-                cmd.Parameters.AddWithValue("@imagens", (object?)produto.Imagens ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@valor", produto.Valor);
-                cmd.Parameters.AddWithValue("@descricao", produto.Descricao ?? string.Empty);
-                cmd.Parameters.AddWithValue("@nomeProduto", produto.nomeProduto ?? string.Empty);
-                cmd.Parameters.AddWithValue("@codCat", produto.codCat > 0 ? produto.codCat : (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@codF", produto.codF > 0 ? produto.codF : (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("p_quantidade", produto.Quantidade);
+                cmd.Parameters.AddWithValue("p_imagens", produto.Imagens);
+                cmd.Parameters.AddWithValue("p_desconto", produto.Desconto);
+                cmd.Parameters.AddWithValue("p_valor", produto.Valor);
+                cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_nomeProduto", produto.nomeProduto ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_categorias", produto.codCat > 0 ? produto.codCat : (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("p_codfornecedor", produto.codF > 0 ? produto.codF : (object)DBNull.Value);
 
                 int linhasAfetadas = cmd.ExecuteNonQuery();
 
@@ -131,7 +136,7 @@ namespace MeuProjetoMVC.Controllers
             conn.Open();
 
             using var cmd = new MySqlCommand(
-                "SELECT codProd, Quantidade,  Valor, Descricao, nomeProduto FROM Produto WHERE codProd=@id;", conn);
+                "SELECT codProd, Quantidade, quantidadeTotal,  Valor, Descricao, nomeProduto, Imagens, codCat, codF, Desconto FROM Produto WHERE codProd=@id;", conn);
             cmd.Parameters.AddWithValue("@id", id);
 
             using var reader = cmd.ExecuteReader();
@@ -143,7 +148,12 @@ namespace MeuProjetoMVC.Controllers
                     Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0,
                     Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
-                    nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty
+                    nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
+                    QuantidadeTotal = reader["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(reader["quantidadeTotal"]) : 0,
+                    Desconto = reader["Desconto"] != DBNull.Value ? Convert.ToInt32(reader["Desconto"]) : 0,
+                    codCat = reader["codCat"] != DBNull.Value ? Convert.ToInt32(reader["codCat"]) : 0,
+                    codF = reader["codF"] != DBNull.Value ? Convert.ToInt32(reader["codF"]) : 0,
+                    Imagens = reader["Imagens"]?.ToString() ?? string.Empty 
                 };
             }
 
@@ -152,7 +162,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Produto produto, IFormFile ImagemUpload)
+        public IActionResult Edit(Produto produto, IFormFile midia)
         {
             if (!ModelState.IsValid)
             {
@@ -161,32 +171,40 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                if (ImagemUpload != null && ImagemUpload.Length > 0)
+                string? relPath = null;
+
+                if (midia != null && midia.Length > 0)
                 {
-                    using var ms = new MemoryStream();
-                    ImagemUpload.CopyTo(ms);
-                    produto.Imagens = ms.ToArray();
+                    var ext = Path.GetExtension(midia.FileName);
+
+
+                    var fileName = $"{Guid.NewGuid()}{ext}";
+                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
+                    Directory.CreateDirectory(savedir);
+                    var absPath = Path.Combine(savedir, fileName);
+                    using var fs = new FileStream(absPath, FileMode.Create);
+                    midia.CopyTo(fs);
+                    relPath = Path.Combine("midia", fileName).Replace("\\", "/");
                 }
 
-                using var conn = new MySqlConnection(_connectionString);
+                    using var conn = new MySqlConnection(_connectionString);
+                
                 conn.Open();
 
                 using var cmd = new MySqlCommand(
-                    @"CALL editar_produto(
-                @cod,
-                @quant,
-                @valor,
-                @nome,
-                @descricao,
-                @imagens
-            );", conn);
+                    "editar_produto", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure};
 
-                cmd.Parameters.AddWithValue("@cod", produto.codProd);
-                cmd.Parameters.AddWithValue("@quant", produto.Quantidade);
-                cmd.Parameters.AddWithValue("@valor", produto.Valor);
-                cmd.Parameters.AddWithValue("@nome", produto.nomeProduto ?? string.Empty);
-                cmd.Parameters.AddWithValue("@descricao", produto.Descricao ?? string.Empty);
-                cmd.Parameters.AddWithValue("@imagens", (object?)produto.Imagens ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("p_cod", produto.codProd);
+                cmd.Parameters.AddWithValue("p_quant", produto.Quantidade);
+                cmd.Parameters.AddWithValue("p_quanttotal", produto.QuantidadeTotal);
+                cmd.Parameters.AddWithValue("p_valor", produto.Valor);
+                cmd.Parameters.AddWithValue("p_nome", produto.nomeProduto ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_imagens", (string?)produto.Imagens ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_desconto", (double?)produto.Desconto ?? 0);
+                cmd.Parameters.AddWithValue("p_cat", produto.codCat);
+                cmd.Parameters.AddWithValue("p_for", produto.codF);
 
                 cmd.ExecuteNonQuery();
 
@@ -262,6 +280,11 @@ namespace MeuProjetoMVC.Controllers
             ViewBag.Fornecedores = fornecedores;
         }
 
+
+
+
+        // Perguntar se não é melhor só desativar o produto do que excluir ele completamente
+        // Já que é provavel que seja cascata.
         [ActionName("Excluir")]
         public IActionResult Excluir(int id)
         {

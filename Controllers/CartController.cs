@@ -4,6 +4,8 @@ using MySql.Data.MySqlClient;
 using MeuProjetoMVC.Models;
 using System.Text.Json;
 using MeuProjetoMVC.Autenticacao;
+using MeuProjetoMVC.Services;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace MeuProjetoMVC.Controllers
@@ -12,6 +14,16 @@ namespace MeuProjetoMVC.Controllers
     public class CartController : Controller
     {
         private readonly string _connectionString;
+        private readonly IFreteServices _freteService;
+
+
+        public CartController(IFreteServices freteServices)
+        {
+            _freteService = freteServices;
+        }
+
+        private readonly IEnderecoService _enderecoService;
+
 
         public CartController(IConfiguration configuration)
         {
@@ -37,43 +49,43 @@ namespace MeuProjetoMVC.Controllers
 
         // Adicionar item
         [HttpPost]
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, int quantidade)
         {
-            var cart = GetCart();
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
-            // ✅ Ajustado para os campos corretos da tabela Produto
-            using var cmd = new MySqlCommand(
-                "SELECT nomeProduto, Valor, Descricao FROM Produto WHERE codProd=@id",
-                conn
-            );
-            cmd.Parameters.AddWithValue("@id", id);
-
-            using var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(user == null)
             {
-                var item = cart.FirstOrDefault(c => c.ProdutoId == id);
-                if (item == null)
-                {
-                    cart.Add(new CartItem
-                    {
-                        ProdutoId = id,
-                        Nome = reader["nomeProduto"] as string ?? string.Empty,
-                        Descricao = reader["Descricao"] as string ?? string.Empty,
-                        Preco = reader.GetDecimal("Valor"),
-                        Quantidade = 1
-                    });
-                }
-                else
-                {
-                    item.Quantidade++;
-                }
+                TempData["MensagemC"] = "Código de usuário não encontrado";
+                return View();
             }
 
-            SaveCart(cart);
-            return Json(new { success = true, message = "Item adicionado ao carrinho!" });
+            if(quantidade <= 0)
+            {
+                TempData["MensagemC"] = "Quantidade inválida";
+                return View();
+            }
+
+
+            try
+            {
+                using var cmd = new MySqlCommand("cad_carrinho", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("p_cod", id);
+                cmd.Parameters.AddWithValue("ca_quantidade", quantidade);
+                cmd.Parameters.AddWithValue("c_codUsuario", user);
+                cmd.ExecuteNonQuery();
+
+                TempData["MensagemC"] = "Item adicionado ao carrinho";
+
+            }
+            catch (MySqlException ex)
+            {
+                TempData["MensagemC"] = "❌ Erro ao cadastrar inserir o produto no carrinho: " + ex.Message;              
+            }
+                    
+            return View();
         }
 
         // Exibir carrinho
@@ -88,28 +100,110 @@ namespace MeuProjetoMVC.Controllers
         [HttpPost]
         public IActionResult UpdateQuantity(int produtoId, int quantidade)
         {
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(c => c.ProdutoId == produtoId);
-            if (item != null && quantidade > 0)
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            using var conn = new MySqlConnection(_connectionString);
+
+            if(quantidade <= 0)
             {
-                item.Quantidade = quantidade;
+                TempData["MensagemC"] = "Quantidade inserida inválida";
+                return RedirectToAction("Index");
             }
-            SaveCart(cart);
+
+            conn.Open();
+            using var cmd = new MySqlCommand("editar_carrinho", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("p_cod", produtoId);
+            cmd.Parameters.AddWithValue("ca_quantidade", quantidade);
+            cmd.Parameters.AddWithValue("u_cod", user);
+            cmd.ExecuteNonQuery();
+
             return RedirectToAction("Index");
         }
 
         // Remover item
         public IActionResult Remove(int id)
         {
-            var cart = GetCart();
-            cart.RemoveAll(c => c.ProdutoId == id);
-            SaveCart(cart);
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+            using var conn = new MySqlConnection(_connectionString);
+            using var cmd = new MySqlCommand("deletar_prod_carrinho", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("p_cod", id);
+            cmd.Parameters.AddWithValue("u_cod", user);
+            cmd.ExecuteNonQuery();
+            
             return RedirectToAction("Index");
         }
 
         // ==================== Checkout ====================
 
         // Formulário de checkout
+        
+
+        // Alteração, realizar uma função ou trocar o checkout, para só inserir a forma de pagamento
+        // Após a compra, colocar para ele realizar a inserção na haba de entregas o destinatário e seu email
+        // Então, criar uma função ou método de formaPag, finalizar compra, que já vai estar redirecionando a página de entrega.
+        // E de lá... finalizar todo o processo.
+
+
+        public void formaPagamento(string? forma)
+        {
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            using var conn = new MySqlConnection(_connectionString);
+
+            using var cmd = new MySqlCommand("inserir_formaPagamento", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("u_formaPag", forma);
+            cmd.Parameters.AddWithValue("u_codUsuario", user);
+            cmd.ExecuteNonQuery();
+        }
+
+        //TESTE TOTALMENTE ALEATÓRIO DE API! EU REALMENTE PRECISO VER COMO ISSO FUNCIONA!!!!!!!!
+        public async  Task<IActionResult> concluirCompra(string? Cupon, string? cep)
+        {
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+            List<EnderecoEntrega> entrega = new List<EnderecoEntrega>();
+
+            using var conn = new MySqlConnection(_connectionString);
+
+            string cepOrigem = "01001-000"; // CEP da origem fixo (exemplo)
+
+            if(cep == null)
+            {
+                return BadRequest();
+            }
+
+            double frete = await _freteService.CalcularFreteAsync(cepOrigem, cep);
+
+            var endereco = await _enderecoService.ObterEnderecoPorCepAsync(cep);
+
+            if(endereco == null)
+            {
+                return BadRequest();
+            }
+
+            entrega.Add(new EnderecoEntrega
+            {
+                Bairro = endereco.Bairro,
+                Logradouro = endereco.Logradouro,
+                Cidade = endereco.Localidade,
+                Estado = endereco.Uf,
+                Cep = cep
+            });
+        
+            using var cmd = new MySqlCommand("concluir_compra") { CommandType = System.Data.CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("u_cod", user);
+            cmd.Parameters.AddWithValue("v_codigoCupom", Cupon);
+            cmd.Parameters.AddWithValue("v_frete", frete);
+
+            cmd.ExecuteNonQuery();
+
+            ViewBag.Endereço = entrega;
+
+            //Return RedirectToAction("","");
+            return View();
+        }
+            
+
+
         [HttpGet]
         public IActionResult Checkout()
         {

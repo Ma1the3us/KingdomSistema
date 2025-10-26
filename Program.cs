@@ -1,4 +1,9 @@
+using MeuProjetoMVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient<IEnderecoService>();
+builder.Services.AddHttpClient<IFreteServices>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -14,6 +19,7 @@ builder.Services.AddSession(options =>
 
 // necessário para o layout usar IHttpContextAccessor
 builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 

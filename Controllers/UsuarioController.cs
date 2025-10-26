@@ -41,7 +41,7 @@ namespace MeuProjetoMVC.Controllers
                         Role = reader["Role"]?.ToString() ?? "",
                         Nome = reader["Nome"]?.ToString() ?? "",
                         Email = reader["Email"]?.ToString() ?? "",
-                        Ativo = reader["Ativo"]?.ToString() ?? "S"
+                        Ativo = reader["Ativo"]?.ToString() ?? "1"
                     });
                 }
             }
@@ -74,7 +74,7 @@ namespace MeuProjetoMVC.Controllers
                         Role = reader["Role"]?.ToString() ?? "",
                         Nome = reader["Nome"]?.ToString() ?? "",
                         Email = reader["Email"]?.ToString() ?? "",
-                        Ativo = "N"
+                        Ativo = "0"
                     });
                 }
             }
@@ -93,13 +93,17 @@ namespace MeuProjetoMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Criar(Usuario usuario)
+        public IActionResult Criar(Usuario usuario, IFormFile? capa)
         {
             if (!ModelState.IsValid)
                 return View(usuario);
 
             try
             {
+            
+
+
+
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
@@ -115,14 +119,36 @@ namespace MeuProjetoMVC.Controllers
                     }
                 }
 
+
+                string? relPath = null;
+
+                if (capa != null && capa.Length > 0)
+                {
+                    var ext = Path.GetExtension(capa.FileName);
+
+
+                    var fileName = $"{Guid.NewGuid()}{ext}";
+                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
+                    Directory.CreateDirectory(savedir);
+                    var absPath = Path.Combine(savedir, fileName);
+                    using var fs = new FileStream(absPath, FileMode.Create);
+                    capa.CopyTo(fs);
+                    relPath = Path.Combine("capas", fileName).Replace("\\", "/");
+
+                }
+
+
                 var senhaHash = BCrypt.Net.BCrypt.HashPassword(usuario.Senha, workFactor: 12);
 
-                using var cmd = new MySqlCommand("CALL sp_usuario_criar(@role,@nome,@email,@senha,@ativo);", conn);
-                cmd.Parameters.AddWithValue("@role", usuario.Role);
-                cmd.Parameters.AddWithValue("@nome", usuario.Nome);
-                cmd.Parameters.AddWithValue("@email", usuario.Email);
-                cmd.Parameters.AddWithValue("@senha", senhaHash);
-                cmd.Parameters.AddWithValue("@ativo", "S");
+                using var cmd = new MySqlCommand("cadastrar_usuario", conn) {CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("p_role", usuario.Role);
+                cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("p_email", usuario.Email);
+                cmd.Parameters.AddWithValue("p_senha", senhaHash);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
+
+
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Usuário criado com sucesso!";
@@ -134,6 +160,86 @@ namespace MeuProjetoMVC.Controllers
                 return View(usuario);
             }
         }
+
+
+        // CADASTRO PRÓPRIO PARA O CLIENTE MESMO FAZER, TENDO A ROLE JÁ DEFINIDA COMO CLIENTE!!!!!!
+
+        public IActionResult CriarCliente() => View(new Usuario());
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CriarCliente(Usuario usuario, IFormFile? capa)
+        {
+            if (!ModelState.IsValid)
+                return View(usuario);
+
+            try
+            {
+               
+
+
+
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+
+                // Verifica se e-mail já existe
+                using (var checkCmd = new MySqlCommand("SELECT COUNT(*) FROM Usuario WHERE Email=@Email;", conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@Email", usuario.Email);
+                    var existe = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (existe > 0)
+                    {
+                        ModelState.AddModelError("Email", "Esse e-mail já está cadastrado.");
+                        return View(usuario);
+                    }
+                }
+
+                string? relPath = null;
+
+                if (capa != null && capa.Length > 0)
+                {
+                    var ext = Path.GetExtension(capa.FileName);
+
+
+                    var fileName = $"{Guid.NewGuid()}{ext}";
+                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
+                    Directory.CreateDirectory(savedir);
+                    var absPath = Path.Combine(savedir, fileName);
+                    using var fs = new FileStream(absPath, FileMode.Create);
+                    capa.CopyTo(fs);
+                    relPath = Path.Combine("capas", fileName).Replace("\\", "/");
+
+                }
+
+
+
+                var senhaHash = BCrypt.Net.BCrypt.HashPassword(usuario.Senha, workFactor: 12);
+
+                using var cmd = new MySqlCommand("cadastrar_usuario_cliente", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("p_email", usuario.Email);
+                cmd.Parameters.AddWithValue("p_senha", senhaHash);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
+
+                cmd.ExecuteNonQuery();
+
+                TempData["Mensagem"] = "Usuário criado com sucesso!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensagem = "Erro ao criar usuário: " + ex.Message;
+                return View(usuario);
+            }
+        }
+
+
+
+
+
+
+
 
         // ==========================================================
         // EDITAR USUÁRIO
@@ -158,9 +264,11 @@ namespace MeuProjetoMVC.Controllers
                         Role = reader["Role"]?.ToString() ?? "",
                         Nome = reader["Nome"]?.ToString() ?? "",
                         Email = reader["Email"]?.ToString() ?? "",
-                        Ativo = reader["Ativo"]?.ToString() ?? "S",
+                        Ativo = reader["Ativo"]?.ToString() ?? "1",
                         Senha = "",
-                        ConfirmarSenha = ""
+                        ConfirmarSenha = "",
+                        Foto = reader["Foto"]?.ToString(),
+                        Telefone = reader["Telefone"]?.ToString()
                     };
                 }
             }
@@ -172,6 +280,8 @@ namespace MeuProjetoMVC.Controllers
             if (usuario == null) return NotFound();
             return View(usuario);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -208,14 +318,29 @@ namespace MeuProjetoMVC.Controllers
                     ? GetSenhaAtual(usuario.CodUsuario)
                     : BCrypt.Net.BCrypt.HashPassword(usuario.Senha, workFactor: 12);
 
+                string? ativo = "";
+                
+                if (usuario.Ativo == "Ativado")
+                 {
+                    ativo = "1";
+                }
+                else
+                {
+                    ativo = "0";
+                }
+
                 using var cmd = new MySqlCommand(
-                    "CALL sp_usuario_atualizar(@id,@role,@nome,@email,@senha,@ativo);", conn);
-                cmd.Parameters.AddWithValue("@id", usuario.CodUsuario);
-                cmd.Parameters.AddWithValue("@role", usuario.Role);
-                cmd.Parameters.AddWithValue("@nome", usuario.Nome);
-                cmd.Parameters.AddWithValue("@email", usuario.Email);
-                cmd.Parameters.AddWithValue("@senha", senhaFinal);
-                cmd.Parameters.AddWithValue("@ativo", usuario.Ativo ?? "S");
+                    "atualizar_usuario_adm", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure};
+                cmd.Parameters.AddWithValue("p_codUsuario", usuario.CodUsuario);
+                cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("p_email", usuario.Email);
+                cmd.Parameters.AddWithValue("p_role", usuario.Role);
+                cmd.Parameters.AddWithValue("p_senha", senhaFinal);
+                cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_ativo", ativo);
+
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Usuário atualizado com sucesso!";
@@ -227,6 +352,121 @@ namespace MeuProjetoMVC.Controllers
                 return View(usuario);
             }
         }
+
+
+
+        // ------------------------------------------------------------------------------
+        // PARA O PRÓPRIO CLIENTE SE EDITAR SEM O ROLE! OU FUNCIONARIO EDITAR O CLIENTE -
+        // ------------------------------------------------------------------------------
+
+        public IActionResult EditarCliente(int id)
+        {
+            Usuario? usuario = null;
+
+            try
+            {
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+                using var cmd = new MySqlCommand("CALL sp_usuario_buscar_por_id(@id);", conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                using var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        CodUsuario = reader.GetInt32("codUsuario"),
+                        Role = reader["Role"]?.ToString() ?? "",
+                        Nome = reader["Nome"]?.ToString() ?? "",
+                        Email = reader["Email"]?.ToString() ?? "",
+                        Ativo = reader["Ativo"]?.ToString() ?? "1",
+                        Senha = "",
+                        ConfirmarSenha = "",
+                        Foto = reader["Foto"]?.ToString(),
+                        Telefone = reader["Telefone"]?.ToString()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensagem"] = "Erro ao buscar usuário: " + ex.Message;
+            }
+
+            if (usuario == null) return NotFound();
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditarCliente(Usuario usuario)
+        {
+            // Remove obrigatoriedade de senha no editar
+            ModelState.Remove("Senha");
+            ModelState.Remove("ConfirmarSenha");
+
+            if (!ModelState.IsValid)
+                return View(usuario);
+
+            try
+            {
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+
+                // Verifica duplicidade de e-mail (exceto o próprio)
+                using (var checkCmd = new MySqlCommand(
+                    "SELECT COUNT(*) FROM Usuario WHERE Email=@Email AND codUsuario<>@Id;", conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@Email", usuario.Email);
+                    checkCmd.Parameters.AddWithValue("@Id", usuario.CodUsuario);
+                    var count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        ModelState.AddModelError("Email", "Esse e-mail já está em uso por outro usuário.");
+                        return View(usuario);
+                    }
+                }
+
+                // Se senha nova foi informada, gera hash, senão mantém a antiga
+                string senhaFinal = string.IsNullOrWhiteSpace(usuario.Senha)
+                    ? GetSenhaAtual(usuario.CodUsuario)
+                    : BCrypt.Net.BCrypt.HashPassword(usuario.Senha, workFactor: 12);
+
+                string? ativo = "";
+
+                if (usuario.Ativo == "Ativado")
+                {
+                    ativo = "1";
+                }
+                else
+                {
+                    ativo = "0";
+                }
+
+                using var cmd = new MySqlCommand(
+                    "alterar_usuario", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("p_codUsuario", usuario.CodUsuario);
+                cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("p_email", usuario.Email);
+                cmd.Parameters.AddWithValue("p_senha", senhaFinal);
+                cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                
+                cmd.ExecuteNonQuery();
+
+                TempData["Mensagem"] = "Usuário atualizado com sucesso!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensagem = "Erro ao atualizar usuário: " + ex.Message;
+                return View(usuario);
+            }
+        }
+
+
+
+
 
         // ==========================================================
         // EXCLUIR (DESATIVAR) USUÁRIO
@@ -250,7 +490,9 @@ namespace MeuProjetoMVC.Controllers
                     Nome = reader["Nome"]?.ToString() ?? "",
                     Email = reader["Email"]?.ToString() ?? "",
                     Role = reader["Role"]?.ToString() ?? "",
-                    Ativo = reader["Ativo"]?.ToString() ?? "S"
+                    Ativo = reader["Ativo"]?.ToString() ?? "1",
+                    Foto = reader["Foto"]?.ToString(),
+                    Telefone = reader["Telefone"]?.ToString()
                 };
             }
 
@@ -267,9 +509,9 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
                 using var cmd = new MySqlCommand(
-                    "CALL sp_usuario_atualizar_status(@p_id,@p_status);", conn);
-                cmd.Parameters.AddWithValue("@p_id", id);
-                cmd.Parameters.AddWithValue("@p_status", "N");
+                    "desativar_usuario", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure};
+                cmd.Parameters.AddWithValue("p_codUsuario", id);
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Usuário desativado com sucesso!";
@@ -307,6 +549,35 @@ namespace MeuProjetoMVC.Controllers
 
             return RedirectToAction(nameof(Inativos));
         }
+
+
+        // Quando o cliente tentar logar, mas se o ativo estiver 0, podemos redefinir para essa página
+        // Onde ele vai ativar o usuário dele, ou só realizar o método, pode ser uma view ou só um método executavel
+        [HttpGet]
+        public IActionResult ReativarCliente(string? email)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+                using var cmd = new MySqlCommand(
+                    "ativar_cliente", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("c_email", email);
+                cmd.ExecuteNonQuery();
+
+                TempData["Mensagem"] = "Usuário reativado com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensagem"] = "Erro ao reativar usuário: " + ex.Message;
+            }
+
+            return RedirectToAction("Auth","Login");
+        }
+
+
+
 
         // ==========================================================
         // Helper: Obter Senha Atual
