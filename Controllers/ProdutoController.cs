@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using MeuProjetoMVC.Models;
 using MeuProjetoMVC.Autenticacao;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -244,6 +245,7 @@ namespace MeuProjetoMVC.Controllers
 
             return View(produtos);
         }
+
         private void PopularViewBags()
         {
             using var conn = new MySqlConnection(_connectionString);
@@ -334,6 +336,111 @@ namespace MeuProjetoMVC.Controllers
                 TempData["Mensagem"] = "Erro ao excluir produto: " + ex.Message;
                 return RedirectToAction("List");
             }
+        }
+
+        public IActionResult Detalhes(int codProd) {
+
+            Produto produtos = new Produto();
+
+
+            return View();
+        }
+
+        private void DetalhesM(int codProd)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            List<Categoria> cat = new List<Categoria>();
+            using (var cmd = new MySqlCommand("SELECT codCat, nomeCategoria FROM Categorias ORDER BY nomeCategoria;", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    cat.Add(new Categoria
+                    {
+                        CodCat = reader.GetInt32("codCat"),
+                        NomeCategoria = reader.GetString("nomeCategoria")
+                    });
+                }
+            }
+            ViewBag.Categorias = cat;
+
+            List<Fornecedor> fornecedor = new List<Fornecedor>();
+            using (var cmd = new MySqlCommand("SELECT codF, Nome FROM Fornecedor ORDER BY Nome;", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    fornecedor.Add(new Fornecedor 
+                    {
+                       CodF = reader.GetInt32("codF") ,
+                       Nome = reader.GetString("Nome")                   
+                    });
+                }
+            }
+            ViewBag.Fornecedores = fornecedor;
+            
+            List<Sub_Categoria> sub = new List<Sub_Categoria>();
+            using (var cmd = new MySqlCommand("Select codSub, nomeSubcategoria, codCat from Sub_Categoria", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    sub.Add(new Sub_Categoria
+                    {
+                        codCat = reader.GetInt32("codCat"),
+                        nomeSubcategoria = reader.GetString("nomeSubcategoria"),
+                        codSub = reader.GetInt32("codSub")
+
+                    });
+                }
+            }
+            ViewBag.Subcategoria = sub;
+
+
+            List<ItemSubcategoria> itemsub = new List<ItemSubcategoria>();
+            using (var cmd = new MySqlCommand("Select codSub, codProd from Item_Subcategoria where codProd = @cod", conn))
+            {
+                cmd.Parameters.AddWithValue("@cod", codProd);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        itemsub.Add(new ItemSubcategoria
+                        {
+                            codSub = reader.GetInt32("codProd"),
+                            codProd = reader.GetInt32("codSub")
+                        });
+                    }
+                }
+            }
+            
+            ViewBag.ItemSub = itemsub;
+
+            List<ProdutoMidia> produtoMidias = new List<ProdutoMidia>();
+            using (var cmd = new MySqlCommand("Select codMidia, codProd, tipoMidia, midia from ProdutoMidia where codProd = @cod", conn))
+            {
+                cmd.Parameters.AddWithValue("@cod", codProd);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        produtoMidias.Add(new ProdutoMidia
+                        {
+                            codMidia = reader.GetInt32("codMidia"),
+                            codProd = reader.GetInt32("codProd"),
+                            tipoMidia = reader.GetString("tipoMidia"),
+                            midia = reader.GetString("midia")
+
+                        });
+
+                    }
+                }
+
+            }
+            ViewBag.ProdutoMidia = produtoMidias;
+
         }
 
 
