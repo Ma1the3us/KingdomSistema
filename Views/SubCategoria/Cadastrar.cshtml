@@ -1,0 +1,33 @@
+﻿@model MeuProjetoMVC.Models.Sub_Categoria;
+
+@{
+    TempData["title"] = "Cadastrar SubCategoria";
+}
+
+<body>
+    <form asp-action="Cadastrar" method="post">
+    
+        <article>
+
+            <div>
+                <label>Nome da Subcategoria:</label>
+                <input asp-for="nomeSubcategoria" required/>
+                <span asp-validation-for="nomeSubcategoria"></span>
+            </div>
+
+            <div>
+
+                <label>Categorias:</label>
+                <select asp-items="ViewBag.Categoria">
+                    <option value="">Selecione uma categoria</option>
+                </select>
+            </div>
+        </article>
+
+        <div>
+            @*<a asp-action="Index">Voltar</a>*@
+            <button asp-action="Index" asp-controller="SubCategoria">Voltar</button>
+            <button type="submit">Cadastrar</button>
+        </div>
+    </form>
+</body>

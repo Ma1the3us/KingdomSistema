@@ -1,0 +1,40 @@
+﻿@model MeuProjetoMVC.Models.Sub_Categoria;
+
+@{
+    TempData["title"] = "Editar SubCategoria";
+}
+
+<body>
+    <form asp-action="Editar" method="post">
+        
+        @Html.AntiForgeryToken();
+
+        <article>
+
+            <div style=" display:none;">
+                <input type="hidden"asp-for="codSub" />
+                <span asp-validation-for="codSub"></span>
+            </div>
+
+            <div>
+                <label>Nome da Subcategoria:</label>
+                <input asp-for="nomeSubcategoria" required />
+                <span asp-validation-for="nomeSubcategoria"></span>
+            </div>
+
+            <div>
+
+                <label>Categorias:</label>
+                <select asp-items="ViewBag.Categoria">
+                    <option value="">Selecione uma categoria</option>
+                </select>
+            </div>
+        </article>
+
+        <div>
+            @*<a asp-action="Index">Voltar</a>*@
+            <button asp-action="Index" asp-controller="SubCategoria">Voltar</button>
+            <button type="submit">Editar</button>
+        </div>
+    </form>
+</body>

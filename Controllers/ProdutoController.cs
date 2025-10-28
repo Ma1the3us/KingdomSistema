@@ -149,7 +149,7 @@ namespace MeuProjetoMVC.Controllers
                     Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
-                    QuantidadeTotal = reader["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(reader["quantidadeTotal"]) : 0,
+                    quantidadeTotal = reader["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(reader["quantidadeTotal"]) : 0,
                     Desconto = reader["Desconto"] != DBNull.Value ? Convert.ToInt32(reader["Desconto"]) : 0,
                     codCat = reader["codCat"] != DBNull.Value ? Convert.ToInt32(reader["codCat"]) : 0,
                     codF = reader["codF"] != DBNull.Value ? Convert.ToInt32(reader["codF"]) : 0,
@@ -197,7 +197,7 @@ namespace MeuProjetoMVC.Controllers
 
                 cmd.Parameters.AddWithValue("p_cod", produto.codProd);
                 cmd.Parameters.AddWithValue("p_quant", produto.Quantidade);
-                cmd.Parameters.AddWithValue("p_quanttotal", produto.QuantidadeTotal);
+                cmd.Parameters.AddWithValue("p_quanttotal", produto.quantidadeTotal);
                 cmd.Parameters.AddWithValue("p_valor", produto.Valor);
                 cmd.Parameters.AddWithValue("p_nome", produto.nomeProduto ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
