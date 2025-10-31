@@ -1,5 +1,4 @@
-﻿using static Google.Protobuf.Compiler.CodeGeneratorResponse.Types;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace MeuProjetoMVC.Models
 {
@@ -8,6 +7,7 @@ namespace MeuProjetoMVC.Models
         [JsonPropertyName("features")]
         public Feature[] Features { get; set; }
     }
+
     public class Feature
     {
         [JsonPropertyName("properties")]
@@ -24,7 +24,11 @@ namespace MeuProjetoMVC.Models
     {
         [JsonPropertyName("distance")]
         public double Distance { get; set; }
+
+        [JsonPropertyName("duration")]
+        public double Duration { get; set; } // opcional
     }
+
     public class Coordenadas
     {
         public double Latitude { get; set; }
