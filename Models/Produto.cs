@@ -11,9 +11,9 @@ namespace MeuProjetoMVC.Models
         public int? Quantidade { get; set; }
 
         public int? quantidadeTotal { get; set; }
-        
-        public string? Imagens { get; set; } 
-        
+
+        public byte[] Imagens { get; set; } = Array.Empty<byte>();
+
         public double? Valor { get; set; }
     
         public int? codCat { get; set; }

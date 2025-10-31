@@ -1919,3 +1919,17 @@ BEGIN
 END $$
  
  
+ DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_usuario_atualizar_status $$
+CREATE PROCEDURE sp_usuario_atualizar_status (
+    IN p_id INT,
+    IN p_status CHAR(1)
+)
+BEGIN
+    UPDATE Usuario
+    SET Ativo = p_status
+    WHERE codUsuario = p_id;
+END $$
+DELIMITER ;
+
+ 

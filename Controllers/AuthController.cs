@@ -28,6 +28,7 @@ namespace MeuProjetoMVC.Controllers
             return View();
         }
 
+        //Perguntar se o usuário deve ter a foto trazida diretamente ou não
 
         [HttpPost]
 
@@ -62,7 +63,7 @@ namespace MeuProjetoMVC.Controllers
             var role = reader.GetString("Role");
             var ativo = reader.GetString("Ativo");
 
-            if (ativo != "S")
+            if (ativo != "1")
             {
                 ViewBag.Erro = "Usuário inativo. Contate o administrador.";
                 return View();

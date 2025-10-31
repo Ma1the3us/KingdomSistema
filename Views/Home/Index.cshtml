@@ -28,7 +28,7 @@
                     }
 
                     <div style="display: flex; flex-direction: column;">
-                        <span>Preço: R$ @produto.Valor.ToString("F2")</span>
+                        <span>Preço: R$ @produto.Valor</span>
                         <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
                     </div>
                     <button class="btn btn-primary btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
@@ -62,7 +62,7 @@ else if (Model != null && Model.Count > 0)
                 }
                 <div>
                     <div style="display: flex; flex-direction: column; margin: 5px 0px;">
-                        <span style="margin: 2px 0px;">Preço: R$ @produto.Valor.ToString("F2")</span>
+                        <span style="margin: 2px 0px;">Preço: R$ @produto.Valor</span>
                         <span style="font-size: 14px; margin: 2px 0px;">@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
                     </div>
                     <button class="btn btn-primary btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>

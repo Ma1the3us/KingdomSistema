@@ -6,6 +6,7 @@ using MeuProjetoMVC.Autenticacao;
 using System;
 using System.Collections.Generic;
 using BCrypt.Net;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -120,21 +121,11 @@ namespace MeuProjetoMVC.Controllers
                 }
 
 
-                string? relPath = null;
-
                 if (capa != null && capa.Length > 0)
                 {
-                    var ext = Path.GetExtension(capa.FileName);
-
-
-                    var fileName = $"{Guid.NewGuid()}{ext}";
-                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
-                    Directory.CreateDirectory(savedir);
-                    var absPath = Path.Combine(savedir, fileName);
-                    using var fs = new FileStream(absPath, FileMode.Create);
-                    capa.CopyTo(fs);
-                    relPath = Path.Combine("capas", fileName).Replace("\\", "/");
-
+                    using var ms = new MemoryStream();
+                    capa.CopyTo(ms);
+                    usuario.Imagens = ms.ToArray();
                 }
 
 
@@ -145,7 +136,7 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
                 cmd.Parameters.AddWithValue("p_email", usuario.Email);
                 cmd.Parameters.AddWithValue("p_senha", senhaHash);
-                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Imagens);
                 cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
 
 
@@ -164,82 +155,7 @@ namespace MeuProjetoMVC.Controllers
 
         // CADASTRO PRÓPRIO PARA O CLIENTE MESMO FAZER, TENDO A ROLE JÁ DEFINIDA COMO CLIENTE!!!!!!
 
-        public IActionResult CriarCliente() => View(new Usuario());
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CriarCliente(Usuario usuario, IFormFile? capa)
-        {
-            if (!ModelState.IsValid)
-                return View(usuario);
-
-            try
-            {
-               
-
-
-
-                using var conn = new MySqlConnection(_connectionString);
-                conn.Open();
-
-                // Verifica se e-mail já existe
-                using (var checkCmd = new MySqlCommand("SELECT COUNT(*) FROM Usuario WHERE Email=@Email;", conn))
-                {
-                    checkCmd.Parameters.AddWithValue("@Email", usuario.Email);
-                    var existe = Convert.ToInt32(checkCmd.ExecuteScalar());
-                    if (existe > 0)
-                    {
-                        ModelState.AddModelError("Email", "Esse e-mail já está cadastrado.");
-                        return View(usuario);
-                    }
-                }
-
-                string? relPath = null;
-
-                if (capa != null && capa.Length > 0)
-                {
-                    var ext = Path.GetExtension(capa.FileName);
-
-
-                    var fileName = $"{Guid.NewGuid()}{ext}";
-                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
-                    Directory.CreateDirectory(savedir);
-                    var absPath = Path.Combine(savedir, fileName);
-                    using var fs = new FileStream(absPath, FileMode.Create);
-                    capa.CopyTo(fs);
-                    relPath = Path.Combine("capas", fileName).Replace("\\", "/");
-
-                }
-
-
-
-                var senhaHash = BCrypt.Net.BCrypt.HashPassword(usuario.Senha, workFactor: 12);
-
-                using var cmd = new MySqlCommand("cadastrar_usuario_cliente", conn) { CommandType = System.Data.CommandType.StoredProcedure };
-                cmd.Parameters.AddWithValue("p_nome", usuario.Nome);
-                cmd.Parameters.AddWithValue("p_email", usuario.Email);
-                cmd.Parameters.AddWithValue("p_senha", senhaHash);
-                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
-                cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
-
-                cmd.ExecuteNonQuery();
-
-                TempData["Mensagem"] = "Usuário criado com sucesso!";
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Mensagem = "Erro ao criar usuário: " + ex.Message;
-                return View(usuario);
-            }
-        }
-
-
-
-
-
-
-
+       
 
         // ==========================================================
         // EDITAR USUÁRIO
@@ -261,13 +177,13 @@ namespace MeuProjetoMVC.Controllers
                     usuario = new Usuario
                     {
                         CodUsuario = reader.GetInt32("codUsuario"),
-                        Role = reader["Role"]?.ToString() ?? "",
-                        Nome = reader["Nome"]?.ToString() ?? "",
-                        Email = reader["Email"]?.ToString() ?? "",
+                        Role = reader["Role"]?.ToString() ?? "Role",
+                        Nome = reader["Nome"]?.ToString() ?? "Nome",
+                        Email = reader["Email"]?.ToString() ?? "Email",
                         Ativo = reader["Ativo"]?.ToString() ?? "1",
                         Senha = "",
                         ConfirmarSenha = "",
-                        Foto = reader["Foto"]?.ToString(),
+                        Imagens = reader["Foto"] != DBNull.Value ? (byte[])reader["Foto"] : null,
                         Telefone = reader["Telefone"]?.ToString()
                     };
                 }
@@ -338,7 +254,7 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_role", usuario.Role);
                 cmd.Parameters.AddWithValue("p_senha", senhaFinal);
                 cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
-                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Imagens);
                 cmd.Parameters.AddWithValue("p_ativo", ativo);
 
                 cmd.ExecuteNonQuery();
@@ -376,13 +292,13 @@ namespace MeuProjetoMVC.Controllers
                     usuario = new Usuario
                     {
                         CodUsuario = reader.GetInt32("codUsuario"),
-                        Role = reader["Role"]?.ToString() ?? "",
-                        Nome = reader["Nome"]?.ToString() ?? "",
-                        Email = reader["Email"]?.ToString() ?? "",
+                        Role = reader["Role"]?.ToString() ?? "Role",
+                        Nome = reader["Nome"]?.ToString() ?? "Nome",
+                        Email = reader["Email"]?.ToString() ?? "Email",
                         Ativo = reader["Ativo"]?.ToString() ?? "1",
                         Senha = "",
                         ConfirmarSenha = "",
-                        Foto = reader["Foto"]?.ToString(),
+                        Imagens = reader["Foto"] != DBNull.Value ? (byte[])reader["Foto"] : null,
                         Telefone = reader["Telefone"]?.ToString()
                     };
                 }
@@ -450,7 +366,7 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_email", usuario.Email);
                 cmd.Parameters.AddWithValue("p_senha", senhaFinal);
                 cmd.Parameters.AddWithValue("p_telefone", usuario.Telefone);
-                cmd.Parameters.AddWithValue("p_foto", usuario.Foto);
+                cmd.Parameters.AddWithValue("p_foto", usuario.Imagens);
                 
                 cmd.ExecuteNonQuery();
 
@@ -491,7 +407,7 @@ namespace MeuProjetoMVC.Controllers
                     Email = reader["Email"]?.ToString() ?? "",
                     Role = reader["Role"]?.ToString() ?? "",
                     Ativo = reader["Ativo"]?.ToString() ?? "1",
-                    Foto = reader["Foto"]?.ToString(),
+                    Imagens = reader["Foto"] != DBNull.Value ? (byte[])reader["Foto"] : null,
                     Telefone = reader["Telefone"]?.ToString()
                 };
             }
@@ -537,7 +453,7 @@ namespace MeuProjetoMVC.Controllers
                 using var cmd = new MySqlCommand(
                     "CALL sp_usuario_atualizar_status(@p_id,@p_status);", conn);
                 cmd.Parameters.AddWithValue("@p_id", id);
-                cmd.Parameters.AddWithValue("@p_status", "S");
+                cmd.Parameters.AddWithValue("@p_status", "1");
                 cmd.ExecuteNonQuery();
 
                 TempData["Mensagem"] = "Usuário reativado com sucesso!";

@@ -1,4 +1,4 @@
-@model MeuProjetoMVC.Models.Usuario
+@model MeuProjetoMVC.Models.Usuario;
 @{
     ViewData["Title"] = "Registrar Conta";
 }
@@ -12,7 +12,7 @@
         <div class="alert alert-danger">@ViewBag.Erro</div>
     }
 
-    <form asp-action="Registrar" method="post">
+    <form asp-action="Registrar" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label asp-for="Nome"></label>
             <input asp-for="Nome" class="form-control" />
@@ -31,6 +31,18 @@
             <label>Confirmar Senha</label>
             <input name="confirmarSenha" class="form-control" type="password" />
         </div>
+
+        <div>
+            <label>Telefone:</label>
+            <input type="text" placeholder="(11) 99999-9999" asp-for="Telefone"/>
+        </div>
+
+    <div>
+        <label>Foto:</label>
+        <figure>
+            <input type="file" asp-for="Imagens" name="capa" />
+        </figure>
+    </div>
         <button type="submit" class="btn btn-success">Registrar</button>
         <a asp-action="Login" asp-controller="Auth" class="btn btn-secondary">Cancelar</a>
     </form>

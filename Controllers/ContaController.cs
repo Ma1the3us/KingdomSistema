@@ -27,7 +27,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registrar(Usuario model, string confirmarSenha)
+        public IActionResult Registrar(Usuario model, string confirmarSenha, IFormFile capa)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -38,6 +38,8 @@ namespace MeuProjetoMVC.Controllers
                 return View(model);
             }
 
+
+
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
@@ -47,7 +49,7 @@ namespace MeuProjetoMVC.Controllers
             using var reader = cmdCheck.ExecuteReader();
             if (reader.Read())
             {
-                var ativo = reader["Ativo"]?.ToString() ?? "S";
+                var ativo = reader["Ativo"]?.ToString() ?? "1";
                 var codUsuario = Convert.ToInt32(reader["codUsuario"]);
                 reader.Close();
 
@@ -65,16 +67,26 @@ namespace MeuProjetoMVC.Controllers
             reader.Close();
 
             // Criptografa senha
-            var senhaHash = BCrypt.Net.BCrypt.HashPassword(model.Senha);
+
 
             // Insere novo usuário
-            using var cmd = new MySqlCommand("CALL sp_usuario_criar(@role,@nome,@email,@senha,@ativo)", conn);
-            cmd.Parameters.AddWithValue("@role", "Cliente");
-            cmd.Parameters.AddWithValue("@nome", model.Nome);
-            cmd.Parameters.AddWithValue("@email", model.Email);
-            cmd.Parameters.AddWithValue("@senha", senhaHash);
-            cmd.Parameters.AddWithValue("@ativo", "S");
-            cmd.ExecuteNonQuery();
+            if (capa != null && capa.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                capa.CopyTo(ms);
+                model.Imagens = ms.ToArray();
+            }
+
+
+            var senhaHash = BCrypt.Net.BCrypt.HashPassword(model.Senha);
+
+            using var cmd = new MySqlCommand("cadastrar_usuario", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("p_role", "Cliente");
+            cmd.Parameters.AddWithValue("p_nome", model.Nome);
+            cmd.Parameters.AddWithValue("p_email", model.Email);
+            cmd.Parameters.AddWithValue("p_senha", senhaHash);
+            cmd.Parameters.AddWithValue("p_foto", model.Imagens);
+            cmd.Parameters.AddWithValue("p_telefone", model.Telefone);
 
             TempData["Sucesso"] = "Conta criada com sucesso! Faça login.";
             return RedirectToAction("Login", "Auth");
@@ -91,7 +103,7 @@ namespace MeuProjetoMVC.Controllers
 
             using var cmd = new MySqlCommand("CALL sp_usuario_atualizar_status(@id,@status)", conn);
             cmd.Parameters.AddWithValue("@id", codUsuario);
-            cmd.Parameters.AddWithValue("@status", "S");
+            cmd.Parameters.AddWithValue("@status", "1");
             cmd.ExecuteNonQuery();
 
             TempData["Sucesso"] = "Conta reativada com sucesso! Faça login.";
@@ -172,6 +184,7 @@ namespace MeuProjetoMVC.Controllers
                 : senhaAtual;
 
             // Atualiza dados
+            // Colega... Tem mais coisas para atualizar
             using (var cmd = new MySqlCommand(
                 "UPDATE Usuario SET Nome=@Nome, Email=@Email, Senha=@Senha WHERE codUsuario=@Id", conn))
             {
@@ -210,7 +223,7 @@ namespace MeuProjetoMVC.Controllers
             conn.Open();
             using var cmd = new MySqlCommand("CALL sp_usuario_atualizar_status(@id,@status)", conn);
             cmd.Parameters.AddWithValue("@id", codUsuario.Value);
-            cmd.Parameters.AddWithValue("@status", "N");
+            cmd.Parameters.AddWithValue("@status", "0");
             cmd.ExecuteNonQuery();
 
             HttpContext.Session.Clear();

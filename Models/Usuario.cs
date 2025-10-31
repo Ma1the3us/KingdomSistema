@@ -26,8 +26,10 @@ namespace MeuProjetoMVC.Models
 
         [Display(Name = "Ativo")]
         public string? Ativo { get; set; } = "1";
- 
-        public string? Foto { get; set; }
+
+        public byte[] Imagens { get; set; } = Array.Empty<byte>();
+
+        public string? Telefone { get; set; }
 
     }
 }

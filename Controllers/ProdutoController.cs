@@ -5,6 +5,7 @@ using MeuProjetoMVC.Models;
 using MeuProjetoMVC.Autenticacao;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -40,22 +41,13 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                string? relPath = null;
-
                 if (imagem != null && imagem.Length > 0)
                 {
-                    var ext = Path.GetExtension(imagem.FileName);
-
-
-                    var fileName = $"{Guid.NewGuid()}{ext}";
-                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
-                    Directory.CreateDirectory(savedir);
-                    var absPath = Path.Combine(savedir, fileName);
-                    using var fs = new FileStream(absPath, FileMode.Create);
-                    imagem.CopyTo(fs);
-                    relPath = Path.Combine("midia", fileName).Replace("\\", "/");
-
+                    using var ms = new MemoryStream();
+                    imagem.CopyTo(ms);
+                    produto.Imagens = ms.ToArray();
                 }
+
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
@@ -64,7 +56,7 @@ namespace MeuProjetoMVC.Controllers
                 { CommandType = System.Data.CommandType.StoredProcedure};
 
                 cmd.Parameters.AddWithValue("p_quantidade", produto.Quantidade);
-                cmd.Parameters.AddWithValue("p_imagens", produto.Imagens);
+                cmd.Parameters.AddWithValue("p_imagens",(object?) produto.Imagens);
                 cmd.Parameters.AddWithValue("p_desconto", produto.Desconto);
                 cmd.Parameters.AddWithValue("p_valor", produto.Valor);
                 cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
@@ -137,7 +129,7 @@ namespace MeuProjetoMVC.Controllers
             conn.Open();
 
             using var cmd = new MySqlCommand(
-                "SELECT codProd, Quantidade, quantidadeTotal,  Valor, Descricao, nomeProduto, Imagens, codCat, codF, Desconto FROM Produto WHERE codProd=@id;", conn);
+                "SELECT codProd, Quantidade, quantidadeTotal,  Valor, Descricao, nomeProduto, codCat, codF, Desconto FROM Produto WHERE codProd=@id;", conn);
             cmd.Parameters.AddWithValue("@id", id);
 
             using var reader = cmd.ExecuteReader();
@@ -154,7 +146,7 @@ namespace MeuProjetoMVC.Controllers
                     Desconto = reader["Desconto"] != DBNull.Value ? Convert.ToInt32(reader["Desconto"]) : 0,
                     codCat = reader["codCat"] != DBNull.Value ? Convert.ToInt32(reader["codCat"]) : 0,
                     codF = reader["codF"] != DBNull.Value ? Convert.ToInt32(reader["codF"]) : 0,
-                    Imagens = reader["Imagens"]?.ToString() ?? string.Empty 
+ 
                 };
             }
 
@@ -172,23 +164,14 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                string? relPath = null;
-
                 if (midia != null && midia.Length > 0)
                 {
-                    var ext = Path.GetExtension(midia.FileName);
-
-
-                    var fileName = $"{Guid.NewGuid()}{ext}";
-                    var savedir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "capas");
-                    Directory.CreateDirectory(savedir);
-                    var absPath = Path.Combine(savedir, fileName);
-                    using var fs = new FileStream(absPath, FileMode.Create);
-                    midia.CopyTo(fs);
-                    relPath = Path.Combine("midia", fileName).Replace("\\", "/");
+                    using var ms = new MemoryStream();
+                    midia.CopyTo(ms);
+                    produto.Imagens = ms.ToArray();
                 }
 
-                    using var conn = new MySqlConnection(_connectionString);
+                using var conn = new MySqlConnection(_connectionString);
                 
                 conn.Open();
 
@@ -202,7 +185,7 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_valor", produto.Valor);
                 cmd.Parameters.AddWithValue("p_nome", produto.nomeProduto ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
-                cmd.Parameters.AddWithValue("p_imagens", (string?)produto.Imagens ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_imagens", (object?)produto.Imagens ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_desconto", (double?)produto.Desconto ?? 0);
                 cmd.Parameters.AddWithValue("p_cat", produto.codCat);
                 cmd.Parameters.AddWithValue("p_for", produto.codF);

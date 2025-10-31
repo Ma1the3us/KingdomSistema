@@ -36,18 +36,19 @@ else
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Nome</td>
-                                <td>R$ @item.Preco</td>
+                                @*Pegar o nome via conexão conectividade com o codigo para achar o nome*@
+                                @*<td>@item.Nome</td>*@ 
+                                <td>R$ @item.ValorUnitario</td>
                                 <td>
                                     <form asp-action="UpdateQuantity" method="post" style="display:inline;">
-                                        <input type="hidden" name="produtoId" value="@item.ProdutoId" />
+                                        <input type="hidden" name="produtoId" value="@item.codProd" />
                                         <input type="number" name="quantidade" value="@item.Quantidade" min="1" />
                                         <button type="submit">Atualizar</button>
                                     </form>
                                 </td>
                                 <td>R$ @item.Total</td>
                                 <td>
-                                    <a class="btn btn-danger" style="color: white;" asp-action="Remove" asp-route-id="@item.ProdutoId">Remover</a>
+                                    <a class="btn btn-danger" style="color: white;" asp-action="Remove" asp-route-id="@item.codProd">Remover</a>
                                 </td>
                             </tr>
                         }
