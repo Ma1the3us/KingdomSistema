@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Carrinho de Compras";
+    var produtos = ViewBag.Produtos as List<MeuProjetoMVC.Models.Produto> ?? new List<MeuProjetoMVC.Models.Produto>();
 }
 
 <link rel="stylesheet" href="~/css/carrinho.css" />
@@ -9,9 +10,10 @@
 @if (TempData["Mensagem"] != null)
 {
     <p id="mensagemSucesso">@TempData["Mensagem"]</p>
+   
 }
 
-@if (Model == null || !Model.Any())
+@if (Model == null || !Model.Any() || !produtos.Any())
 {
     <p style="text-align:center;">Seu carrinho está vazio.</p>
 }
@@ -25,6 +27,7 @@ else
                 <table id="tabelaCarrinho">
                     <thead>
                         <tr>
+                            <th>Imagem</th>
                             <th>Produto</th>
                             <th>Preço Unitário</th>
                             <th>Quantidade</th>
@@ -35,10 +38,27 @@ else
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            var produto = produtos.FirstOrDefault(p => p.codProd == item.codProd);
+                            double desconto = Convert.ToDouble(produto.Desconto);
+                            double valor = Convert.ToDouble(produto.Valor);
+                            var precoUnitario = desconto > 0 ? valor * (1 - desconto / 100)
+                            : valor;
+
                             <tr>
-                                @*Pegar o nome via conexão conectividade com o codigo para achar o nome*@
-                                @*<td>@item.Nome</td>*@ 
-                                <td>R$ @item.ValorUnitario</td>
+                                <td>
+                                    @if(produto?.Imagens.Length > 0)
+                                    {
+                                        <figure>
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(produto.Imagens)" alt="produto.nome" />
+                                        </figure>
+                                    }
+                                    else
+                                    {
+                                        <p>Sem Imagem desse produto</p>
+                                    }
+                                </td>
+                                <td>@produto.nomeProduto</td>
+                                <td>R$: @($"{precoUnitario}")</td>
                                 <td>
                                     <form asp-action="UpdateQuantity" method="post" style="display:inline;">
                                         <input type="hidden" name="produtoId" value="@item.codProd" />
@@ -46,7 +66,7 @@ else
                                         <button type="submit">Atualizar</button>
                                     </form>
                                 </td>
-                                <td>R$ @item.Total</td>
+                                <td>R$ @item.Valor</td>
                                 <td>
                                     <a class="btn btn-danger" style="color: white;" asp-action="Remove" asp-route-id="@item.codProd">Remover</a>
                                 </td>

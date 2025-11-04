@@ -17,7 +17,7 @@ CREATE TABLE Usuario (
     Role ENUM('Admin','Funcionario','Cliente') NOT NULL DEFAULT 'Cliente',
     Telefone  varchar(15) not null,
     Ativo CHAR(1) NOT NULL DEFAULT '1',
-    Foto varchar(255)
+    Foto longblob
 );
 
 

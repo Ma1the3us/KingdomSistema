@@ -12,8 +12,7 @@
 
         public string? codZetaV { get; set; }
 
-        public string? Capa { get; set; }
-
+        public byte[] Capa { get; set; } = Array.Empty<byte>();
         public string? classificacaoEtaria { get; set; }
 
         public string? categoria { get; set; }

@@ -87,6 +87,7 @@ namespace MeuProjetoMVC.Controllers
             cmd.Parameters.AddWithValue("p_senha", senhaHash);
             cmd.Parameters.AddWithValue("p_foto", model.Imagens);
             cmd.Parameters.AddWithValue("p_telefone", model.Telefone);
+            cmd.ExecuteNonQuery();
 
             TempData["Sucesso"] = "Conta criada com sucesso! Faça login.";
             return RedirectToAction("Login", "Auth");

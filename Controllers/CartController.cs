@@ -6,6 +6,7 @@ using System.Text.Json;
 using MeuProjetoMVC.Autenticacao;
 using MeuProjetoMVC.Services;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Data;
 
 
 namespace MeuProjetoMVC.Controllers
@@ -15,18 +16,13 @@ namespace MeuProjetoMVC.Controllers
     {
         private readonly string _connectionString;
         private readonly IFreteServices _freteService;
-
-
-        public CartController(IFreteServices freteServices)
-        {
-            _freteService = freteServices;
-        }
-
         private readonly IEnderecoService _enderecoService;
 
-
-        public CartController(IConfiguration configuration)
+        public CartController(IConfiguration configuration, IFreteServices freteService, IEnderecoService enderecoService)
         {
+            _freteService = freteService ?? throw new ArgumentNullException(nameof(freteService));
+            _enderecoService = enderecoService ?? throw new ArgumentNullException(nameof(enderecoService));
+
             _connectionString = configuration.GetConnectionString("DefaultConnection")
                 ?? throw new ArgumentNullException("Connection string não encontrada");
         }
@@ -48,53 +44,116 @@ namespace MeuProjetoMVC.Controllers
         // ==================== Ações do Carrinho ====================
 
         // Adicionar item
+
         [HttpPost]
-        public IActionResult Add(int id, int quantidade)
+        public IActionResult Add(int codProd)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
-
+            
+            int quantidade = 1;
+            
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
             if(user == null)
             {
                 TempData["MensagemC"] = "Código de usuário não encontrado";
-                return View();
+                return RedirectToAction("Index", "Home");
             }
 
             if(quantidade <= 0)
             {
                 TempData["MensagemC"] = "Quantidade inválida";
-                return View();
+                return RedirectToAction("Index", "Home");
             }
 
 
             try
             {
                 using var cmd = new MySqlCommand("cad_carrinho", conn) { CommandType = System.Data.CommandType.StoredProcedure };
-                cmd.Parameters.AddWithValue("p_cod", id);
+                cmd.Parameters.AddWithValue("p_cod", codProd);
                 cmd.Parameters.AddWithValue("ca_quantidade", quantidade);
                 cmd.Parameters.AddWithValue("c_codUsuario", user);
                 cmd.ExecuteNonQuery();
 
                 TempData["MensagemC"] = "Item adicionado ao carrinho";
-
+                return RedirectToAction("Index", "Home");
             }
             catch (MySqlException ex)
             {
-                TempData["MensagemC"] = "❌ Erro ao cadastrar inserir o produto no carrinho: " + ex.Message;              
+                TempData["MensagemC"] = "❌ Erro ao cadastrar inserir o produto no carrinho: " + ex.Message;
+                return RedirectToAction("Index", "Home");
             }
                     
-            return View();
+           
         }
 
         // Exibir carrinho
         public IActionResult Index()
         {
-            var cart = GetCart();
-            ViewBag.TotalCompra = cart.Sum(c => c.Total);
-            return View(cart);
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+            if(user == null)
+            {
+                TempData["ErroL"] = "Usuário não encontrado, por favor realize o login para adentrar o carrinho";
+                return RedirectToAction("Login", "Auth");
+            }
+
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            List<CartItem> carrinho = new List<CartItem>();
+            List<Produto> produto = new List<Produto>();
+
+            using var cmd = new MySqlCommand(@"
+                select ic.codProd as codigoProduto, 
+                ic.quantidade as Quantidade, 
+                ic.valorProduto as Valor, 
+                ic.codCarrinho as codigoCarrinho,
+                p.nomeProduto,
+                p.Imagens as Imagem,
+                p.Desconto,
+                p.Valor as produtoValor
+                from ItemCarrinho ic
+                Inner Join Carrinho c on ic.codCarrinho = c.codCarrinho
+                Inner Join Produto p on ic.codProd = p.codProd
+                Inner Join Venda v on c.codVenda = v.codVenda
+                Inner Join Usuario u on v.codUsuario = u.codUsuario
+                where v.situacao = 'Em andamento' and u.codUsuario = @cod; 
+            ",conn);
+            
+            cmd.Parameters.AddWithValue("@cod", user);
+
+            var rd = cmd.ExecuteReader();
+
+            while(rd.Read())
+            {
+
+                carrinho.Add(new CartItem
+                {
+                    codCarrinho = rd.GetInt32("codigoCarrinho"),
+                    codProd = rd.GetInt32("codigoProduto"),
+                    Quantidade = rd.GetInt32("Quantidade"),
+                    Valor = rd.GetDecimal("Valor")
+                    
+                });
+
+                produto.Add(new Produto
+                {
+                    codProd = rd.GetInt32("codigoProduto"),
+                    Imagens = rd["Imagem"] != DBNull.Value ? (byte[])rd["Imagem"] : Array.Empty<byte>(),
+                    nomeProduto = rd.GetString("nomeProduto"),
+                    Valor = rd.GetDouble("produtoValor")
+                });
+                
+            }
+
+            ViewBag.TotalCompra = carrinho.Sum( c => c.Valor);
+            ViewBag.Produtos = produto;
+           return View(carrinho);
         }
+
+        
 
         // Atualizar quantidade
         [HttpPost]
@@ -214,10 +273,11 @@ namespace MeuProjetoMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TotalCompra = cart.Sum(c => c.Total);
+            ViewBag.TotalCompra = cart.Sum(c => c.Valor);
             return View();
         }
 
+    /*
         // Finalizar compra
         [HttpPost]
         public IActionResult Checkout(string nomeCliente, string emailCliente, string formaPagamento)
@@ -229,7 +289,7 @@ namespace MeuProjetoMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            decimal total = cart.Sum(c => c.Total);
+            decimal total = cart.Sum(c => c.Valor);
 
             try
             {
@@ -290,6 +350,6 @@ namespace MeuProjetoMVC.Controllers
             }
 
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }
