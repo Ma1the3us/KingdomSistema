@@ -6,7 +6,7 @@ namespace MeuProjetoMVC.Models
     {
         public int CodUsuario { get; set; }
 
-        [Required]
+        
         [Display(Name = "Tipo de Usuário")]
         public string? Role { get; set; } 
 

@@ -32,7 +32,7 @@ namespace MeuProjetoMVC.Controllers
 
         [HttpPost]
         [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
-        public IActionResult Create(Produto produto, IFormFile imagem)
+        public IActionResult Create(Produto produto, IFormFile midia)
         {
             if (!ModelState.IsValid)
             {
@@ -41,10 +41,10 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                if (imagem != null && imagem.Length > 0)
+                if (midia != null && midia.Length > 0)
                 {
                     using var ms = new MemoryStream();
-                    imagem.CopyTo(ms);
+                    midia.CopyTo(ms);
                     produto.Imagens = ms.ToArray();
                 }
 
@@ -129,7 +129,7 @@ namespace MeuProjetoMVC.Controllers
             conn.Open();
 
             using var cmd = new MySqlCommand(
-                "SELECT codProd, Quantidade, quantidadeTotal,  Valor, Descricao, nomeProduto, codCat, codF, Desconto FROM Produto WHERE codProd=@id;", conn);
+                "SELECT codProd, Quantidade, quantidadeTotal,Imagens,Valor, Descricao, nomeProduto, codCat, codF, Desconto FROM Produto WHERE codProd=@id;", conn);
             cmd.Parameters.AddWithValue("@id", id);
 
             using var reader = cmd.ExecuteReader();
@@ -143,6 +143,7 @@ namespace MeuProjetoMVC.Controllers
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
                     quantidadeTotal = reader["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(reader["quantidadeTotal"]) : 0,
+                    Imagens =  reader["Imagens"] != DBNull.Value ? (byte[])reader["Imagens"] : Array.Empty<byte>(),
                     Desconto = reader["Desconto"] != DBNull.Value ? Convert.ToInt32(reader["Desconto"]) : 0,
                     codCat = reader["codCat"] != DBNull.Value ? Convert.ToInt32(reader["codCat"]) : 0,
                     codF = reader["codF"] != DBNull.Value ? Convert.ToInt32(reader["codF"]) : 0,
@@ -171,6 +172,12 @@ namespace MeuProjetoMVC.Controllers
                     produto.Imagens = ms.ToArray();
                 }
 
+                if(produto.Quantidade > produto.quantidadeTotal)
+                {
+                    produto.quantidadeTotal = produto.Quantidade;
+                }
+
+
                 using var conn = new MySqlConnection(_connectionString);
                 
                 conn.Open();
@@ -178,6 +185,9 @@ namespace MeuProjetoMVC.Controllers
                 using var cmd = new MySqlCommand(
                     "editar_produto", conn)
                 { CommandType = System.Data.CommandType.StoredProcedure};
+
+
+    
 
                 cmd.Parameters.AddWithValue("p_cod", produto.codProd);
                 cmd.Parameters.AddWithValue("p_quant", produto.Quantidade);

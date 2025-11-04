@@ -31,6 +31,7 @@
         <label asp-for="Quantidade" class="form-label"></label>
         <input asp-for="Quantidade" class="form-control" type="number" />
         <span asp-validation-for="Quantidade" class="text-danger"></span>
+        <input type="hidden" asp-for="quantidadeTotal" />
     </div>
 
     <div class="mb-3">
@@ -38,6 +39,10 @@
         <input asp-for="Valor" class="form-control" type="number" step="0.01" />
         <span asp-validation-for="Valor" class="text-danger"></span>
     </div>
+
+  
+
+
 
     <div class="mb-3">
         <label class="form-label">Imagem Atual:</label><br />
@@ -54,7 +59,7 @@
 
     <div class="mb-3">
         <label class="form-label">Alterar imagem:</label>
-        <input type="file" name="ImagemUpload" class="form-control" />
+        <input type="file" name="midia" class="form-control" asp-for="Imagens" />
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar alterações</button>

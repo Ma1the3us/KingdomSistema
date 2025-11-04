@@ -10,7 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace MeuProjetoMVC.Controllers
 {
-    [SessionAuthorize(RoleAnyOf = "Admin")] // Somente Admin
+   // [SessionAuthorize(RoleAnyOf = "Admin")] // Somente Admin
     public class UsuariosController : Controller
     {
         private readonly string _connectionString;
@@ -39,9 +39,9 @@ namespace MeuProjetoMVC.Controllers
                     usuarios.Add(new Usuario
                     {
                         CodUsuario = reader.GetInt32("codUsuario"),
-                        Role = reader["Role"]?.ToString() ?? "",
-                        Nome = reader["Nome"]?.ToString() ?? "",
-                        Email = reader["Email"]?.ToString() ?? "",
+                        Role = reader["Role"]?.ToString() ?? "Role",
+                        Nome = reader["Nome"]?.ToString() ?? "Nome",
+                        Email = reader["Email"]?.ToString() ?? "Email",
                         Ativo = reader["Ativo"]?.ToString() ?? "1"
                     });
                 }
@@ -72,9 +72,9 @@ namespace MeuProjetoMVC.Controllers
                     usuarios.Add(new Usuario
                     {
                         CodUsuario = reader.GetInt32("codUsuario"),
-                        Role = reader["Role"]?.ToString() ?? "",
-                        Nome = reader["Nome"]?.ToString() ?? "",
-                        Email = reader["Email"]?.ToString() ?? "",
+                        Role = reader["Role"]?.ToString() ?? "Role",
+                        Nome = reader["Nome"]?.ToString() ?? "Nome",
+                        Email = reader["Email"]?.ToString() ?? "Email",
                         Ativo = "0"
                     });
                 }
