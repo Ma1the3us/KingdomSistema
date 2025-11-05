@@ -8,6 +8,8 @@
 
         public string? tipoMidia { get; set; }
 
-        public string? midia { get; set; }
+        public Byte[]? midia { get; set; }
+
+        public int? Ordem { get; set; }
     }
 }

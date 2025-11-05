@@ -36,6 +36,12 @@
     </div>
 
     <div class="mb-3">
+        <label  asp-for="Desconto" class="form-label">Desconto:</label>
+        <input asp-for="Desconto" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="Desconto" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label asp-for="Quantidade" class="form-label">Quantidade:</label>
         <input asp-for="Quantidade" type="number" class="form-control" value="1" required />
         <span asp-validation-for="Quantidade" class="text-danger"></span>

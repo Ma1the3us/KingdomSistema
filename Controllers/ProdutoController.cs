@@ -6,6 +6,7 @@ using MeuProjetoMVC.Autenticacao;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -331,15 +332,53 @@ namespace MeuProjetoMVC.Controllers
             }
         }
 
-        public IActionResult Detalhes(int codProd) {
+
+        public IActionResult Detalhes(int? codProd) {
+
+            if(codProd == null || codProd == 0)
+            {
+                return BadRequest();
+            }
 
             Produto produtos = new Produto();
 
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+            using var cmd = new MySqlCommand(@"
+                Select codProd, nomeProduto, Descricao, Quantidade, quantidadeTotal, Valor, Imagens, codCat, codF, Desconto
+                From Produto 
+                where codProd = @cod
+                ", conn);
+            cmd.Parameters.AddWithValue("@cod", codProd);
 
-            return View();
+            var rd = cmd.ExecuteReader();
+            
+            while(rd.Read())
+            {
+                produtos = new Produto
+                {
+                    codProd = rd.GetInt32("codProd"),
+                    codCat = rd.GetInt32("codCat"),
+                    codF = rd.GetInt32("codF"),
+                    nomeProduto = rd["nomeProduto"]?.ToString() ?? string.Empty,
+                    Descricao = rd["Descricao"]?.ToString() ?? string.Empty,
+                    Quantidade = rd["Quantidade"] != DBNull.Value ? Convert.ToInt32(rd["Quantidade"]) : 0,
+                    Desconto = rd["Desconto"] != DBNull.Value ? Convert.ToDouble(rd["Desconto"]) : 0,
+                    Valor = rd["Valor"] != DBNull.Value ? Convert.ToDouble(rd["Valor"]) : 0,
+                    Imagens = rd["Imagens"] != DBNull.Value? (byte[])rd["Imagens"] : Array.Empty<byte>(),
+                    quantidadeTotal = rd["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(rd["quantidadeTotal"]) : 0
+                    
+                };
+            }
+
+            DetalhesM(codProd);
+
+
+            return View(produtos);
         }
 
-        private void DetalhesM(int codProd)
+        // Função que vai estar passando todas as viewbags relacionadas ao detalhe do produto.
+        private void DetalhesM(int? codProd)
         {
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
@@ -372,6 +411,7 @@ namespace MeuProjetoMVC.Controllers
                     });
                 }
             }
+
             ViewBag.Fornecedores = fornecedor;
             
             List<Sub_Categoria> sub = new List<Sub_Categoria>();
@@ -411,31 +451,64 @@ namespace MeuProjetoMVC.Controllers
             
             ViewBag.ItemSub = itemsub;
 
-            List<ProdutoMidia> produtoMidias = new List<ProdutoMidia>();
-            using (var cmd = new MySqlCommand("Select codMidia, codProd, tipoMidia, midia from ProdutoMidia where codProd = @cod", conn))
+            List<ProdutoMidia> midias = new List<ProdutoMidia>();
+            using (var cmd = new MySqlCommand(@"
+                SELECT codMidia, codProd, tipoMidia, midia, Ordem
+                FROM ProdutoMidia
+                WHERE codProd = @cod
+                ORDER BY Ordem ASC;
+                ", conn))
             {
                 cmd.Parameters.AddWithValue("@cod", codProd);
+
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        produtoMidias.Add(new ProdutoMidia
+                        midias.Add(new ProdutoMidia
                         {
                             codMidia = reader.GetInt32("codMidia"),
                             codProd = reader.GetInt32("codProd"),
                             tipoMidia = reader.GetString("tipoMidia"),
-                            midia = reader.GetString("midia")
-
+                            midia = (byte[]?)reader["midia"],
+                            Ordem = reader["Ordem"] != DBNull.Value ? Convert.ToInt32(reader["Ordem"]) : 0
                         });
-
                     }
                 }
-
             }
-            ViewBag.ProdutoMidia = produtoMidias;
+
+            ViewBag.Midias = midias;
 
         }
 
+        [Route("ProdutoMidia/Exibir/{codMidia}")]
+        public IActionResult ExibirMidia(int codMidia)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            ProdutoMidia midia = null;
+            using (var cmd = new MySqlCommand("SELECT codMidia, tipoMidia, midia FROM ProdutoMidia WHERE codMidia = @cod", conn))
+            {
+                cmd.Parameters.AddWithValue("@cod", codMidia);
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    midia = new ProdutoMidia
+                    {
+                        codMidia = reader.GetInt32("codMidia"),
+                        tipoMidia = reader.GetString("tipoMidia"),
+                        midia = (byte[])reader["midia"]
+                    };
+                }
+            }
+
+            if (midia == null || midia.midia == null)
+                return NotFound();
+
+            string contentType = midia.tipoMidia == "Video" ? "video/mp4" : "image/jpeg";
+            return File(midia.midia, contentType);
+        }
 
     }
 
