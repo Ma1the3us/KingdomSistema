@@ -40,7 +40,12 @@
         <span asp-validation-for="Valor" class="text-danger"></span>
     </div>
 
-  
+
+    <div class="mb-3">
+        <label asp-for="Desconto" class="form-label">Desconto:</label>
+        <input asp-for="Desconto" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="Desconto" class="text-danger"></span>
+    </div>
 
 
 

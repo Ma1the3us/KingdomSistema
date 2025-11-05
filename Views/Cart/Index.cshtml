@@ -31,6 +31,7 @@ else
                             <th>Produto</th>
                             <th>Preço Unitário</th>
                             <th>Quantidade</th>
+                            <th>Desconto</th>
                             <th>Total</th>
                             <th>Ações</th>
                         </tr>
@@ -66,6 +67,7 @@ else
                                         <button type="submit">Atualizar</button>
                                     </form>
                                 </td>
+                                <td>@produto.Desconto</td>
                                 <td>R$ @item.Valor</td>
                                 <td>
                                     <a class="btn btn-danger" style="color: white;" asp-action="Remove" asp-route-id="@item.codProd">Remover</a>

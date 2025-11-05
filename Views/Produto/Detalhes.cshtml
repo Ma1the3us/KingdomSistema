@@ -1,0 +1,190 @@
+﻿@model MeuProjetoMVC.Models.Produto;
+@using MeuProjetoMVC.Models
+
+@{
+    TempData["title"] = Model.nomeProduto;
+    var Categoria = ViewBag.Categorias as List<Categoria>;
+    var Fornecedor = ViewBag.Fornecedores as List<Fornecedor>;
+    var subcat = ViewBag.Subcategoria as List<Sub_Categoria>;
+    var itemsub = ViewBag.ItemSub as List<ItemSubcategoria>;
+    var midias = ViewBag.Midias as List<ProdutoMidia>;
+}
+
+
+<body>
+
+    <section>
+        <div>
+            <h2>@Model.nomeProduto</h2>
+        </div>
+
+        <article>
+            <figure>
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Imagens))" alt="Imagem Principal" />
+            </figure>
+            
+            <div>
+                <p>@Model.Descricao</p>
+            </div>
+        </article>
+
+        <div>
+            <figure id="midiaCenterContainer">
+                
+            </figure>
+
+            <div class="row">
+                @if (midias != null && midias.Any())
+                {
+                    foreach (var m in midias)
+                    {
+                        string src = Url.Action("ExibirMidia", "Produto", new { codMidia = m.codMidia });
+                        if (m.tipoMidia == "Imagem")
+                        {
+                            <div class="col-md-3 col-6 mb-3 text-center">
+                                <img src="@src"
+                                     class="img-thumbnail thumb"
+                                     style="cursor:pointer; max-height:150px;"
+                                     data-tipo="Imagem"
+                                     data-src="@src"
+                                     onclick="trocarMidiaCentral('Imagem', '@src')" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-3 col-6 mb-3 text-center">
+                                <video class="img-thumbnail thumb"
+                                       style="cursor:pointer; max-height:150px;"
+                                       data-tipo="Video"
+                                       data-src="@src"
+                                       onclick="trocarMidiaCentral('Video', '@src')"
+                                       muted>
+                                    <source src="@src" type="video/mp4">
+                                </video>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <p><i>Nenhuma mídia disponível.</i></p>
+                }
+
+            </div>
+        </div>
+
+        <article>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Fornecedor:</td>
+                            <td>Categoria:</td>
+                            <td>Quantidade em estoque:</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                             @*Pega a variavel que foi dada o valor da viewBag, define para pegar o primeiro ou padrão do valor*@
+                             @*Depois cria uma variavel/instância que pode acessar os valores da variavel com a viewBag, fazendo uma comparação de valores*@
+                             @*?.Nome se existir um nome para esse código ele traz o nome ?? Se não ele tráz o - como não existe o nome do fornecedor ou categoria*@
+                            <td>@(Fornecedor?.FirstOrDefault(f => f.CodF == Model.codF)?.Nome ?? "-")</td>
+                            <td>@(Categoria?.FirstOrDefault(c => c.CodCat == Model.codCat)?.NomeCategoria ?? "-")</td>
+                            <td>@Model.Quantidade</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div>
+                <h4>Subcategorias</h4>
+                @if (itemsub != null && subcat != null)
+                {
+                    // Cria uma variavel, onde ele cria nomes, para chamar as funções que estão com as viewbags
+                    // fazendo uma conexão entre elas, buscando somente os resultados conectados a aquela área.
+                    var subProd = from i in itemsub
+                                  join s in subcat on i.codSub equals s.codSub
+                                  select s.nomeSubcategoria;
+
+                    if (subProd.Any())
+                    {
+                        <ul>
+                            @foreach (var sub in subProd)
+                            {
+                                <li>@sub</li>
+                            }
+                        </ul>
+                    }
+
+                }                
+                else
+                {
+                    <p><i>Nenhuma subcategoria associada.</i></p>
+                }
+            </div>
+
+        </article>
+
+        <div>
+            @if(Model.Desconto == 0 || Model.Desconto == null)
+            {
+                <p>Preço:<strong>R$:@Model.Valor</strong></p>
+            }
+            else
+            {
+                var precoUnitario = @Model.Valor * (1 - @Model.Desconto / 100);
+                // É para poder realizar aquele traço no valor e adicionar o valor com o desconto na frente, para dar aquele efeito :D
+                <p>Preço: <strong>R$:@Model.Valor</strong> <strong>R$:@($"{precoUnitario}")</strong></p>
+            }
+        </div>
+        
+        <form asp-action="Add" asp-controller="Cart" method="post">
+            <label>Quantidade:</label>
+            <input type="number" name="quantidade" value="1" min="1"/>
+            <input type="hidden" name="codProd" value="@Model.codProd" />
+
+            <button type="submit" onclick="this.form.submit()">Adicionar ao carrinho</button>
+        </form>
+           
+
+    </section>
+
+
+    <script>
+        function trocarMidiaCentral(tipo, src) {
+            const container = document.getElementById("midiaCenterContainer");
+            container.innerHTML = "";
+
+            let midia;
+            if (tipo === "Imagem") {
+                midia = document.createElement("img");
+                midia.src = src;
+                midia.alt = "Imagem Principal";
+            } else if (tipo === "Video") {
+                midia = document.createElement("video");
+                midia.controls = true;
+                const source = document.createElement("source");
+                source.src = src;
+                source.type = "video/mp4";
+                midia.appendChild(source);
+            }
+
+            if (midia) {
+                midia.className = "img-fluid rounded shadow-sm fade-in"; 
+                container.appendChild(midia);
+            }
+        }
+
+        // Define a primeira mídia automaticamente ao carregar
+        document.addEventListener("DOMContentLoaded", function () {
+            const firstThumb = document.querySelector(".thumb[data-src]");
+            if (firstThumb) {
+                trocarMidiaCentral(firstThumb.dataset.tipo, firstThumb.dataset.src);
+            }
+        });
+
+
+    </script>
+
+</body>

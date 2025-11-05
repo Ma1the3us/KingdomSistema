@@ -15,7 +15,7 @@
             @foreach (var produto in Model)
             {
                 <div class="dItem">
-                    <strong style="text-align:center;">@produto.nomeProduto</strong>
+                    <a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@produto.codProd" style="text-align:center;">@produto.nomeProduto</a>
 
                     @if (produto.Imagens != null && produto.Imagens.Length > 0)
                     {

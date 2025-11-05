@@ -46,11 +46,11 @@ namespace MeuProjetoMVC.Controllers
         // Adicionar item
 
         [HttpPost]
-        public IActionResult Add(int codProd)
+        public IActionResult Add(int codProd, int quantidade)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
             
-            int quantidade = 1;
+            
             
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
