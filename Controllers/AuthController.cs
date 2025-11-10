@@ -63,6 +63,7 @@ namespace MeuProjetoMVC.Controllers
             var role = reader.GetString("Role");
             var ativo = reader.GetString("Ativo");
 
+            //Tem que redirecionar para a área de ativição do usuário quando for cliente.
             if (ativo != "1")
             {
                 ViewBag.Erro = "Usuário inativo. Contate o administrador.";

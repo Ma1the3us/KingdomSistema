@@ -1,5 +1,6 @@
 ﻿@model MeuProjetoMVC.Models.Produto;
-@using MeuProjetoMVC.Models
+@using MeuProjetoMVC.Models;
+@using MeuProjetoMVC.Autenticacao;
 
 @{
     TempData["title"] = Model.nomeProduto;
@@ -8,6 +9,9 @@
     var subcat = ViewBag.Subcategoria as List<Sub_Categoria>;
     var itemsub = ViewBag.ItemSub as List<ItemSubcategoria>;
     var midias = ViewBag.Midias as List<ProdutoMidia>;
+
+    var role = Context.Session.GetString(SessionKeys.UserRole);
+
 }
 
 
@@ -70,6 +74,11 @@
                     <p><i>Nenhuma mídia disponível.</i></p>
                 }
 
+                @if(role == "Funcionario" || role == "Admin")
+                {
+                    <a asp-action="Index" asp-controller="ProdutoMidia">Página de Midia do produto</a>
+                }
+
             </div>
         </div>
 
@@ -122,6 +131,11 @@
                 {
                     <p><i>Nenhuma subcategoria associada.</i></p>
                 }
+
+                @if(role == "Funcionario" || role == "Admin")
+                {
+                    <a asp-action="Index" asp-controller="ItemSub">Adicione subcategoria ao produto</a>
+                }
             </div>
 
         </article>
@@ -146,7 +160,6 @@
 
             <button type="submit" onclick="this.form.submit()">Adicionar ao carrinho</button>
         </form>
-           
 
     </section>
 

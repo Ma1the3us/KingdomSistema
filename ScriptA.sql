@@ -74,8 +74,6 @@ CREATE TABLE wishlist (
   FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario) ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE Avaliacao (
     codAvaliacao INT AUTO_INCREMENT PRIMARY KEY,
     codProd INT NOT NULL,
