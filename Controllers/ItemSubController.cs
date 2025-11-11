@@ -94,9 +94,21 @@ namespace MeuProjetoMVC.Controllers
                 cmd.ExecuteNonQuery();
             }
 
-            return RedirectToAction("Detalhes","Produto");
+            return RedirectToAction("Index","ItemSub",item.codProd);
         }
 
+
+        public IActionResult Excluir(int? codProd, int? codSub)
+        {
+            var conn = new MySqlConnection(_connectionString);
+            var cmd = new MySqlCommand(@"
+                Delete from Item_Subcategoria where codProd = @codPr and codSub = @codSu;
+                ", conn);
+            cmd.Parameters.AddWithValue("@codPr", codProd);
+            cmd.Parameters.AddWithValue("@codSu", codSub);
+
+            return RedirectToAction("Index", "ItemSub", codProd);
+        }
 
         public void Lista(int? codProd)
         {

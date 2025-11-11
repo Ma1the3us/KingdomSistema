@@ -58,7 +58,7 @@ CREATE TABLE Produto (
     Quantidade INT NOT NULL DEFAULT 1,
     quantidadeTotal INT NOT NULL DEFAULT 1,
     Valor DECIMAL(10,2),
-    Imagens varchar (255),
+    Imagens longblob,
     codCat INT,
     codF INT,
     Desconto decimal(10,2),
@@ -94,7 +94,8 @@ CREATE TABLE ProdutoMidia (
     codMidia INT AUTO_INCREMENT PRIMARY KEY,
     codProd INT NOT NULL,
     tipoMidia ENUM('Imagem', 'Video') NOT NULL,
-    midia varchar(255),
+    midia longblob,
+    Ordem int,
     FOREIGN KEY (codProd) REFERENCES Produto(codProd)
 );
 
@@ -242,7 +243,7 @@ CREATE TABLE Entrega_Produto (
     nomeProduto VARCHAR(100) NOT NULL,
     Valor DOUBLE,
     Quantidade INT,
-    Imagem  VARCHAR(255),
+    Imagem  longblob,
     codEntrega INT,
     PRIMARY KEY (codEntrega, codProd),
     FOREIGN KEY (codEntrega) REFERENCES Entrega(codEntrega),
@@ -283,7 +284,7 @@ CREATE TABLE ZetaJogos (
     Jogo LONGBLOB NOT NULL,
     jogoTipo VARCHAR(255) NOT NULL,
     codZetaV INT NOT NULL,
-    imagemCapa  VARCHAR(255) NULL,
+    imagemCapa  longblob NULL,
     classificacaoEtaria VARCHAR(10) NULL,
     categoria VARCHAR(100) NULL,
     FOREIGN KEY (codZetaV) REFERENCES ZetaVersoes(codZetaV)
@@ -326,7 +327,7 @@ CREATE PROCEDURE cadastrar_usuario(
     IN p_email VARCHAR(150),
     IN p_senha VARCHAR(255),
     IN p_telefone VARCHAR(15),
-    in p_foto varchar(255),
+    in p_foto longblob,
     in p_role varchar(30)
 )
 BEGIN
@@ -531,7 +532,7 @@ call cad_zeta_jog('teste', 'dsadasdsa', 'rtx', '1', 'adasdasd', '12', 'HORROR!!!
 Delimiter $$
 drop procedure if exists cad_Produto $$
 create procedure cad_Produto(p_quantidade int, 
- p_imagens varchar(255), p_valor double, p_descricao varchar(255), p_nomeproduto varchar(100), 
+ p_imagens longblob, p_valor double, p_descricao varchar(255), p_nomeproduto varchar(100), 
  p_categorias int, p_codfornecedor int,p_desconto decimal(10,2)) -- Codigo do fornecedor, vai ser pego via select
 begin
 
@@ -563,37 +564,43 @@ CALL  cad_produto(2, 'asasd', 12.20, 'ADSDSDSD', 'DSDS', 1, 1, 30);
 
 DELIMITER $$
 drop procedure if exists cad_midia_prod $$
-CREATE PROCEDURE cad_midia_prod (
-    IN p_midia  VARCHAR(255),
+CREATE  PROCEDURE cad_midia_prod(
+    IN p_midia  LONGBLOB,
     IN p_cod INT,
     IN p_tipomidia VARCHAR(10)
 )
 BEGIN
     DECLARE codP INT;
+    DECLARE proxOrdem INT;
 
     -- Verifica se o produto existe
-    SET codP = (SELECT codProd FROM Produto WHERE codProd = p_cod);
+    SELECT codProd INTO codP FROM Produto WHERE codProd = p_cod;
 
     IF codP IS NULL THEN
         SELECT 'Produto não encontrado.' AS Erro;
     ELSE
-        -- Verifica se a mídia já existe para esse produto com mesmo tipo e tipoMidia
+        -- Verifica se a mídia já existe para esse produto
         IF NOT EXISTS (
             SELECT 1 FROM ProdutoMidia
             WHERE midia = p_midia 
               AND tipoMidia = p_tipomidia 
               AND codProd = codP
         ) THEN
-            INSERT INTO ProdutoMidia (midia,  codProd, tipoMidia)
-            VALUES (p_midia,  codP, p_tipomidia);
+            -- Define a próxima ordem (pega o maior valor atual + 1)
+            SELECT IFNULL(MAX(ordem), 0) + 1 INTO proxOrdem
+            FROM ProdutoMidia
+            WHERE codProd = codP;
 
-            SELECT 'Imagem cadastrada com sucesso ao produto!' AS Sucesso;
+            -- Insere a nova mídia com a ordem calculada
+            INSERT INTO ProdutoMidia (midia, codProd, tipoMidia, ordem)
+            VALUES (p_midia, codP, p_tipomidia, proxOrdem);
+
+            SELECT CONCAT('Mídia cadastrada com sucesso! Ordem = ', proxOrdem) AS Sucesso;
         ELSE
-            SELECT CONCAT('Mídia já cadastrada para esse produto.') AS Erro;
+            SELECT 'Mídia já cadastrada para esse produto.' AS Erro;
         END IF;
     END IF;
-END $$
-
+END
 call cad_midia_prod('asdsdasd',1,'Video');
 
 
@@ -870,7 +877,7 @@ CREATE PROCEDURE alterar_usuario(
     IN p_email VARCHAR(150),
     IN p_senha VARCHAR(100),
     In p_telefone varchar(15),
-    in p_foto varchar(255)
+    in p_foto longblob
 )
 BEGIN
     UPDATE Usuario
@@ -895,7 +902,7 @@ CREATE PROCEDURE atualizar_usuario_adm(
     IN p_senha VARCHAR(255),
     IN p_role VARCHAR(50),
     in p_telefone varchar(15),
-    in p_foto varchar(255),
+    in p_foto longblob,
     in p_ativo varchar(1)
 )
 BEGIN
@@ -928,7 +935,8 @@ CREATE PROCEDURE editar_produto (
     IN p_descricao VARCHAR(255),
     IN p_cat INT,
     IN p_for INT,
-    in p_desconto decimal(10,2)
+    in p_desconto decimal(10,2),
+    in p_imagem longblob
 )
 BEGIN
     IF EXISTS (SELECT 1 FROM Produto WHERE codProd = p_cod) THEN
@@ -940,7 +948,8 @@ BEGIN
             nomeProduto = p_nome,
             codCat = p_cat,
             codF = p_for,
-            Desconto = p_desconto
+            Desconto = p_desconto,
+            Imagens = p_imagem
         WHERE codProd = p_cod;
 
         SELECT 'Produto atualizado com sucesso.' AS Mensagem;
@@ -960,7 +969,7 @@ begin
     where codF = f_cod;
 end $$
 
-
+/*
 DELIMITER $$ 
 drop procedure if exists editar_imagem_principal_prod $$
 CREATE PROCEDURE editar_imagem_principal_prod (
@@ -980,7 +989,7 @@ BEGIN
 END $$
 
 call editar_imagem_principal_prod(1, 'ADASD');
-
+*/
 DELIMITER $$
 drop procedure if exists editar_carrinho $$
 CREATE PROCEDURE editar_carrinho (
@@ -1094,7 +1103,7 @@ DELIMITER $$
 drop procedure if exists alterar_produto_midia $$
 CREATE PROCEDURE alterar_produto_midia (
     IN p_codProd INT,
-    IN p_midia  VARCHAR(255),
+    IN p_midia  longblob,
     IN p_tipoMidia ENUM('Imagem', 'Video')
 )
 BEGIN
@@ -1929,5 +1938,3 @@ BEGIN
     WHERE codUsuario = p_id;
 END $$
 DELIMITER ;
-
- 

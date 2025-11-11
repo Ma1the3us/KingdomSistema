@@ -53,7 +53,7 @@ namespace MeuProjetoMVC.Controllers
                 var codUsuario = Convert.ToInt32(reader["codUsuario"]);
                 reader.Close();
 
-                if (ativo == "S")
+                if (ativo == "1")
                 {
                     ViewBag.Erro = "Já existe um usuário ativo com este e-mail.";
                     return View(model);
