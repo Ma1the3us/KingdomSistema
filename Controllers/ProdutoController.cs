@@ -383,6 +383,8 @@ namespace MeuProjetoMVC.Controllers
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
             List<Categoria> cat = new List<Categoria>();
             using (var cmd = new MySqlCommand("SELECT codCat, nomeCategoria FROM Categorias ORDER BY nomeCategoria;", conn))
             using (var reader = cmd.ExecuteReader())
@@ -478,6 +480,27 @@ namespace MeuProjetoMVC.Controllers
             }
 
             ViewBag.Midias = midias;
+
+            List<wishlist> favoritos = new List<wishlist>();
+            using (var cmd = new MySqlCommand(@"select codProd, codUsuario from wishlist where codProd = @codP and codUsuario = @codU",conn))
+            {
+                cmd.Parameters.AddWithValue("@codP", codProd);
+                cmd.Parameters.AddWithValue("@codU", user);
+                var rd = cmd.ExecuteReader();
+
+                while(rd.Read())
+                {
+                    favoritos.Add(new wishlist
+                    {
+                        codProd = rd.GetInt32("codProd"),
+                        codUsuario= rd.GetInt32("codUsuario")
+                    });
+                    
+                        
+                }
+            }
+
+            ViewBag.Favoritos = favoritos;
 
         }
 

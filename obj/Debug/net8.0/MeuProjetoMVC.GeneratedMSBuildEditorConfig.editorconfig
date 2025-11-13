@@ -82,6 +82,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcUmVnaXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Favoritos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3JpdG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Fornecedores/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybmVjZWRvcmVzXENyaWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -104,6 +108,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Cadastrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXENhZGFzdHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXEVkaXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/Create.cshtml]

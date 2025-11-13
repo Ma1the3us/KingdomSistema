@@ -9,6 +9,8 @@
     var subcat = ViewBag.Subcategoria as List<Sub_Categoria>;
     var itemsub = ViewBag.ItemSub as List<ItemSubcategoria>;
     var midias = ViewBag.Midias as List<ProdutoMidia>;
+    var favoritos = ViewBag.Favoritos as List<wishlist>;
+
 
     var role = Context.Session.GetString(SessionKeys.UserRole);
 
@@ -73,6 +75,25 @@
                 {
                     <p><i>Nenhuma mídia disponível.</i></p>
                 }
+                <div id="msg"></div>
+
+                <div>
+
+                    @if (favoritos != null && favoritos.Any())
+                    {
+                        <button class="btn-remover" data-cod-prod="@Model.codProd" type="button">
+                            <img class="imagem-adicionar" src="/img/favorito-cheio.png" alt="Adicionado aos favoritos" />
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn-favorito" data-cod-prod="@Model.codProd" type="button">
+                            <img class="imagem-adicionar" src="/img/favorito-vazio.png" alt="Adicionar aos favoritos" />
+                        </button>
+                    }
+                    
+                </div>
+
 
                 @if(role == "Funcionario" || role == "Admin")
                 {
@@ -170,6 +191,7 @@
             container.innerHTML = "";
 
             let midia;
+
             if (tipo === "Imagem") {
                 midia = document.createElement("img");
                 midia.src = src;
@@ -194,6 +216,75 @@
             const firstThumb = document.querySelector(".thumb[data-src]");
             if (firstThumb) {
                 trocarMidiaCentral(firstThumb.dataset.tipo, firstThumb.dataset.src);
+            }
+        });
+
+        // 🔹 Adiciona um ouvinte global de cliques em todo o documento
+        // Isso permite capturar cliques em botões que podem ter sido adicionados dinamicamente.
+        document.addEventListener('click', function (e) {
+
+            // 🔹 Verifica se o elemento clicado (ou um ancestral dele) é um botão de favorito ou de remover
+            // `closest()` sobe na árvore do DOM e retorna o elemento que contém a classe indicada.
+            if (e.target.closest('.btn-favorito') || e.target.closest('.btn-remover')) {
+
+                // 🔹 Pega o botão em si (se clicou na imagem, por exemplo, ele ainda encontra o <button>)
+                const btn = e.target.closest('button');
+
+                // 🔹 Pega o código do produto (definido no atributo data-cod-prod do botão)
+                const codProd = btn.dataset.codProd;
+
+                // 🔹 Pega a imagem dentro do botão (ícone do coração, por exemplo)
+                const imagem = btn.querySelector('.imagem-adicionar');
+
+                // 🔹 Verifica se o botão atualmente é de "adicionar" (favoritar)
+                // Se for, `isFavorito` será true; se não, é um botão de "remover"
+                const isFavorito = btn.classList.contains('btn-favorito');
+
+                // 🔹 Define a rota que será chamada com o Fetch:
+                // se o botão for de adicionar, chama a rota de AdicionarFavorito;
+                // senão, chama a rota de ExcluirFavoritoPagina.
+                const rota = isFavorito ? '/Favoritos/AdicionarFavorito' : '/Favoritos/ExcluirFavoritoPagina';
+
+                // 🔹 Faz uma requisição assíncrona para o backend usando o Fetch API
+                fetch(rota, {
+                    method: 'POST', // Envia dados via POST
+                    headers: {
+                        'Content-Type': 'application/json', // O corpo da requisição será em JSON
+                        // Token antifalsificação do ASP.NET Core (necessário em formulários autenticados)
+                        'RequestVerificationToken': document.querySelector('input[name="_RequestVerificationToken"]').value
+                    },
+                    // 🔹 Converte o objeto { codProd } em JSON para envio
+                    body: JSON.stringify({ codProd: codProd })
+                })
+
+                    // 🔹 Quando o servidor responder, converte a resposta para JSON
+                    .then(res => res.json())
+
+                    // 🔹 Manipula os dados retornados pelo servidor
+                    .then(data => {
+                        // Se a operação deu certo...
+                        if (data.sucesso) {
+                            if (isFavorito) {
+                                // 🔸 Atualiza o botão visualmente para o estado "favorito"
+                                btn.classList.remove('btn-favorito');
+                                btn.classList.add('btn-remover');
+                                imagem.src = '/img/favorito-cheio.png';
+                                imagem.alt = 'Favoritado';
+                            } else {
+                                // 🔸 Atualiza o botão para o estado "não favorito"
+                                btn.classList.remove('btn-remover');
+                                btn.classList.add('btn-favorito');
+                                imagem.src = '/img/favorito-vazio.png';
+                                imagem.alt = 'Adicionar aos favoritos';
+                            }
+                        }
+
+                        // 🔹 Exibe a mensagem retornada pelo backend (por exemplo: “Adicionado aos favoritos!”)
+                        document.getElementById('msg').innerText = data.message;
+                    })
+
+                    // 🔹 Caso ocorra algum erro (ex: falha de rede), mostra no console
+                    .catch(err => console.error(err));
             }
         });
 

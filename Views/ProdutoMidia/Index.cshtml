@@ -1,0 +1,80 @@
+﻿@model List<MeuProjetoMVC.Models.ProdutoMidia>
+@{
+    ViewData["Title"] = "Mídias do Produto";
+    var produtos = ViewBag.Produtos as List<MeuProjetoMVC.Models.Produto>;
+    var produtoNome = produtos?.FirstOrDefault()?.nomeProduto ?? "Produto não identificado";
+    var codProd = produtos?.FirstOrDefault()?.codProd ?? 0;
+}
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🎬 Mídias de @produtoNome</h2>
+
+    <div class="mb-3 text-end">
+        <a asp-action="Cadastrar" asp-route-codProd="@codProd" class="btn btn-primary">
+            + Adicionar Nova Mídia
+        </a>
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Pré-visualização</th>
+                    <th>Ordem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var midia in Model)
+                {
+                    <tr class="text-center">
+                        <td>@midia.codMidia</td>
+                        <td>@midia.tipoMidia</td>
+                        <td>
+                            @if (midia.tipoMidia == "Imagem" && midia.midia != null)
+                            {
+                                var imgBase64 = Convert.ToBase64String(midia.midia);
+                                <img src="data:image/jpeg;base64,@imgBase64"
+                                     alt="Imagem"
+                                     style="max-height: 100px; border-radius: 6px;" />
+                            }
+                            else if (midia.tipoMidia == "Video" && midia.midia != null)
+                            {
+                                <video controls style="max-height: 100px; border-radius: 6px;">
+                                    <source src="data:video/mp4;base64,@Convert.ToBase64String(midia.midia)" type="video/mp4">
+                                </video>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Sem mídia</span>
+                            }
+                        </td>
+                        <td>@midia.Ordem</td>
+                        <td>
+                            <a asp-action="Editar"
+                               asp-route-codMidia="@midia.codMidia"
+                               asp-route-codProd="@midia.codProd"
+                               class="btn btn-warning btn-sm me-2">Editar</a>
+
+                            <a asp-action="Excluir"
+                               asp-route-codMidia="@midia.codMidia"
+                               asp-route-codProd="@midia.codProd"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Deseja realmente excluir esta mídia?')">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            Nenhuma mídia cadastrada para este produto.
+        </div>
+    }
+</div>

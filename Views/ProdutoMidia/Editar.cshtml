@@ -1,0 +1,51 @@
+﻿@model MeuProjetoMVC.Models.ProdutoMidia
+@{
+    ViewData["Title"] = "Editar Mídia";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">✏️ Editar Mídia</h2>
+
+    <form asp-action="Editar" asp-controller="ProdutoMidia" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+        <input type="hidden" name="codMidia" value="@Model.codMidia" />
+        <input type="hidden" name="codProd" value="@Model.codProd" />
+
+        <div class="mb-3">
+            <label for="tipoMidia" class="form-label">Tipo de Mídia</label>
+            <select class="form-select" name="tipoMidia" required>
+                <option value="Imagem" selected="@("Imagem" == Model.tipoMidia)">Imagem</option>
+                <option value="Video" selected="@("Video" == Model.tipoMidia)">Vídeo</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="midia" class="form-label">Substituir Arquivo (opcional)</label>
+            <input type="file" name="midia" class="form-control" accept="image/*,video/*" />
+        </div>
+
+        @if (Model.midia != null && Model.tipoMidia == "Imagem")
+        {
+            var imgBase64 = Convert.ToBase64String(Model.midia);
+            <div class="text-center mb-3">
+                <p><strong>Mídia Atual:</strong></p>
+                <img src="data:image/jpeg;base64,@imgBase64"
+                     alt="Imagem atual"
+                     style="max-height: 200px; border-radius: 10px;" />
+            </div>
+        }
+        else if (Model.midia != null && Model.tipoMidia == "Video")
+        {
+            <div class="text-center mb-3">
+                <p><strong>Mídia Atual:</strong></p>
+                <video controls style="max-height: 200px; border-radius: 10px;">
+                    <source src="data:video/mp4;base64,@Convert.ToBase64String(Model.midia)" type="video/mp4">
+                </video>
+            </div>
+        }
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Salvar Alterações</button>
+            <a asp-action="Index" asp-route-codProd="@Model.codProd" class="btn btn-secondary ms-2">Voltar</a>
+        </div>
+    </form>
+</div>

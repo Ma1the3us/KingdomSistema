@@ -1,0 +1,114 @@
+﻿@model List<MeuProjetoMVC.Models.wishlist>
+@{
+    ViewData["Title"] = "Favoritos";
+    var produtos = ViewBag.Produtos as List<MeuProjetoMVC.Models.Produto>;
+}
+
+@*Pedi para o chat montar, desgaste mental em 100%*@
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">⭐ Meus Favoritos</h2>
+
+    @if (produtos != null && produtos.Count > 0)
+    {
+        <div class="row">
+            @foreach (var p in produtos)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm p-2" style="border-radius: 12px;">
+                        <div class="text-center">
+                            @if (p.Imagens != null && p.Imagens.Length > 0)
+                            {
+                                var imgBase64 = Convert.ToBase64String(p.Imagens);
+                                <img src="data:image/jpeg;base64,@imgBase64"
+                                     alt="@p.nomeProduto"
+                                     class="card-img-top rounded"
+                                     style="height: 220px; object-fit: cover;" />
+                            }
+                            else
+                            {
+                                <img src="/img/sem-imagem.png"
+                                     alt="Sem imagem"
+                                     class="card-img-top rounded"
+                                     style="height: 220px; object-fit: cover;" />
+                            }
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@p.nomeProduto</h5>
+                            <p class="card-text text-muted" style="min-height: 60px;">
+                                @p.Descricao
+                            </p>
+                            <h6 class="text-center text-success mb-3">
+                                R$ @p.Valor
+                            </h6>
+
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-outline-danger btn-remover"
+                                        data-cod-prod="@p.codProd">
+                                    <img src="/img/favorito-cheio.png"
+                                         alt="Remover dos favoritos"
+                                         class="imagem-adicionar"
+                                         style="width: 24px; height: 24px;" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-5">
+            <h5>Você ainda não tem produtos favoritados 💔</h5>
+            <p>Explore nossos produtos e adicione aos favoritos!</p>
+            <a class="btn btn-primary" href="/Home/Index">Ver produtos</a>
+        </div>
+    }
+
+    <div id="msg" class="mt-4 text-center text-success fw-bold"></div>
+</div>
+
+@section Scripts {
+    <script>
+        // 🔹 Script responsável por adicionar e remover favoritos sem recarregar a página
+        document.addEventListener('click', function (e) {
+            // Se o clique foi em um botão de adicionar ou remover favoritos
+            if (e.target.closest('.btn-favorito') || e.target.closest('.btn-remover')) {
+                const btn = e.target.closest('button'); // Pega o botão
+                const codProd = btn.dataset.codProd; // Pega o código do produto
+                const imagem = btn.querySelector('.imagem-adicionar'); // Pega o ícone
+                const isFavorito = btn.classList.contains('btn-favorito'); // Verifica o estado atual
+
+                // Define a rota conforme o estado
+                const rota = isFavorito ? '/Favoritos/AdicionarFavorito' : '/Favoritos/ExcluirFavoritoPagina';
+
+                fetch(rota, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="_RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({ codProd: codProd })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        if (isFavorito) {
+                            btn.classList.remove('btn-favorito');
+                            btn.classList.add('btn-remover');
+                            imagem.src = '/img/favorito-cheio.png';
+                            imagem.alt = 'Favoritado';
+                        } else {
+                            // Remove o produto visualmente da página se ele foi removido
+                            btn.closest('.col-md-4').remove();
+                            document.getElementById('msg').innerText = data.mensagem;
+                        }
+                    }
+                })
+                .catch(err => console.error(err));
+            }
+        });
+    </script>
+}
