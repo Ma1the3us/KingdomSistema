@@ -60,6 +60,7 @@ namespace MeuProjetoMVC.Controllers
                 Quantidade,
                 Imagens        -- <--- ADICIONE ESTA COLUNA
             FROM Produto
+            Where Quantidade > 0
             ORDER BY codProd DESC";
 
                 using var cmd = new MySqlCommand(sql, conn);

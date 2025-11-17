@@ -11,8 +11,14 @@
     <h2 class="text-center mb-4">🎬 Mídias de @produtoNome</h2>
 
     <div class="mb-3 text-end">
+        <a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@codProd" class="btn btn-primary">
+            Voltar
+        </a>
+    </div>
+
+    <div class="mb-3 text-end">
         <a asp-action="Cadastrar" asp-route-codProd="@codProd" class="btn btn-primary">
-            + Adicionar Nova Mídia
+             Adicionar Nova Mídia
         </a>
     </div>
 

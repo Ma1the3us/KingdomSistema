@@ -21,7 +21,8 @@ namespace MeuProjetoMVC.Services
             var json = await response.Content.ReadAsStringAsync();
 
             // Desserializa o JSON para um objeto
-            var endereco = JsonSerializer.Deserialize<EnderecoResponse>(json);
+            var endereco = JsonSerializer.Deserialize<EnderecoResponse>(json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return endereco;
         }

@@ -155,7 +155,7 @@ CREATE TABLE Endereco_Entrega (
 CREATE TABLE Venda (
     codVenda INT AUTO_INCREMENT PRIMARY KEY,
     codUsuario INT,
-    valorTotalVenda DOUBLE,
+    valorTotalVenda decimal(10,2),
     formaPag enum ('Debito', 'Credito', 'Pix'),
     situacao enum ('Em andamento', 'Finalizada', 'Cancelada'),
     dataE DATE,
@@ -180,7 +180,7 @@ CREATE TABLE ItemCarrinho (
     codCarrinho INT NOT NULL,
     codProd INT NOT NULL,
     quantidade INT NOT NULL,
-    valorProduto DOUBLE NOT NULL,
+    valorProduto Decimal(10,2) NOT NULL,
     PRIMARY KEY (codCarrinho, codProd),
     FOREIGN KEY (codCarrinho) REFERENCES Carrinho(codCarrinho),
     FOREIGN KEY (codProd) REFERENCES Produto(codProd)
@@ -223,6 +223,7 @@ CREATE TABLE Entrega (
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
     FOREIGN KEY (codEnd) REFERENCES Endereco(codEndereco)
 );
+
 
 /*
 -- =============
@@ -693,71 +694,111 @@ BEGIN
     END IF;
 END $$
 
+
 call cad_fornecedor(1212131,'Delimiter');
 
+
 DELIMITER $$
-drop procedure if exists cad_carrinho $$
-CREATE PROCEDURE cad_carrinho (
-    IN p_cod INT,                -- Código do produto
-    IN ca_quantidade INT,        -- Quantidade que o cliente quer adicionar
-    IN c_codUsuario INT          -- Código do usuário logado
+DROP PROCEDURE IF EXISTS cad_carrinho $$
+CREATE PROCEDURE cad_carrinho(
+    IN p_cod INT,                -- Produto
+    IN ca_quantidade INT,        -- Quantidade
+    IN c_codUsuario INT          -- Usuário
 )
 BEGIN
-    DECLARE codP INT;            -- Código do produto
-    DECLARE codCa INT;           -- Código do carrinho
-    DECLARE codV INT;            -- Código da venda
-    DECLARE pQuantidade INT;     -- Quantidade em estoque do produto
-    DECLARE pValor DOUBLE;       -- Valor unitário do produto
-    DECLARE prDesconto DOUBLE;   -- Desconto em % se houver promoção
-    DECLARE vP DOUBLE;           -- Valor total do item com desconto e quantidade
-    DECLARE vT DOUBLE;           -- Valor total da venda (soma dos itens)
+    DECLARE codP INT;
+    DECLARE codCa INT;
+    DECLARE codV INT;
+    DECLARE pQuantidade INT;
+    DECLARE pValor DOUBLE;
+    DECLARE prDesconto DOUBLE;
+    DECLARE vP DOUBLE;
+    DECLARE vT DOUBLE;
 
     SET sql_safe_updates = 0;
 
-	bloco_principal: begin -- Serve como uma variavel de retorno
-    
-    -- Verificar se o usuário existe (opcional)
+    -- ===========================
+    -- 1) VERIFICA SE O USUÁRIO EXISTE
+    -- ===========================
     IF NOT EXISTS (SELECT 1 FROM Usuario WHERE codUsuario = c_codUsuario) THEN
-        SELECT 'Usuário não encontrado.' AS Erro;
-        leave bloco_principal; -- Força o retorno a caso não seja verdadeiro
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuário não encontrado.';
     END IF;
 
-    -- Obter dados do produto
+    -- ===========================
+    -- 2) VERIFICA SE EXISTE VENDA EM ANDAMENTO
+    -- ===========================
+    SET codV = (
+        SELECT codVenda 
+        FROM Venda 
+        WHERE codUsuario = c_codUsuario 
+        AND situacao = 'Em andamento'
+        LIMIT 1
+    );
+
+    -- ===========================
+    -- SE NÃO EXISTIR VENDA EM ANDAMENTO → CRIA VENDA NOVA + CARRINHO NOVO
+    -- ===========================
+    IF codV IS NULL THEN
+        INSERT INTO Venda (codUsuario, situacao, dataE)
+        VALUES (c_codUsuario, 'Em andamento', NOW());
+        
+        SET codV = LAST_INSERT_ID();
+
+        INSERT INTO Carrinho (codVenda, dataCriacao)
+        VALUES (codV, NOW());
+
+        SET codCa = LAST_INSERT_ID();
+    ELSE
+        -- SE EXISTE VENDA EM ANDAMENTO → PEGAR O CARRINHO DELA
+        SET codCa = (
+            SELECT codCarrinho 
+            FROM Carrinho 
+            WHERE codVenda = codV
+            LIMIT 1
+        );
+
+        -- Caso raro: venda existe mas carrinho não
+        IF codCa IS NULL THEN
+            INSERT INTO Carrinho (codVenda, dataCriacao)
+            VALUES (codV, NOW());
+
+            SET codCa = LAST_INSERT_ID();
+        END IF;
+    END IF;
+
+    -- ===========================
+    -- 3) BUSCA DADOS DO PRODUTO
+    -- ===========================
     SET codP = p_cod;
+
     SET pQuantidade = (SELECT Quantidade FROM Produto WHERE codProd = codP);
     SET pValor = (SELECT Valor FROM Produto WHERE codProd = codP);
     SET prDesconto = (SELECT Desconto FROM Produto WHERE codProd = codP);
 
-    -- Verificar estoque suficiente
+    IF pQuantidade IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Produto não encontrado.';
+    END IF;
+
+    -- ESTOQUE INSUFICIENTE
     IF pQuantidade < ca_quantidade THEN
-        SELECT 'Quantidade do produto insuficiente para realizar a compra.' AS Erro;
-		leave bloco_principal;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Quantidade insuficiente em estoque.';
     END IF;
 
-    -- Verificar se já existe uma venda "Em andamento" para o usuário
-    IF NOT EXISTS (
-        SELECT codVenda FROM Venda WHERE codUsuario = c_codUsuario AND situacao = 'Em andamento'
-    ) THEN
-        INSERT INTO Venda (codUsuario, situacao, dataE) VALUES (c_codUsuario, 'Em andamento', NOW());
-        SET codV = LAST_INSERT_ID();
-
-        INSERT INTO Carrinho (codVenda, dataCriacao) VALUES (codV, NOW());
-        SET codCa = LAST_INSERT_ID();
-    ELSE
-        SET codV = (SELECT codVenda FROM Venda WHERE codUsuario = c_codUsuario AND situacao = 'Em andamento' LIMIT 1);
-        SET codCa = (SELECT codCarrinho FROM Carrinho WHERE codVenda = codV LIMIT 1);
-    END IF;
-
-    -- Calcular valor total do item com desconto, se houver
+    -- ===========================
+    -- 4) CALCULA VALOR DO ITEM
+    -- ===========================
     IF prDesconto IS NOT NULL THEN
         SET vP = (pValor * (1 - prDesconto / 100)) * ca_quantidade;
     ELSE
         SET vP = pValor * ca_quantidade;
     END IF;
 
-    -- Inserir ou atualizar item no carrinho
+    -- ===========================
+    -- 5) INSERE OU ATUALIZA ITEM
+    -- ===========================
     IF NOT EXISTS (
-        SELECT codProd FROM ItemCarrinho WHERE codProd = codP AND codCarrinho = codCa
+        SELECT 1 FROM ItemCarrinho 
+        WHERE codCarrinho = codCa AND codProd = codP
     ) THEN
         INSERT INTO ItemCarrinho (codCarrinho, codProd, quantidade, valorProduto)
         VALUES (codCa, codP, ca_quantidade, vP);
@@ -768,26 +809,38 @@ BEGIN
         WHERE codCarrinho = codCa AND codProd = codP;
     END IF;
 
-    -- Atualizar estoque do produto
+    -- ===========================
+    -- 6) ATUALIZA ESTOQUE
+    -- ===========================
     UPDATE Produto
     SET Quantidade = Quantidade - ca_quantidade
     WHERE codProd = codP;
 
-    -- Atualizar valor total da venda
+    -- ===========================
+    -- 7) ATUALIZA VALOR TOTAL DA VENDA
+    -- ===========================
     SET vT = (
-        SELECT IFNULL(SUM(valorProduto), 0) FROM ItemCarrinho WHERE codCarrinho = codCa
+        SELECT IFNULL(SUM(valorProduto), 0)
+        FROM ItemCarrinho
+        WHERE codCarrinho = codCa
     );
 
     UPDATE Venda
     SET valorTotalVenda = vT
     WHERE codVenda = codV;
 
-	end bloco_principal; -- Retorna quando acabar
     SET sql_safe_updates = 1;
 
 END $$
+DELIMITER ;
 
-call cad_carrinho(1,2,2);
+select * from Carrinho;
+select * from Venda;
+select * from ItemCarrinho;
+select * from Produto;
+
+
+-- call cad_carrinho(1,2,2);
 
 DELIMITER $$
 drop procedure if exists inserir_favorito $$
@@ -1172,7 +1225,7 @@ BEGIN
             SET
                 codEnd = codEnderecoEntrega,
                 Numero = p_numero,
-                Complemento = NULL,
+                Complemento = p_complemento,
                 TipoEndereco = p_tipoEndereco,
                 Andar = p_andar,
                 NomePredio = p_nomePredio
@@ -1235,23 +1288,48 @@ Describe Entrega;
 -- É UM INSERIR E EDITAR DESTINATÁRIO, JÁ QUE OS CAMPOS SÃO O MESMO! E na verdade vai acontecer na mesma situação
 -- Já que na hora de incrementar a venda, ela não vai efetuar ou no caso, inserir diretamente os dados, vai ser necessário utilizar esse update para que funcione
 
-Delimiter $$
-drop procedure if exists atualizar_Destinatario $$
-create procedure atualizar_Destinatario(e_cod int, e_nome varchar(100), e_email varchar(150))
-begin 
+DELIMITER $$ -- (Nova versão)
+DROP PROCEDURE IF EXISTS atualizar_Destinatario $$
+CREATE PROCEDURE atualizar_Destinatario (
+    IN u_cod INT,               -- código do usuário
+    IN v_cod INT,               -- código da venda
+    IN e_nome VARCHAR(100),
+    IN e_email VARCHAR(150)
+)
+BEGIN
+    DECLARE codE INT;
+    DECLARE situacaoEntrega VARCHAR(30);
+    DECLARE mensagemLog TEXT;
 
-if exists (select codEntrega from Entrega where codEntrega = e_cod)
-		then
-		Update Entrega
-		set nomeDestinatario = e_nome, emailDestinatario = e_email
-        where codEntrega = e_cod;
- else       
-	select 'Erro ao cadastrar o destinatário da entrega' as Erro;
-    
-    end if;
-end $$
+    -- Busca a entrega vinculada ao usuário e à venda
+    SELECT codEntrega, Situacao
+    INTO codE, situacaoEntrega
+    FROM Entrega
+    WHERE codUsuario = u_cod AND codVenda = v_cod
+    LIMIT 1;
 
-call atualizar_Destinatario(1,'MARIO BIGOEDE', 'teste@gmail.com');
+    -- Verifica se a entrega existe
+    IF codE IS NOT NULL THEN
+        -- Atualiza os dados do destinatário
+        UPDATE Entrega
+        SET nomeDestinatario = e_nome,
+            emailDestinatario = e_email
+        WHERE codEntrega = codE;
+
+        SET mensagemLog = CONCAT('Entrega ', codE, ': Destinatário atualizado com sucesso.');
+        INSERT INTO log_debug (mensagem, dataLog) VALUES (mensagemLog, NOW());
+
+        SELECT 'Destinatário atualizado com sucesso!' AS Sucesso;
+    ELSE
+        SET mensagemLog = CONCAT('Erro: Entrega não encontrada para usuario ', u_cod, ' e venda ', v_cod, '.');
+        INSERT INTO log_debug (mensagem, dataLog) VALUES (mensagemLog, NOW());
+
+        SELECT 'Erro: Entrega não encontrada para este usuário e venda.' AS Erro;
+    END IF;
+
+END $$
+
+DELIMITER ;call atualizar_Destinatario(1,'MARIO BIGOEDE', 'teste@gmail.com');
 
 select * from Entrega;
 
@@ -1335,7 +1413,7 @@ BEGIN
 END $$
 
 DELIMITER ;
-call inserir_formaPagamento(2,'Pix');
+-- call inserir_formaPagamento(2,'Pix');
 -- =======================
 -- PROCEDURES DE DELETE!!!
 -- =======================
@@ -1415,7 +1493,6 @@ describe Venda;
 
 -- ???
 DELIMITER $$
-
 DROP PROCEDURE IF EXISTS concluir_compra $$
 CREATE PROCEDURE concluir_compra(
     IN u_cod INT,                 -- Código do usuário
@@ -1570,6 +1647,10 @@ BEGIN
 END $$
 DELIMITER ;
 
+select * from Carrinho;
+select * from ItemCarrinho;
+select * from Venda;
+
 Delimiter $$
 drop procedure if exists deletar_fornecedor $$
 create procedure deletar_fornecedor(f_cod int)
@@ -1584,7 +1665,6 @@ select * from Venda;
 select * from ItemCarrinho;
  -- call concluir_compra(2,1, null,30);
 
-select * from Entrega;
 select * from Venda;
 select * from Log_debug;
 select * from Comprovante;
@@ -1938,3 +2018,28 @@ BEGIN
     WHERE codUsuario = p_id;
 END $$
 DELIMITER ;
+
+Delimiter $$
+drop procedure if exists sp_listar_vendas $$
+create procedure sp_listar_vendas(in n_u varchar(100), in s_t varchar(100))
+begin
+
+    Select Distinct
+    v.codVenda,
+    v.codUsuario,
+    v.situacao,
+    v.dataE,
+    u.Nome
+    From Venda v
+    inner join Usuario u on v.codUsuario = u.codUsuario
+    where
+    ((n_u is not null and n_u <>'' and u.Nome like concat('%', n_u, '%'))
+        or
+     (s_t is not null and s_t <>'' and v.situacao like concat('%',s_t,'%'))
+        or 
+     ((n_u is null or s_t = '') and (s_t is null or n_u=''))
+    )
+    order by u.Nome;
+
+end $$
+Delimiter ;

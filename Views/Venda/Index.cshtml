@@ -1,0 +1,124 @@
+﻿@model List<CartItem>
+    @{
+        ViewData["Title"] = "Finalizar Compra";
+        var produtos = ViewBag.ProdutoNome as List<Produto>;
+    }
+
+    <h2>Finalização da Compra</h2>
+
+    <h4>Itens do Pedido</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Qtd</th>
+                <th>Valor</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                var prod = produtos[i];
+
+                <tr>
+                    <td>@prod.nomeProduto</td>
+                    <td>@item.Quantidade</td>
+                    <td>R$ @item.Valor</td>
+                    <td>R$ @(item.Valor * item.Quantidade)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr />
+
+    <h4>Forma de Retirada</h4>
+
+    <select id="tipoRetirada" class="form-control" style="max-width:300px;" onchange="toggleCep()">
+        <option value="Entrega">Entrega</option>
+        <option value="Local">Retirar no Local</option>
+    </select>
+
+    <hr />
+
+    <div id="cepBox">
+        <h4>CEP para Entrega</h4>
+        <input id="cep" class="form-control" placeholder="00000-000" style="max-width:200px;" />
+    </div>
+
+    <hr />
+
+    <h4>Forma de Pagamento</h4>
+    <select id="formaPagamento" class="form-control" style="max-width:300px;">
+        <option value="">Selecione...</option>
+        <option value="Pix">Pix</option>
+        <option value="Cartão Crédito">Cartão Crédito</option>
+        <option value="Boleto">Boleto</option>
+    </select>
+
+    <button class="btn btn-primary mt-2" onclick="salvarPagamento()">Salvar Forma</button>
+    <div id="msgForma" class="mt-2"></div>
+
+    <hr />
+
+    <button class="btn btn-success" onclick="concluir()">Concluir Compra</button>
+
+    <script>
+        function toggleCep() {
+            let tipo = document.getElementById("tipoRetirada").value;
+            let box = document.getElementById("cepBox");
+
+            if (tipo === "Local")
+                box.style.display = "none";
+            else
+                box.style.display = "block";
+        }
+
+        function salvarPagamento() {
+            let forma = document.getElementById("formaPagamento").value;
+
+            if (!forma) {
+                alert("Selecione uma forma de pagamento!");
+                return;
+            }
+
+            fetch("/Venda/FormaPagamentoAsync?forma=" + forma)
+                .then(r => r.text())
+                .then(msg => {
+                    document.getElementById("msgForma").innerHTML =
+                        `<div class="alert alert-success">${msg}</div>`;
+                });
+        }
+
+async function concluir() {
+    let tipo = document.getElementById("tipoRetirada").value;
+    let cep = document.getElementById("cep").value;
+
+    if (tipo === "Entrega" && !cep) {
+        alert("Digite o CEP para entrega!");
+        return;
+    }
+
+    const response = await fetch("/Venda/ConcluirCompra", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            tipoRetirada: tipo,
+            cep: cep
+        })
+    });
+
+    const result = await response.json();
+
+    if (result.sucesso) {
+        alert("Compra concluída! Total final: R$ " + result.valorFinal.toFixed(2));
+        console.log("Endereço:", result.endereco);
+        window.location.href = '/Entrega/';
+    } else {
+        alert("Erro: " + result.mensagem);
+    }
+}
+
+    </script>

@@ -1,0 +1,46 @@
+﻿@model List<ItemSubcategoria>
+
+@{
+    TempData["Title"] = "Item Subcategoria";
+    int codProd = Model.FirstOrDefault()?.codProd ?? 0;
+}
+ 
+<h2>Item Subcategorias</h2>
+
+<div class="mb-3 text-end">
+    <a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@codProd" class="btn btn-primary">
+        Voltar
+    </a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Código Produto</th>
+            <th>Código Subcategoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.codProd</td>
+                <td>@item.codSub</td>
+                <td>
+                    <form asp-action="Excluir" method="post">
+                       <input type="hidden" asp-for="@item.codProd" />
+                       <input type="hidden" asp-for="@item.codSub" />
+                       <button type="submit" onclick="return confirm('Deseja apagar essa subcategoria, vinculada a este item?')"><img src="" alt="Excluir"/></button>
+                    </form>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Salvar" asp-route-codProd="@Model.FirstOrDefault()?.codProd">
+    Adicionar Subcategorias
+</a>

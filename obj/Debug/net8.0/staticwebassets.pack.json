@@ -1,316 +1,320 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\MeuProjetoMVC.bundle.scp.css",
-      "PackagePath": "staticwebassets\\MeuProjetoMVC.bundle.scp.css"
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\MeuProjetoMVC.bundle.scp.css",
+      "PackagePath": "staticwebassets\\MeuProjetoMVC.kkao5t2kpq.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\carrinho.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\carrinho.css",
       "PackagePath": "staticwebassets\\css\\carrinho.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\excluir.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\excluir.css",
       "PackagePath": "staticwebassets\\css\\excluir.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\form.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\form.css",
       "PackagePath": "staticwebassets\\css\\form.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\lista.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\lista.css",
       "PackagePath": "staticwebassets\\css\\lista.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\css\\vitrine.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\css\\vitrine.css",
       "PackagePath": "staticwebassets\\css\\vitrine.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\Kingdom.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\Kingdom.png",
       "PackagePath": "staticwebassets\\img\\Kingdom.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\KingdomOfGamesLogoVet1.ico",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\KingdomOfGamesLogoVet1.ico",
       "PackagePath": "staticwebassets\\img\\KingdomOfGamesLogoVet1.ico"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\KingdomOfGamesLogoVet1.svg",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\KingdomOfGamesLogoVet1.svg",
       "PackagePath": "staticwebassets\\img\\KingdomOfGamesLogoVet1.svg"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\editar.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\editar.png",
       "PackagePath": "staticwebassets\\img\\editar.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\emailIco.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\emailIco.png",
       "PackagePath": "staticwebassets\\img\\emailIco.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\img\\usuario.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\img\\usuario.png",
       "PackagePath": "staticwebassets\\img\\usuario.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\GTA-V-Logo-PNG-Free-Image.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\GTA-V-Logo-PNG-Free-Image.png",
       "PackagePath": "staticwebassets\\midia\\GTA-V-Logo-PNG-Free-Image.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\God-Of-War-Logo-Free-PNG-Clip-Art.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\God-Of-War-Logo-Free-PNG-Clip-Art.png",
       "PackagePath": "staticwebassets\\midia\\God-Of-War-Logo-Free-PNG-Clip-Art.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\The-Last-of-Us-Game-Download-Free-PNG.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\The-Last-of-Us-Game-Download-Free-PNG.png",
       "PackagePath": "staticwebassets\\midia\\The-Last-of-Us-Game-Download-Free-PNG.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\Watch-Dogs-Black-Logo-Transparent-Image.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\Watch-Dogs-Black-Logo-Transparent-Image.png",
       "PackagePath": "staticwebassets\\midia\\Watch-Dogs-Black-Logo-Transparent-Image.png"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\gta5-360-1-t1l95jg3bm.webp",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\gta5-360-1-t1l95jg3bm.webp",
       "PackagePath": "staticwebassets\\midia\\gta5-360-1-t1l95jg3bm.webp"
     },
     {
-      "Id": "C:\\Users\\gatin\\OneDrive\\Área de Trabalho\\KingdomSistema\\wwwroot\\midia\\pngkey.com-zombies-png-279558.png",
+      "Id": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\wwwroot\\midia\\pngkey.com-zombies-png-279558.png",
       "PackagePath": "staticwebassets\\midia\\pngkey.com-zombies-png-279558.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MeuProjetoMVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MeuProjetoMVC.Microsoft.AspNetCore.StaticWebAssets.props",

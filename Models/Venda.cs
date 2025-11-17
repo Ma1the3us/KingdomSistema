@@ -6,7 +6,7 @@
 
         public int? codUsuario { get; set; }
 
-        public double? valorTotalVenda { get; set; }
+        public Decimal? valorTotalVenda { get; set; }
 
         public string? formaPag { get; set; }
 

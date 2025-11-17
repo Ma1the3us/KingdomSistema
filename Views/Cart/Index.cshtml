@@ -83,30 +83,8 @@ else
 
 
         </section>
-        <section style="margin-top: -10px;">
-            <form method="post" asp-action="Checkout" id="formCheckout">
-                <h3 style="text-align:center;">Finalizar Compra</h3>
-                <div>
-                    <label>Nome do Cliente:</label>
-                    <input type="text" name="nomeCliente" required />
-                </div>
-
-                <div>
-                    <label>Email:</label>
-                    <input type="email" name="emailCliente" required />
-                </div>
-
-                <div>
-                    <label>Forma de Pagamento:</label>
-                    <select name="formaPagamento" required>
-                        <option value="PIX">PIX</option>
-                        <option value="Credito">Crédito</option>
-                        <option value="Parcelado 6x">Parcelado 6x sem juros</option>
-                    </select>
-                </div>
-
-                <button type="submit">Concluir Compra</button>
-            </form>
+        <section>
+                 <a href="/Venda/Index" class="btn btn-success">Finalizar Compra</a>
         </section>
     </div>
 }

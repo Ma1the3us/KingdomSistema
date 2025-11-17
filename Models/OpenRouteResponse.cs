@@ -4,20 +4,26 @@ namespace MeuProjetoMVC.Models
 {
     public class OpenRouteResponse
     {
-        [JsonPropertyName("features")]
-        public Feature[] Features { get; set; }
+        [JsonPropertyName("routes")]
+        public Route[] Routes { get; set; }
     }
 
-    public class Feature
+    public class Route
     {
-        [JsonPropertyName("properties")]
-        public Properties Properties { get; set; }
-    }
+        [JsonPropertyName("summary")]
+        public Summary Summary { get; set; }
 
-    public class Properties
-    {
         [JsonPropertyName("segments")]
         public Segment[] Segments { get; set; }
+    }
+
+    public class Summary
+    {
+        [JsonPropertyName("distance")]
+        public double Distance { get; set; }
+
+        [JsonPropertyName("duration")]
+        public double Duration { get; set; }
     }
 
     public class Segment
@@ -26,7 +32,7 @@ namespace MeuProjetoMVC.Models
         public double Distance { get; set; }
 
         [JsonPropertyName("duration")]
-        public double Duration { get; set; } // opcional
+        public double Duration { get; set; }
     }
 
     public class Coordenadas

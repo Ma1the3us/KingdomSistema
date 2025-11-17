@@ -3,7 +3,7 @@ using MeuProjetoMVC.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<IEnderecoService, EnderecoService>();
-builder.Services.AddHttpClient<IFreteServices, FreteSerivce>();
+builder.Services.AddHttpClient<IFreteServices, FreteService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
