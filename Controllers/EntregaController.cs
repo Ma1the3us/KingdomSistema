@@ -35,12 +35,6 @@ namespace MeuProjetoMVC.Controllers
                 return Unauthorized();
 
 
-            if(req.tipoEndereco == "Casa")
-            {
-                req.Andar = null;
-                req.NomePredio = null;
-            }
-            
             try
             {
                 var conn = new MySqlConnection(_connectionString);

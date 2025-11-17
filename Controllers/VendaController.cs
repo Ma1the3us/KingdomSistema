@@ -31,13 +31,14 @@ namespace MeuProjetoMVC.Controllers
             var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
+            List<Venda> venda = new List<Venda>();
             List<CartItem> carrinho = new List<CartItem>();
             List<Produto> produto = new List<Produto>();
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
             using var cmd = new MySqlCommand(@"
                Select
-                ic.codProd, ic.codCarrinho,ic.quantidade, ic.valorProduto, p.nomeProduto
+                ic.codProd, ic.codCarrinho,ic.quantidade,v.codVenda, ic.valorProduto, p.nomeProduto
                 From ItemCarrinho ic
                 Inner Join Carrinho c on ic.codCarrinho = c.codCarrinho
                 Inner Join Venda v on c.codVenda = v.codVenda
@@ -62,8 +63,13 @@ namespace MeuProjetoMVC.Controllers
                 {
                     nomeProduto = rd.GetString("nomeProduto")
                 });
-            }
+                venda.Add(new Venda
+                {
+                    codVenda = rd.GetInt32("codVenda")
+                });
 
+            }
+            ViewBag.codVenda = venda;
             ViewBag.ProdutoNome = produto;
             return View(carrinho);
         }
@@ -145,6 +151,7 @@ namespace MeuProjetoMVC.Controllers
             // ===============================
             string mensagem = "";
             double valorFinal = 0;
+                       
 
             using (var conn = new MySqlConnection(_connectionString))
             {
@@ -170,7 +177,9 @@ namespace MeuProjetoMVC.Controllers
                         valorFinal = Convert.ToDouble(rd["ValorFinalComFrete"]);
                 }
             }
+           
 
+            ViewBag.Endereco = entrega;
             // Retorna os dados para o JavaScript
             return Json(new
             {
