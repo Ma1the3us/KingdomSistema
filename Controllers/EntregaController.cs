@@ -2,7 +2,7 @@
 using MeuProjetoMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Ocsp;
+using System.Text.Json;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -10,36 +10,53 @@ namespace MeuProjetoMVC.Controllers
     {
         private readonly string _connectionString;
 
-        EntregaController(IConfiguration configuration)
+        public EntregaController(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new ArgumentNullException("Connection string não encontrada");
+                ?? throw new ArgumentNullException("Connection string não encontrada");
         }
 
-        public IActionResult Index()
+        // =============================
+        // EXIBE A PÁGINA DE ENTREGA
+        // =============================
+        public IActionResult DadosEntrega(int codVenda, string retirada)
         {
+            EnderecoEntrega entrega = null;
+
+            if (TempData["Endereco"] != null)
+            {
+                entrega = JsonSerializer.Deserialize<EnderecoEntrega>(TempData["Endereco"].ToString());
+            }
+
+            ViewBag.Endereco = entrega;
+
             return View();
         }
 
-        public IActionResult DadosEntrega(int? codVenda, string? retirada)
-        { 
-            return View();
-        }
-
-        public IActionResult DadosCliente([FromBody] EnderecoEntrega endreq, Entrega req)
+        // ==================================
+        // SALVA DADOS DO ENDEREÇO
+        // ==================================
+        [HttpPost]
+        public IActionResult DadosCliente([FromBody] DadosEntregaDTO dto)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
             if (user == null || user == 0)
                 return Unauthorized();
 
+            var endreq = dto.Endereco;
+            var req = dto.Entrega;
 
             try
             {
-                var conn = new MySqlConnection(_connectionString);
+                using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
-                using var cmd = new MySqlCommand("atualizar_dados_entrega_cliente", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+                using var cmd = new MySqlCommand("atualizar_dados_entrega_cliente", conn)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+
                 cmd.Parameters.AddWithValue("u_cod", user);
                 cmd.Parameters.AddWithValue("v_cod", req.codVenda);
                 cmd.Parameters.AddWithValue("p_cep", endreq.Cep);
@@ -52,28 +69,22 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_estado", endreq.Estado);
                 cmd.Parameters.AddWithValue("p_bairro", endreq.Bairro);
                 cmd.Parameters.AddWithValue("p_cidade", endreq.Cidade);
+
                 cmd.ExecuteNonQuery();
 
-                return Json(new
-                {
-                    sucesso = true,
-                    mensagem = "Dados registrados com sucesso",
-                    P = 1
-                });
-            
+                return Json(new { sucesso = true, mensagem = "Dados salvos!" });
             }
             catch (MySqlException ex)
             {
-                return Json(new
-                {
-                    sucesso = false,
-                    mensagem = "Erro ao realizar o registro de dados. Execessão:" + ex,
-                    p = 0
-                });
+                return Json(new { sucesso = false, mensagem = ex.Message });
             }
         }
 
-        public IActionResult Destinatario([FromBody] Entrega req) 
+        // ==================================
+        // SALVA DESTINATÁRIO
+        // ==================================
+        [HttpPost]
+        public IActionResult Destinatario([FromBody] Entrega req)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
@@ -82,35 +93,27 @@ namespace MeuProjetoMVC.Controllers
 
             try
             {
-                var conn = new MySqlConnection(_connectionString);
+                using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
-                using var cmd = new MySqlCommand("atualizar_Destinatario", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+                using var cmd = new MySqlCommand("atualizar_Destinatario", conn)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+
                 cmd.Parameters.AddWithValue("u_cod", user);
                 cmd.Parameters.AddWithValue("v_cod", req.codVenda);
                 cmd.Parameters.AddWithValue("e_nome", req.nomeDestinatario);
-                cmd.Parameters.AddWithValue("v_cod", req.emailDestinatario);
+                cmd.Parameters.AddWithValue("e_email", req.emailDestinatario);
 
                 cmd.ExecuteNonQuery();
 
-                return Json(new
-                {
-                    sucesso = true,
-                    mensagem = "Dados registrados com sucesso",
-                    P = 2
-                });
-
+                return Json(new { sucesso = true, mensagem = "Destinatário salvo!" });
             }
             catch (MySqlException ex)
             {
-                return Json(new
-                {
-                    sucesso = false,
-                    mensagem = "Erro ao realizar o registro de dados. Execessão:" + ex,
-                    p = 0
-                });
+                return Json(new { sucesso = false, mensagem = ex.Message });
             }
         }
-
     }
 }

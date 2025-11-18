@@ -177,9 +177,9 @@ namespace MeuProjetoMVC.Controllers
                         valorFinal = Convert.ToDouble(rd["ValorFinalComFrete"]);
                 }
             }
-           
 
-            ViewBag.Endereco = entrega;
+
+            TempData["Endereco"] = JsonSerializer.Serialize(entrega);
             // Retorna os dados para o JavaScript
             return Json(new
             {

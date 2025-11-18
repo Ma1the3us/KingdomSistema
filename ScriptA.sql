@@ -20,7 +20,6 @@ CREATE TABLE Usuario (
     Foto longblob
 );
 
-
 -- =====================================================
 -- TABELA Fornecedor
 -- =====================================================
@@ -125,23 +124,12 @@ CREATE TABLE Cartao_Clie (
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
 );
 
--- =====================================================
--- TABELA Endereco
--- =====================================================
-CREATE TABLE Endereco (
-    codEndereco INT AUTO_INCREMENT PRIMARY KEY,
-    Cep VARCHAR(10) NOT NULL,
-    Logradouro VARCHAR(100) NOT NULL,
-    Estado VARCHAR(100),
-    Bairro VARCHAR(100),
-    Cidade VARCHAR(100)
-);
 
 -- =====================================================
 -- TABELA Endereco_Entrega
 -- =====================================================
 CREATE TABLE Endereco_Entrega (
-    codEndereco INT PRIMARY KEY,
+    codEndereco INT PRIMARY KEY AUTO_INCREMENT PRIMARY KEY,
     Cep VARCHAR(10),
     Logradouro VARCHAR(100),
     Estado VARCHAR(100),
@@ -221,7 +209,7 @@ CREATE TABLE Entrega (
     retirada enum ('Local','Entrega'),
     FOREIGN KEY (codVenda) REFERENCES Venda(codVenda),
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
-    FOREIGN KEY (codEnd) REFERENCES Endereco(codEndereco)
+    FOREIGN KEY (codEnd) REFERENCES Endereco_Entrega(codEndereco)
 );
 
 
@@ -1169,6 +1157,11 @@ END $$
 
 call alterar_produto_midia(1,'sasdsadasd','Imagem');
 
+select * from Endereco_Entrega;
+select * from Entrega;
+select * from Entrega_Produto;
+
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS atualizar_dados_entrega_cliente $$
 CREATE PROCEDURE atualizar_dados_entrega_cliente (
@@ -1203,7 +1196,7 @@ BEGIN
 
         -- Verifica se endereço existe pelo CEP, logradouro, estado, bairro e cidade
         SELECT codEndereco INTO codEnderecoEntrega
-        FROM Endereco
+        FROM Endereco_Entrega
         WHERE Cep = p_cep
           AND Logradouro = p_logradouro
           AND Estado = p_estado
@@ -1213,7 +1206,7 @@ BEGIN
 
         -- Se não existe, cria novo endereço
         IF codEnderecoEntrega IS NULL THEN
-            INSERT INTO Endereco (Cep, Logradouro, Estado, Bairro, Cidade)
+            INSERT INTO Endereco_Entrega (Cep, Logradouro, Estado, Bairro, Cidade)
             VALUES (p_cep, p_logradouro, p_estado, p_bairro, p_cidade);
 
             SET codEnderecoEntrega = LAST_INSERT_ID();
@@ -1284,13 +1277,13 @@ call atualizar_dados_entrega_cliente(2,1,'10','12','1asda','casa','12','sada','a
 
 select * from Entrega;
 Describe Entrega;
-
+select *  from Usuario;
 -- É UM INSERIR E EDITAR DESTINATÁRIO, JÁ QUE OS CAMPOS SÃO O MESMO! E na verdade vai acontecer na mesma situação
 -- Já que na hora de incrementar a venda, ela não vai efetuar ou no caso, inserir diretamente os dados, vai ser necessário utilizar esse update para que funcione
-
-DELIMITER $$ -- (Nova versão)
+-- (Nova versão)
+DELIMITER $$ 
 DROP PROCEDURE IF EXISTS atualizar_Destinatario $$
-CREATE PROCEDURE atualizar_Destinatario (
+CREATE PROCEDURE atualizar_Destinatario(
     IN u_cod INT,               -- código do usuário
     IN v_cod INT,               -- código da venda
     IN e_nome VARCHAR(100),
@@ -1329,9 +1322,9 @@ BEGIN
 
 END $$
 
-DELIMITER ;call atualizar_Destinatario(1,'MARIO BIGOEDE', 'teste@gmail.com');
+DELIMITER ;
 
-select * from Entrega;
+-- call atualizar_Destinatario(1,'MARIO BIGOEDE', 'teste@gmail.com');
 
 DELIMITER $$
 drop procedure if exists atualizar_avaliacao $$
