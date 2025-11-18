@@ -26,7 +26,7 @@ namespace MeuProjetoMVC.Controllers
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
-            quantidade = 1;
+           
 
             if (user == null)
             {
@@ -114,7 +114,7 @@ namespace MeuProjetoMVC.Controllers
                 {
                     codProd = rd.GetInt32("codProd"),
                     nomeProduto = rd.GetString("nomeProduto"),
-                    Valor = rd.GetDouble("Valor"),
+                    Valor = rd.GetDecimal("Valor"),
                     Imagens = rd["Imagens"] is DBNull ? Array.Empty<byte>() : (byte[])rd["Imagens"]
                 });
             }

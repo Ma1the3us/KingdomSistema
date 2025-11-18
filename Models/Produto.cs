@@ -1,7 +1,7 @@
 namespace MeuProjetoMVC.Models
 {
     public class Produto
-{
+    {
         public int codProd { get; set; }
 
         public string nomeProduto { get; set; } = string.Empty;
@@ -14,13 +14,12 @@ namespace MeuProjetoMVC.Models
 
         public byte[] Imagens { get; set; } = Array.Empty<byte>();
 
-        public double? Valor { get; set; }
-    
+        public decimal? Valor { get; set; }      // ALTERADO PARA DECIMAL
+
         public int? codCat { get; set; }
-        
+
         public int? codF { get; set; }
 
-        public double? Desconto { get; set; }
+        public decimal? Desconto { get; set; }   // ALTERADO PARA DECIMAL
     }
-
 }

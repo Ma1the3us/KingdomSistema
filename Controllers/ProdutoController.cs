@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
+using System.Globalization;
 
 namespace MeuProjetoMVC.Controllers
 {
+
     [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
     public class ProdutoController : Controller
     {
@@ -140,7 +142,7 @@ namespace MeuProjetoMVC.Controllers
                 {
                     codProd = reader["codProd"] != DBNull.Value ? Convert.ToInt32(reader["codProd"]) : 0,
                     Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0,
-                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
+                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0,
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
                     quantidadeTotal = reader["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(reader["quantidadeTotal"]) : 0,
@@ -157,13 +159,18 @@ namespace MeuProjetoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Produto produto, IFormFile midia)
+        public IActionResult Edit(Produto produto, IFormFile? midia)
         {
             if (!ModelState.IsValid)
             {
-                RecarregarListas(); return View(produto);
+                RecarregarListas(); 
+                return View(produto);
             }
 
+            Produto? imagems = null;
+
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
             try
             {
                 if (midia != null && midia.Length > 0)
@@ -172,23 +179,47 @@ namespace MeuProjetoMVC.Controllers
                     midia.CopyTo(ms);
                     produto.Imagens = ms.ToArray();
                 }
-
-                if(produto.Quantidade > produto.quantidadeTotal)
+                else
                 {
-                    produto.quantidadeTotal = produto.Quantidade;
+   
+                    using var cmd2 = new MySqlCommand(
+                        "SELECT Imagens, quantidadeTotal FROM Produto WHERE codProd = @cod;", conn);
+
+                    cmd2.Parameters.AddWithValue("@cod", produto.codProd);
+
+                    using var rd2 = cmd2.ExecuteReader();
+
+                    byte[] imagemAntiga = Array.Empty<byte>();
+                    int quantidadeTotalAntiga = 0;
+
+                    if (rd2.Read())
+                    {
+                        imagemAntiga = rd2["Imagens"] != DBNull.Value ? (byte[])rd2["Imagens"] : Array.Empty<byte>();
+                        quantidadeTotalAntiga = rd2["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(rd2["quantidadeTotal"]) : 0;
+                    }
+
+                    rd2.Close();
+                 
+                    produto.Imagens = imagemAntiga;
+
+                    // ajustar quantidadeTotal corretamente
+                    if (produto.Quantidade <= quantidadeTotalAntiga)
+                        produto.quantidadeTotal = quantidadeTotalAntiga;
+                    else
+                        produto.quantidadeTotal = produto.Quantidade;
                 }
 
 
-                using var conn = new MySqlConnection(_connectionString);
-                
-                conn.Open();
+           
+   
 
                 using var cmd = new MySqlCommand(
                     "editar_produto", conn)
                 { CommandType = System.Data.CommandType.StoredProcedure};
 
+                produto.Valor = ConverterDecimal(produto.Valor?.ToString());
+                produto.Desconto = ConverterDecimal(produto.Desconto?.ToString());
 
-    
 
                 cmd.Parameters.AddWithValue("p_cod", produto.codProd);
                 cmd.Parameters.AddWithValue("p_quant", produto.Quantidade);
@@ -231,7 +262,7 @@ namespace MeuProjetoMVC.Controllers
                 {
                     codProd = reader["codProd"] != DBNull.Value ? Convert.ToInt32(reader["codProd"]) : 0,
                     Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0,
-                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
+                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0,
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty
                 });
@@ -301,7 +332,7 @@ namespace MeuProjetoMVC.Controllers
                     codProd = reader["codProd"] != DBNull.Value ? Convert.ToInt32(reader["codProd"]) : 0,
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
                     Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
-                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
+                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0,
                     Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0
                 };
             }
@@ -357,14 +388,14 @@ namespace MeuProjetoMVC.Controllers
             {
                 produtos = new Produto
                 {
-                    codProd = rd.GetInt32("codProd"),
-                    codCat = rd.GetInt32("codCat"),
-                    codF = rd.GetInt32("codF"),
+                    codProd = rd["codProd"] != DBNull.Value ? Convert.ToInt32(rd["codProd"]) : 0,
+                    codCat = rd["codCat"] != DBNull.Value ? Convert.ToInt32(rd["codCat"]) : 0,
+                    codF = rd["codF"] != DBNull.Value ? Convert.ToInt32(rd["codF"]) : 0,
                     nomeProduto = rd["nomeProduto"]?.ToString() ?? string.Empty,
                     Descricao = rd["Descricao"]?.ToString() ?? string.Empty,
                     Quantidade = rd["Quantidade"] != DBNull.Value ? Convert.ToInt32(rd["Quantidade"]) : 0,
-                    Desconto = rd["Desconto"] != DBNull.Value ? Convert.ToDouble(rd["Desconto"]) : 0,
-                    Valor = rd["Valor"] != DBNull.Value ? Convert.ToDouble(rd["Valor"]) : 0,
+                    Desconto = rd["Desconto"] != DBNull.Value ? Convert.ToDecimal(rd["Desconto"]) : 0,
+                    Valor = rd["Valor"] != DBNull.Value ? Convert.ToDecimal(rd["Valor"]) : 0,
                     Imagens = rd["Imagens"] != DBNull.Value? (byte[])rd["Imagens"] : Array.Empty<byte>(),
                     quantidadeTotal = rd["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(rd["quantidadeTotal"]) : 0
                     
@@ -444,8 +475,8 @@ namespace MeuProjetoMVC.Controllers
                     {
                         itemsub.Add(new ItemSubcategoria
                         {
-                            codSub = reader.GetInt32("codProd"),
-                            codProd = reader.GetInt32("codSub")
+                            codSub = reader.GetInt32("codSub"),
+                            codProd = reader.GetInt32("codProd")
                         });
                     }
                 }
@@ -532,6 +563,21 @@ namespace MeuProjetoMVC.Controllers
             string contentType = midia.tipoMidia == "Video" ? "video/mp4" : "image/jpeg";
             return File(midia.midia, contentType);
         }
+
+
+
+        private decimal ConverterDecimal(string? valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                return 0;
+
+            return decimal.Parse(
+                valor.Replace(",", "."),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+        }
+
+
 
     }
 

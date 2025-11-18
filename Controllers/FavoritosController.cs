@@ -55,7 +55,7 @@ namespace MeuProjetoMVC.Controllers
                         nomeProduto = rd.GetString("nomeProduto"),
                         Imagens = rd["Imagens"] != DBNull.Value ? (byte[])rd["Imagens"] : Array.Empty<byte>(),
                         Descricao = rd.GetString("Descricao"),
-                        Valor = rd.GetDouble("valor")
+                        Valor = rd.GetDecimal("valor")
                     });
                 }
 
@@ -95,7 +95,7 @@ namespace MeuProjetoMVC.Controllers
                         nomeProduto = rd.GetString("nomeProduto"),
                         Imagens = rd["Imagens"] != DBNull.Value ? (byte[])rd["Imagens"] : Array.Empty<byte>(),
                         Descricao = rd.GetString("Descricao"),
-                        Valor = rd.GetDouble("valor")
+                        Valor = rd.GetDecimal("valor")
                     });
                 }
          

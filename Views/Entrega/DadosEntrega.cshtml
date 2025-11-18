@@ -1,1 +1,201 @@
-﻿Teste
+﻿@{
+    ViewData["Title"] = "Dados para Entrega";
+    var codVenda = Context.Request.Query["codVenda"];
+    var retirada = Context.Request.Query["retirada"];
+    var entrega = ViewBag.Endereco as EnderecoEntrega;
+}
+
+<h2>Dados de Entrega</h2>
+
+<input type="hidden" id="codVenda" value="@codVenda" />
+<input type="hidden" id="tipoRetirada" value="@retirada" />
+
+@if (retirada == "Local")
+{
+    <div class="alert alert-info">
+        Esta compra será retirada no local. Não é necessário preencher endereço.
+    </div>
+}
+else
+{
+    <h4>Endereço de Entrega</h4>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>CEP</label>
+            <input id="cep" class="form-control" value="@(entrega?.Cep)" placeholder="00000-000" />
+        </div>
+
+        <div class="col-md-5">
+            <label>Logradouro</label>
+            <input id="logradouro" value="@(entrega?.Logradouro)" class="form-control" />
+        </div>
+
+        <div class="col-md-4">
+            <label>Bairro</label>
+            <input id="bairro" value="@(entrega?.Bairro)" class="form-control" />
+        </div>
+
+        <div class="col-md-4 mt-2">
+            <label>Cidade</label>
+            <input id="cidade" class="form-control" value="@(entrega?.Cidade)" />
+        </div>
+
+        <div class="col-md-2 mt-2">
+            <label>Estado</label>
+            <input id="estado" class="form-control" value="@(entrega?.Estado)" />
+        </div>
+
+        <div class="col-md-2 mt-2">
+            <label>Número</label>
+            <input id="numero" class="form-control" />
+        </div>
+
+        <div class="col-md-4 mt-2">
+            <label>Complemento</label>
+            <input id="complemento" class="form-control" />
+        </div>
+
+        <div class="col-md-4 mt-3">
+            <label>Tipo Endereço</label>
+            <select id="tipoEndereco" class="form-control" onchange="trocar(this.value)">
+                <option value="">Selecione uma opção</option>
+                <option value="Casa">Casa</option>
+                <option value="Apartamento">Apartamento</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Campos adicionais quando for apartamento -->
+    <div id="ap" class="row" style="display:none;">
+        <div class="col-md-2 mt-3">
+            <label>Andar</label>
+            <input id="andar" class="form-control" />
+        </div>
+
+        <div class="col-md-4 mt-3">
+            <label>Nome do Prédio</label>
+            <input id="nomePredio" class="form-control" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary mt-3" onclick="salvarDadosEntrega()">Salvar Endereço</button>
+}
+
+<hr />
+
+<h4>Destinatário</h4>
+
+<div class="row" id="destino" style="display:none;">
+    <div class="col-md-5">
+        <label>Nome Completo</label>
+        <input id="nomeDestinatario" class="form-control" />
+    </div>
+
+    <div class="col-md-5">
+        <label>Email</label>
+        <input id="emailDestinatario" class="form-control" />
+    </div>
+</div>
+
+<button class="btn btn-success mt-3" onclick="salvarDestinatario()">Confirmar Destinatário</button>
+
+<hr />
+
+<div id="confirmacao" style="display:none;">
+    @TempData["MensagemH"] = "Seu pedido estará sendo encaminhado";
+    <a href="/Home/Index">Confirmar entrega</a>
+</div>
+
+<a href="/Venda" class="btn btn-secondary">Voltar</a>
+
+
+<script>
+
+    function trocar(valor) {
+        const ap = document.getElementById("ap");
+
+        if (valor === "Apartamento") {
+            ap.style.display = "block";
+        } else {
+            // limpa campos quando não for apartamento
+            document.getElementById("andar").value = "";
+            document.getElementById("nomePredio").value = "";
+            ap.style.display = "none";
+        }
+    }
+
+
+    async function salvarDadosEntrega() {
+
+        const tipo = document.getElementById("tipoRetirada").value;
+
+        if (tipo === "Local") {
+            alert("Retirada no local não precisa de endereço.");
+            return;
+        }
+
+        const body = {
+            cep: document.getElementById("cep").value,
+            logradouro: document.getElementById("logradouro").value,
+            bairro: document.getElementById("bairro").value,
+            cidade: document.getElementById("cidade").value,
+            estado: document.getElementById("estado").value
+        };
+
+        const req = {
+            codVenda: document.getElementById("codVenda").value,
+            Numero: document.getElementById("numero").value,
+            Complemento: document.getElementById("complemento").value,
+            tipoEndereco: document.getElementById("tipoEndereco").value,
+            Andar: document.getElementById("andar").value,
+            NomePredio: document.getElementById("nomePredio").value
+        };
+
+        const response = await fetch("/Entrega/DadosCliente", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                endreq: body,
+                req: req
+            })
+        });
+
+        const json = await response.json();
+
+        if (json.sucesso) {
+            alert("Endereço salvo");
+            document.getElementById("destino").style.display = "block";
+        }
+        else {
+            alert("Erro: " + json.mensagem);
+        }
+    }
+
+
+    async function salvarDestinatario() {
+
+        const req = {
+            codVenda: document.getElementById("codVenda").value,
+            nomeDestinatario: document.getElementById("nomeDestinatario").value,
+            emailDestinatario: document.getElementById("emailDestinatario").value
+        };
+
+        const response = await fetch("/Entrega/Destinatario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(req)
+        });
+
+        const json = await response.json();
+
+        if (json.sucesso) {
+            alert("Destinatário salvo");
+            document.getElementById("confirmacao").style.display = "block";
+        }
+        else {
+            alert("Erro: " + json.mensagem);
+        }
+    }
+
+</script>

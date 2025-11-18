@@ -15,7 +15,7 @@
             @foreach (var produto in Model)
             {
                 <div class="dItem">
-                    <a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@produto.codProd" style="text-align:center;">@produto.nomeProduto</a>
+                    <h1 style="text-align:center;">@produto.nomeProduto</h1>
 
                     @if (produto.Imagens != null && produto.Imagens.Length > 0)
                     {
@@ -31,7 +31,9 @@
                         <span>Preço: R$ @produto.Valor</span>
                         <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
                     </div>
-                    <button class="btn btn-primary btn-adicionar" data-id="@produto.codProd">Adicionar ao carrinho</button>
+                    <a asp-controller="Produto" asp-action="Detalhes" asp-route-codProd="@produto.codProd" class="btn btn-primary btn-adicionar">
+                        Saiba mais
+                    </a>
                 </div>
             }
         </section>
@@ -65,11 +67,10 @@ else if (Model != null && Model.Count > 0)
                         <span style="margin: 2px 0px;">Preço: R$ @produto.Valor</span>
                         <span style="font-size: 14px; margin: 2px 0px;">@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
                     </div>
-                    <form asp-action="Add" asp-controller="Cart" method="post">
-                        <button type="submit" name="codProd" value="@produto.codProd" class="btn btn-primary">
-                            Adicionar ao carrinho
-                        </button>
-                    </form>
+
+                    <a asp-controller="Produto" asp-action="Detalhes" asp-route-codProd="@produto.codProd" class="btn btn-primary btn-adicionar">
+                        Saiba mais
+                    </a>
                 </div>
             </div>
         }
@@ -82,23 +83,7 @@ else
 
 @section Scripts {
     <script>
-        $(function () {
-            $(".btn-adicionar").click(function () {
-                var produtoId = $(this).data("id");
-
-                $.ajax({
-                    url: '@Url.Action("Add", "Cart")',
-                    type: 'POST',
-                    data: { id: produtoId },
-                    success: function () {
-                        alert("Produto adicionado ao carrinho!");
-                    },
-                    error: function () {
-                        alert("Erro ao adicionar o produto.");
-                    }
-                });
-            });
-        });
+        
 
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('secItens');

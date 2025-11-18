@@ -22,8 +22,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
         public IActionResult DadosEntrega(int? codVenda, string? retirada)
-        {
-
+        { 
             return View();
         }
 

@@ -73,7 +73,7 @@ namespace MeuProjetoMVC.Controllers
                         codProd = reader["codProd"] != DBNull.Value ? Convert.ToInt32(reader["codProd"]) : 0,
                         nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty,
                         Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
-                        Valor = reader["Valor"] != DBNull.Value ? Convert.ToDouble(reader["Valor"]) : 0,
+                        Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0,
                         Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0,
 
                         // ✅ Lendo os bytes da imagem (ou null)
