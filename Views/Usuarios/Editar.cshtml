@@ -15,17 +15,28 @@
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
     </div>
+
+    
     <div class="form-group">
         <label asp-for="Senha"></label>
         <input asp-for="Senha" class="form-control" type="password" placeholder="Deixe em branco para manter a atual" />
         <span asp-validation-for="Senha" class="text-danger"></span>
     </div>
 
+  
+
     <div class="form-group">
         <label asp-for="ConfirmarSenha"></label>
         <input asp-for="ConfirmarSenha" class="form-control" type="password" />
         <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
     </div>
+    
+    <div>
+        <label asp-for="Telefone"></label>
+        <input asp-for="Telefone" class="form-control" />
+    </div>
+
+
     <div>
         <label asp-for="Role"></label>
         <select asp-for="Role" class="form-control">
@@ -37,8 +48,8 @@
     <div style="margin-bottom: 15px;">
         <label asp-for="Ativo"></label>
         <select asp-for="Ativo" class="form-control">
-            <option value="S">Sim</option>
-            <option value="N">Não</option>
+            <option value="1">Sim</option>
+            <option value="0">Não</option>
         </select>
     </div>
     <button type="submit" class="btn btn-success">Salvar</button>

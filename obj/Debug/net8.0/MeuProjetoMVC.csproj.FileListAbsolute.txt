@@ -1055,8 +1055,9 @@ C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema\obj\Debug\net8.0\refint
 C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema\obj\Debug\net8.0\MeuProjetoMVC.pdb
 C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema\obj\Debug\net8.0\MeuProjetoMVC.genruntimeconfig.cache
 C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema\obj\Debug\net8.0\ref\MeuProjetoMVC.dll
-C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\rjimswa.dswa.cache.json
-C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets\msbuild.MeuProjetoMVC.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets\msbuild.MeuProjetoMVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets\msbuild.build.MeuProjetoMVC.props
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MeuProjetoMVC.props
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MeuProjetoMVC.props
+C:\Users\3mod\Desktop\KingdomSistema\obj\Debug\net8.0\staticwebassets.pack.json

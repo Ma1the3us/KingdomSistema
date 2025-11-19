@@ -124,7 +124,7 @@ CREATE TABLE Cartao_Clie (
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
 );
 
-
+select * from Usuario;
 -- =====================================================
 -- TABELA Endereco_Entrega
 -- =====================================================
@@ -1170,7 +1170,7 @@ CREATE PROCEDURE atualizar_dados_entrega_cliente (
     IN p_cep VARCHAR(10),
     IN p_numero VARCHAR(10),
     IN p_complemento VARCHAR(50),
-    IN p_tipoEndereco VARCHAR(20),
+    IN p_tipoEndereco ENUM('Casa', 'Apartamento'),
     IN p_andar VARCHAR(40),
     IN p_nomePredio VARCHAR(100),
     IN p_logradouro VARCHAR(100),
@@ -1275,9 +1275,6 @@ END $$
 call atualizar_dados_entrega_cliente(2,1,'10','12','1asda','casa','12','sada','asda','asda','dazs','asd');
 
 
-select * from Entrega;
-Describe Entrega;
-select *  from Usuario;
 -- É UM INSERIR E EDITAR DESTINATÁRIO, JÁ QUE OS CAMPOS SÃO O MESMO! E na verdade vai acontecer na mesma situação
 -- Já que na hora de incrementar a venda, ela não vai efetuar ou no caso, inserir diretamente os dados, vai ser necessário utilizar esse update para que funcione
 -- (Nova versão)
@@ -1625,6 +1622,48 @@ BEGIN
         INSERT INTO log_debug(mensagem, dataLog)
         VALUES (CONCAT('Entrega criada e produtos vinculados para venda ', codV), NOW());
     ELSE
+     INSERT INTO Entrega (
+            codVenda,
+            codUsuario,
+            dataInicial,
+            Situacao,
+            valorTotal,
+            retirada
+        )
+        VALUES (
+            codV,
+            u_cod,
+            CURDATE(),
+            'Em andamento',
+            vT,
+            'Local'
+        );
+
+        SET codEn = LAST_INSERT_ID();
+
+        INSERT INTO Entrega_Produto (
+            codProd,
+            nomeProduto,
+            Valor,
+            Quantidade,
+            Imagem,
+            codEntrega
+        )
+        SELECT 
+            ic.codProd,
+            p.nomeProduto,
+            ic.valorProduto,
+            ic.quantidade,
+            p.Imagens,
+            codEn
+        FROM ItemCarrinho ic
+        JOIN Produto p ON ic.codProd = p.codProd
+        WHERE ic.codCarrinho = codCarr
+        ON DUPLICATE KEY UPDATE
+            Quantidade = VALUES(Quantidade),
+            Valor = VALUES(Valor),
+            Imagem = VALUES(Imagem);
+    
         -- Retirada local: apenas registra log
         INSERT INTO log_debug(mensagem, dataLog)
         VALUES (CONCAT('Venda ', codV, ' finalizada com retirada local.'), NOW());
@@ -1640,9 +1679,12 @@ BEGIN
 END $$
 DELIMITER ;
 
+call concluir_compra(1,null,0,'Local');
+
 select * from Carrinho;
 select * from ItemCarrinho;
 select * from Venda;
+select * from Entrega;
 
 Delimiter $$
 drop procedure if exists deletar_fornecedor $$
@@ -1735,6 +1777,7 @@ BEGIN
 END $$
 
 call deletar_avaliacao(1,2);
+
 
 Delimiter $$
 CREATE PROCEDURE deletar_favorito (

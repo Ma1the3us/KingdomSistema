@@ -16,8 +16,25 @@
 @if (retirada == "Local")
 {
     <div class="alert alert-info">
-        A retirada será feita no local. Nenhum endereço é necessário.
+        <p>Compra realizada com sucesso, basta ir a loja designinada para receber a compra</p>
+        <div>
+            <ul>
+                <li>Local: <p>KingdomGames</p></li>
+                <li>Cep: <p>05089-000</p></li>
+                <li>Estado: <p>São Paulo</p></li>
+                <li>Cidade: <p>São Paulo</p></li>
+                <li>Bairro: <p>Vila Leopoldina</p></li>
+                <li>Logradouro: <p>Rua Guaipá</p></li>
+                <li>Número: <p>678</p></li>
+            </ul>
+        </div>
+
+        <a href="/Home/Index" class="btn btn-primary">Voltar a página principal</a>
+
     </div>
+
+
+
 }
 else
 {
@@ -86,9 +103,11 @@ else
 
 <hr />
 
-<h4>Destinatário</h4>
 
 <div class="row" id="destino" style="display:none;">
+
+    <h4>Destinatário</h4>
+    <br/>
     <div class="col-md-5">
         <label>Nome Completo</label>
         <input id="nomeDestinatario" class="form-control" />
@@ -98,9 +117,11 @@ else
         <label>Email</label>
         <input id="emailDestinatario" class="form-control" />
     </div>
+
+    <button class="btn btn-success mt-3" onclick="salvarDestinatario()">Confirmar Destinatário</button>
 </div>
 
-<button class="btn btn-success mt-3" onclick="salvarDestinatario()">Confirmar Destinatário</button>
+
 
 <hr />
 
@@ -112,6 +133,12 @@ else
 <a href="/Venda" class="btn btn-secondary mt-3">Voltar</a>
 
 <script>
+
+    if(document.getElementById("tipoRetirada").value == "Local")
+    {
+        document.getElementById("destino").style.display= "none";
+    }
+
 
     document.getElementById("tipoEndereco").addEventListener("change", function () {
         const ap = document.getElementById("ap");

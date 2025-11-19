@@ -236,7 +236,7 @@ namespace MeuProjetoMVC.Controllers
 
                 string? ativo = "";
                 
-                if (usuario.Ativo == "Ativado")
+                if (usuario.Ativo == "1")
                  {
                     ativo = "1";
                 }
