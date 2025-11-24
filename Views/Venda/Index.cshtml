@@ -120,7 +120,7 @@ async function concluir() {
     if (result.sucesso) {
         alert("Compra concluída! Total final: R$ " + result.valorFinal.toFixed(2));
         console.log("Endereço:", result.endereco);
-        window.location.href = "/Entrega/DadosEntrega?codVenda=" + venda +"&retirada=" + tipo;
+        window.location.href = "/sistema/Entrega/DadosEntrega?codVenda=" + venda +"&retirada=" + tipo;
     } else {
         alert("Erro: " + result.mensagem);
     }

@@ -19,6 +19,7 @@ namespace MeuProjetoMVC.Controllers
         // ======================================================
         // INDEX — Lista subcategorias vinculadas ao produto
         // ======================================================
+        [HttpGet]
         public IActionResult Index(int codProd)
         {
             if (codProd == 0)
@@ -61,7 +62,7 @@ namespace MeuProjetoMVC.Controllers
         // ======================================================
         // CADASTRAR (GET)
         // ======================================================
-        [HttpGet]
+        [HttpGet("Cadastrar")]
         public IActionResult Cadastrar(int codProd)
         {
             if (codProd == 0)
@@ -77,7 +78,7 @@ namespace MeuProjetoMVC.Controllers
         // ======================================================
         // CADASTRAR (POST NORMAL — formulário da View)
         // ======================================================
-        [HttpPost]
+        [HttpPost("Cadastrar")]
         [ValidateAntiForgeryToken]
         public IActionResult Cadastrar(ItemSubcategoria item)
         {
@@ -113,7 +114,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("Editar")]
         public IActionResult Editar(int codProd)
         {
             if (codProd == 0)
@@ -169,7 +170,8 @@ namespace MeuProjetoMVC.Controllers
             return View(itemSub);
         }
 
-       
+
+        [HttpPost("Editar")]
         [ValidateAntiForgeryToken]
         public IActionResult Editar(int codProd, List<int> codSubs)
         {
@@ -258,6 +260,7 @@ namespace MeuProjetoMVC.Controllers
         // ======================================================
         // EXCLUIR
         // ======================================================
+        [HttpPost("Excluir")]
         public IActionResult Excluir(int codProd, int codSub)
         {
             using var conn = new MySqlConnection(_connectionString);

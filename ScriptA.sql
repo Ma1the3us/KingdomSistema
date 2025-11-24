@@ -6,10 +6,14 @@ CREATE DATABASE IF NOT EXISTS MeuProjetoMVC
 
 USE MeuProjetoMVC;
 
-select * from wishlist;
+
 -- =====================================================
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
+
+select * from Entrega;
+select * from Endereco_Entrega;
+select * from Entrega_Produto;
 
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -1682,7 +1686,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-call concluir_compra(1,null,0,'Local');
+-- call concluir_compra(1,null,0,'Local');
 
 select * from Carrinho;
 select * from ItemCarrinho;

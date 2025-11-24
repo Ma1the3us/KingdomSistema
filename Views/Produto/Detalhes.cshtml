@@ -153,7 +153,7 @@
 
                 @if(role == "Funcionario" || role == "Admin")
                 {
-                    <a asp-action="Index" asp-controller="ItemSub">Adicione subcategoria ao produto</a>
+                    <a asp-action="Index" asp-controller="ItemSub" asp-route-codProd="@Model.codProd">Adicione subcategoria ao produto</a>
                 }
             </div>
 

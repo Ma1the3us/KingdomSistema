@@ -1,6 +1,7 @@
 wwwroot\css\carrinho.css
 wwwroot\css\excluir.css
 wwwroot\css\form.css
+wwwroot\css\itemSub.css
 wwwroot\css\lista.css
 wwwroot\css\site.css
 wwwroot\css\vitrine.css

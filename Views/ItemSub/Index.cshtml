@@ -44,3 +44,5 @@
         }
     </tbody>
 </table>
+
+<a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@(Model?.FirstOrDefault()?.codProd  ?? 0)">Voltar</a>

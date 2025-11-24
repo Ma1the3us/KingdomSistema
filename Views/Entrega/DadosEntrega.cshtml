@@ -172,7 +172,7 @@ else
             }
         };
 
-        const response = await fetch("/Entrega/DadosCliente", {
+        const response = await fetch("/sistema/Entrega/DadosCliente", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dto)
@@ -197,7 +197,7 @@ else
             emailDestinatario: document.getElementById("emailDestinatario").value
         };
 
-        const response = await fetch("/Entrega/Destinatario", {
+        const response = await fetch("/sistema/Entrega/Destinatario", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(req)
