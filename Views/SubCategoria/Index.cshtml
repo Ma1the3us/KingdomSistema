@@ -1,87 +1,77 @@
-﻿@model IEnumerable<MeuProjetoMVC.Models.Sub_Categoria>;
-
+﻿@model IEnumerable<MeuProjetoMVC.Models.Sub_Categoria>
 @{
-    // Quando formos usar uma ViewBag como variavel, é necessário declarar seu tipo.
-    // Como a estrutura foi um List<SelectListItem> na controller, é bom criar do mesmo tipo, pois tem os mesmos campos.
-    var cat = ViewBag.Categoria as List<SelectListItem>;
-    TempData["title"] = "Área das subcategorias";
-  
-    // Se for transformar qualquer arquivo temporário ou tipo de dados da controller, seja por função ou etc...
-    // E for inserir numa variavel... Declara o tipo... algumas vezes pode não da erro... Mas declare
-    var men = TempData["MensagemS"] as string;
-    var erro = TempData["ErroS"] as string;
+    ViewData["Title"] = "Subcategorias";
+    int codCat = ViewBag.CodCat;
+    var categoria = ViewBag.Categorias as List<SelectListItem>;
+    var codCatModel = Model.FirstOrDefault();
 }
 
-<link  rel="stylesheet" href="~/css/"/>
+<link href="~/css/lista.css" rel="stylesheet" />
 
 
 
-<body>
 
-    <div>
-        <h2>Subcategorias</h2>
-    </div>
+<h2>Subcategorias da Categoria: @(categoria?.FirstOrDefault()?.Text ?? "-")</h2>
 
+@if (TempData["MensagemS"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemS"]</div>
+}
 
-    <a asp-action="Cadastrar"></a>
-    @if (men != null)
-    {
-        <p>@men;</p>
-    }
+@if (TempData["ErroS"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErroS"]</div>
+}
 
-    @if( erro != null)
-    {
-        <p>@erro</p>
-    }
-
-    @if(Model.Any())
-    {
-        <table>
-            <thead>
+@if (Model != null && Model.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome da Subcategoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <td>Código</td>
-                    <td>Subcategoria</td>
-                    <td>Categoria</td>
-                    <td>Ações</td>
+                    <td>@item.codSub</td>
+                    <td>@item.nomeSubcategoria</td>
+
+                    <td>
+                        <a class="btn btn-warning btn-sm"
+                           asp-action="Editar"
+                           asp-route-codSub="@item.codSub">
+                            Editar
+                        </a>
+
+                        <form asp-action="Excluir"
+                              method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('Deseja realmente excluir?');">
+
+                            <input type="hidden" name="codSub" value="@item.codSub" />
+                            <input type="hidden" name="codCat" value="@codCat" />
+
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var s in Model)
-                {
-                    // Declara um nome, vasculha no cat que se tornou uma SelectListItem
-                    // Procurando pelo valor da lista, que foi dada a variavel de c, sendo uma variavel temporária.
-                    // E faz uma comparação, a caso algum item da lista tenha o valor de c, ele vai trazer o campo de texto se existir (?.Text) ou (??) vai trazer nulo "sem categoria"
-                    var nomecat = cat.FirstOrDefault(c => c.Value == s.codCat.ToString())?.Text ?? "Sem categoria";
-                    <tr>
-                        <td>@s.codSub</td>
-                        <td>@s.nomeSubcategoria</td>
-                        <td>@nomecat</td>
-                        <td>
-                            <div>
-                                <form asp-action="Editar">
-                                    <input type="hidden" name="codSub" value="@s.codSub" />
-                                    <button type="submit"> <img src="~/img/editar.png" alt="Editar"/> </button>
-                                </form>
-                            </div>
-                           @*FALTA A IMAGEM DE EXCLUIR!!!*@
-                          
-                            <div>
-                                <form asp-action="Excluir">
-                                    <input type="hidden" name="codSub" value="@s.codSub" />
-                                    <button type="submit" onsubmit="return confirm('Deseja apagar essa subcategoria?')"><img src="~/img/excluir" alt="Excluir" /></button>
-                                </form>
-                            </div>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma subcategoria encontrada.</p>
+}
 
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-
-    }
-    else
-    {
-        <p>Nenhuma subcategoria foi cadastrada</p>
-    }    
-</body>
+<div style="margin-top: 15px;">
+    <a class="btn btn-primary"
+       asp-action="Cadastrar"
+       asp-route-codCat="@codCat">
+        Nova Subcategoria
+    </a>
+</div>

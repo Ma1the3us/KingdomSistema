@@ -1,40 +1,39 @@
-﻿@model MeuProjetoMVC.Models.Sub_Categoria;
-
+﻿@model MeuProjetoMVC.Models.Sub_Categoria
 @{
-    TempData["title"] = "Editar SubCategoria";
+    ViewData["Title"] = "Editar Subcategoria";
+    int codCat = ViewBag.CodCat;
 }
 
-<body>
-    <form asp-action="Editar" method="post">
-        
-        @Html.AntiForgeryToken();
+<h2>Editar Subcategoria</h2>
 
-        <article>
+<form asp-action="Editar" method="post">
 
-            <div style=" display:none;">
-                <input type="hidden"asp-for="codSub" />
-                <span asp-validation-for="codSub"></span>
-            </div>
+    <input type="hidden" asp-for="codSub" />
+    <input type="hidden" asp-for="codCat" />
 
-            <div>
-                <label>Nome da Subcategoria:</label>
-                <input asp-for="nomeSubcategoria" required />
-                <span asp-validation-for="nomeSubcategoria"></span>
-            </div>
+    <div class="form-group">
+        <label>Nome da Subcategoria</label>
+        <input asp-for="nomeSubcategoria" class="form-control" />
+    </div>
 
-            <div>
+    <br />
 
-                <label>Categorias:</label>
-                <select asp-items="ViewBag.Categoria">
-                    <option value="">Selecione uma categoria</option>
-                </select>
-            </div>
-        </article>
+    <div class="form-group">
+        <label>Categoria</label>
+        <select asp-for="codCat"
+                asp-items="ViewBag.Categorias"
+                class="form-control">
+        </select>
+    </div>
 
-        <div>
-            @*<a asp-action="Index">Voltar</a>*@
-            <button asp-action="Index" asp-controller="SubCategoria">Voltar</button>
-            <button type="submit">Editar</button>
-        </div>
-    </form>
-</body>
+    <br />
+
+    <button class="btn btn-primary">Salvar alterações</button>
+
+    <a class="btn btn-secondary"
+       asp-action="Index"
+       asp-route-codCat="@codCat">
+        Voltar
+    </a>
+
+</form>

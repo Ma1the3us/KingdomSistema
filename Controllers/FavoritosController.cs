@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace MeuProjetoMVC.Controllers
 {
+    [Route("sistema/favorito")]
     public class FavoritosController : Controller
     {
         private readonly string _connectionstring;
@@ -75,8 +76,11 @@ namespace MeuProjetoMVC.Controllers
                 }
 
                 using var cmd = new MySqlCommand(@"
-                    select codProd, codUsuario from wishlist where codUsuario = @cod;
-                ",conn);
+                    Select w.codProd, w.codUsuario, p.nomeProduto, p.Imagens, p.Descricao, p.valor
+                    from wishlist w
+                    inner join Produto p on w.codProd = p.codProd
+                    where codUsuario = @cod;
+                ", conn);
                 cmd.Parameters.AddWithValue("@cod", user);
 
                 var rd = cmd.ExecuteReader();
@@ -107,10 +111,11 @@ namespace MeuProjetoMVC.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult AdicionarFavorito(int? codProd)
+        [HttpPost("adicionar")]
+        public IActionResult AdicionarFavorito([FromBody] wishlist dados)
         {
-            
+            var codProd = dados.codProd;
+
             if(codProd == 0)
             {
                 TempData["MensagemEFA"] = "Não foi possivel adicionar o produto aos favoritos";
@@ -141,9 +146,11 @@ namespace MeuProjetoMVC.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult ExcluirFavoritoPagina(int? codProd)
+        [HttpPost("remover")]
+        public IActionResult ExcluirFavoritoPagina([FromBody]wishlist dados)
         {
+            var codProd = dados.codProd;
+
             if (codProd == 0)
             {
                 return Json(new { sucesso = false, mensagem = "Erro ao retirar produto dos favoritos" });
@@ -163,7 +170,7 @@ namespace MeuProjetoMVC.Controllers
 
                 using var cmd = new MySqlCommand(@"
                 Delete from wishlist where codProd = @codP and codUsuario = @codU
-                ");
+                ", conn);
                 cmd.Parameters.AddWithValue("@codP", codProd);
                 cmd.Parameters.AddWithValue("@codU", user);
 
@@ -173,6 +180,47 @@ namespace MeuProjetoMVC.Controllers
 
             }
             catch(MySqlException ex)
+            {
+                return Json(new { sucesso = false, mensagem = "Erro ao remover o produto. Erro:" + ex });
+            }
+        }
+
+
+
+        [HttpPost]
+        public IActionResult ExcluirFavoritoIndex( wishlist dados)
+        {
+            var codProd = dados.codProd;
+
+            if (codProd == 0)
+            {
+                return Json(new { sucesso = false, mensagem = "Erro ao retirar produto dos favoritos" });
+            }
+
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+            if (user == 0 || user == null)
+            {
+                return Json(new { sucesso = false, mensagem = "Usuário precisa estar logado para adicionar aos favoritos" });
+            }
+
+            try
+            {
+                var conn = new MySqlConnection(_connectionstring);
+                conn.Open();
+
+                using var cmd = new MySqlCommand(@"
+                Delete from wishlist where codProd = @codP and codUsuario = @codU
+                ", conn);
+                cmd.Parameters.AddWithValue("@codP", codProd);
+                cmd.Parameters.AddWithValue("@codU", user);
+
+                cmd.ExecuteNonQuery();
+
+                return View();
+
+            }
+            catch (MySqlException ex)
             {
                 return Json(new { sucesso = false, mensagem = "Erro ao remover o produto. Erro:" + ex });
             }

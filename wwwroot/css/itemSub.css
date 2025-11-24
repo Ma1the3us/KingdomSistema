@@ -1,0 +1,38 @@
+﻿.tag-item {
+    display: inline-flex;
+    align-items: center;
+    margin: 6px;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    background: #f3f3f3;
+}
+
+/* Oculta o checkbox */
+.tag-checkbox {
+    display: none;
+}
+
+    /* Quando o checkbox está marcado → estilo ativo */
+    .tag-checkbox:checked + .tag-text {
+        background: #e6f0ff;
+        border-color: #4a90e2;
+        box-shadow: 0 0 8px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+
+/* Span que recebe o estado visual */
+.tag-text {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efeito hover */
+.tag-item:hover .tag-text {
+    border-color: #4a90e2;
+}

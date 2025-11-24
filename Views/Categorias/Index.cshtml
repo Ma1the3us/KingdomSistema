@@ -22,6 +22,7 @@
                     <td>@item.CodCat</td>
                     <td>@item.NomeCategoria</td>
                     <td>
+                        <a class="btn btn-warning btn-sm" asp-action="Index" asp-controller="SubCategoria" asp-route-codCat="@item.CodCat">SubCategoria</a>
                         <a class="btn btn-warning btn-sm" asp-action="Editar" asp-route-id="@item.CodCat">Editar</a>
                         <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@item.CodCat">Excluir</a>
                     </td>

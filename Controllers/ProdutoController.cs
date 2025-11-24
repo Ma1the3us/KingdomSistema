@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using System.Globalization;
+using System.Data;
 
 namespace MeuProjetoMVC.Controllers
 {
@@ -59,21 +60,29 @@ namespace MeuProjetoMVC.Controllers
                 { CommandType = System.Data.CommandType.StoredProcedure};
 
                 cmd.Parameters.AddWithValue("p_quantidade", produto.Quantidade);
-                cmd.Parameters.AddWithValue("p_imagens",(object?) produto.Imagens);
-                cmd.Parameters.AddWithValue("p_desconto", produto.Desconto);
+                cmd.Parameters.AddWithValue("p_imagens", (object?)produto.Imagens ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("p_valor", produto.Valor);
                 cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
-                cmd.Parameters.AddWithValue("p_nomeProduto", produto.nomeProduto ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_nomeproduto", produto.nomeProduto ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_categorias", produto.codCat > 0 ? produto.codCat : (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("p_codfornecedor", produto.codF > 0 ? produto.codF : (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("p_desconto", produto.Desconto);
+
+                var paramcodProd = new MySqlParameter("p_codProd", MySqlDbType.Int32);
+                paramcodProd.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramcodProd);
 
                 int linhasAfetadas = cmd.ExecuteNonQuery();
+
+
+                int novocod = Convert.ToInt32(paramcodProd.Value);
+
 
                 TempData["Mensagem"] = linhasAfetadas > 0
                     ? "✅ Produto cadastrado com sucesso!"
                     : "⚠️ Não foi possível cadastrar o produto.";
 
-                return RedirectToAction("List");
+                return RedirectToAction("associarSub", new {codProd = novocod, codCat = produto.codCat});
             }
             catch (Exception ex)
             {
@@ -577,6 +586,85 @@ namespace MeuProjetoMVC.Controllers
             );
         }
 
+
+        public IActionResult AssociarSub(int codProd, int codCat)
+        {
+            Produto produto = new Produto();
+            List<Sub_Categoria> sub = new List<Sub_Categoria>();
+            List<Categoria> categoria = new List<Categoria>();
+            List<int> selecionadas = new List<int>();
+
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            // 1️⃣ Buscar produto + categoria + subcategorias da categoria
+            using (var cmd = new MySqlCommand(@"
+            SELECT 
+            p.nomeProduto, p.codProd, p.codCat,
+            c.nomeCategoria,
+            s.codSub, s.nomeSubcategoria
+            FROM Produto p
+            INNER JOIN Categorias c ON p.codCat = c.codCat
+            INNER JOIN Sub_Categoria s ON c.codCat = s.codCat
+            WHERE p.codProd = @codProd AND p.codCat = @codCat;
+            ", conn))
+            {
+                cmd.Parameters.AddWithValue("@codProd", codProd);
+                cmd.Parameters.AddWithValue("@codCat", codCat);
+
+                var rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    produto = new Produto
+                    {
+                        codProd = rd.GetInt32("codProd"),
+                        nomeProduto = rd.GetString("nomeProduto")
+                    };
+
+                    sub.Add(new Sub_Categoria
+                    {
+                        codSub = rd.GetInt32("codSub"),
+                        nomeSubcategoria = rd.GetString("nomeSubcategoria"),
+                        codCat = rd.GetInt32("codCat")
+                    });
+
+                    categoria.Add(new Categoria
+                    {
+                        CodCat = rd.GetInt32("codCat"),
+                        NomeCategoria = rd.GetString("nomeCategoria")
+                    });
+                }
+
+                rd.Close();
+            }
+
+            // 2️⃣ Buscar subcategorias JÁ VINCULADAS ao produto
+            using (var cmd = new MySqlCommand(@"
+            SELECT codSub
+            FROM Item_Subcategoria
+            WHERE codProd = @codProd;
+             ", conn))
+            {
+                cmd.Parameters.AddWithValue("@codProd", codProd);
+                var rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    selecionadas.Add(rd.GetInt32("codSub"));
+                }
+
+                rd.Close();
+            }
+
+            // 3️⃣ Enviar para a View
+     
+            ViewBag.Categoria = categoria;
+            ViewBag.Sub = sub;
+            ViewBag.Selecionadas = selecionadas;
+
+            return View(produto);
+        }
 
 
     }

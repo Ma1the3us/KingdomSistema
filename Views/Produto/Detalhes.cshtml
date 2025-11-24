@@ -18,6 +18,7 @@
 
 
 <body>
+    <input type="hidden" value="@Model.codProd" id="codProd"/>
 
     <section>
         <div>
@@ -79,18 +80,15 @@
 
                 <div>
 
-                    @if (favoritos != null && favoritos.Any())
-                    {
-                        <button class="btn-remover" data-cod-prod="@Model.codProd" type="button">
-                            <img class="imagem-adicionar" src="/img/favorito-cheio.png" alt="Adicionado aos favoritos" />
-                        </button>
-                    }
-                    else
-                    {
-                        <button class="btn-favorito" data-cod-prod="@Model.codProd" type="button">
-                            <img class="imagem-adicionar" src="/img/favorito-vazio.png" alt="Adicionar aos favoritos" />
-                        </button>
-                    }
+                    <button id="btnFavorito" type="button"
+                            class="@((favoritos != null && favoritos.Any()) ? "btn-remover" : "btn-favorito")"
+                            onclick="@((favoritos != null && favoritos.Any()) ? "RemoverFavorito()" : "AdicionarFavorito()")">
+
+                        <img id="imgFavorito"
+                             src="@((favoritos != null && favoritos.Any()) ? "/img/favorito-cheio.png" : "/img/favorito-vazio.png")"
+                             class="@((favoritos != null && favoritos.Any()) ? "imagem-remover" : "imagem-adicionar")"
+                             alt=" @((favoritos != null && favoritos.Any()) ? "Remover" : "Adicionar")"/>
+                    </button>
                     
                 </div>
 
@@ -186,6 +184,10 @@
 
 
     <script>
+
+        var rotaFavoritoAdicionar = "/sistema/favorito/adicionar";
+        var rotaFavoritoRemover = "/sistema/favorito/remover";
+
         function trocarMidiaCentral(tipo, src) {
             const container = document.getElementById("midiaCenterContainer");
             container.innerHTML = "";
@@ -219,76 +221,54 @@
             }
         });
 
-        // 🔹 Adiciona um ouvinte global de cliques em todo o documento
-        // Isso permite capturar cliques em botões que podem ter sido adicionados dinamicamente.
-        document.addEventListener('click', function (e) {
+        async function AdicionarFavorito() {
+            const codProd = document.getElementById("codProd").value;
 
-            // 🔹 Verifica se o elemento clicado (ou um ancestral dele) é um botão de favorito ou de remover
-            // `closest()` sobe na árvore do DOM e retorna o elemento que contém a classe indicada.
-            if (e.target.closest('.btn-favorito') || e.target.closest('.btn-remover')) {
+            const response = await fetch(rotaFavoritoAdicionar, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ codProd })
+            });
 
-                // 🔹 Pega o botão em si (se clicou na imagem, por exemplo, ele ainda encontra o <button>)
-                const btn = e.target.closest('button');
+            const ret = await response.json();
 
-                // 🔹 Pega o código do produto (definido no atributo data-cod-prod do botão)
-                const codProd = btn.dataset.codProd;
+            if (ret.sucesso) {
+                const btn = document.getElementById("btnFavorito");
+                const img = document.getElementById("imgFavorito");
 
-                // 🔹 Pega a imagem dentro do botão (ícone do coração, por exemplo)
-                const imagem = btn.querySelector('.imagem-adicionar');
+                btn.onclick = RemoverFavorito;
+                btn.className = "btn-remover";
 
-                // 🔹 Verifica se o botão atualmente é de "adicionar" (favoritar)
-                // Se for, `isFavorito` será true; se não, é um botão de "remover"
-                const isFavorito = btn.classList.contains('btn-favorito');
-
-                // 🔹 Define a rota que será chamada com o Fetch:
-                // se o botão for de adicionar, chama a rota de AdicionarFavorito;
-                // senão, chama a rota de ExcluirFavoritoPagina.
-                const rota = isFavorito ? '/Favoritos/AdicionarFavorito' : '/Favoritos/ExcluirFavoritoPagina';
-
-                // 🔹 Faz uma requisição assíncrona para o backend usando o Fetch API
-                fetch(rota, {
-                    method: 'POST', // Envia dados via POST
-                    headers: {
-                        'Content-Type': 'application/json', // O corpo da requisição será em JSON
-                        // Token antifalsificação do ASP.NET Core (necessário em formulários autenticados)
-                        'RequestVerificationToken': document.querySelector('input[name="_RequestVerificationToken"]').value
-                    },
-                    // 🔹 Converte o objeto { codProd } em JSON para envio
-                    body: JSON.stringify({ codProd: codProd })
-                })
-
-                    // 🔹 Quando o servidor responder, converte a resposta para JSON
-                    .then(res => res.json())
-
-                    // 🔹 Manipula os dados retornados pelo servidor
-                    .then(data => {
-                        // Se a operação deu certo...
-                        if (data.sucesso) {
-                            if (isFavorito) {
-                                // 🔸 Atualiza o botão visualmente para o estado "favorito"
-                                btn.classList.remove('btn-favorito');
-                                btn.classList.add('btn-remover');
-                                imagem.src = '/img/favorito-cheio.png';
-                                imagem.alt = 'Favoritado';
-                            } else {
-                                // 🔸 Atualiza o botão para o estado "não favorito"
-                                btn.classList.remove('btn-remover');
-                                btn.classList.add('btn-favorito');
-                                imagem.src = '/img/favorito-vazio.png';
-                                imagem.alt = 'Adicionar aos favoritos';
-                            }
-                        }
-
-                        // 🔹 Exibe a mensagem retornada pelo backend (por exemplo: “Adicionado aos favoritos!”)
-                        document.getElementById('msg').innerText = data.message;
-                    })
-
-                    // 🔹 Caso ocorra algum erro (ex: falha de rede), mostra no console
-                    .catch(err => console.error(err));
+                img.src = "/img/favorito-cheio.png";
+                img.className = "imagem-remover";
+                img.alt = "Remover";
             }
-        });
+        }
 
+        async function RemoverFavorito() {
+            const codProd = document.getElementById("codProd").value;
 
+            const response = await fetch(rotaFavoritoRemover, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ codProd })
+            });
+
+            const ret = await response.json();
+
+            if (ret.sucesso) {
+                const btn = document.getElementById("btnFavorito");
+                const img = document.getElementById("imgFavorito");
+
+                btn.onclick = AdicionarFavorito;
+                btn.className = "btn-favorito";
+
+                img.src = "/img/favorito-vazio.png";
+                img.className = "imagem-adicionar";
+                img.alt = "Adicionar";
+            }
+
+        }
     </script>
 
 </body>

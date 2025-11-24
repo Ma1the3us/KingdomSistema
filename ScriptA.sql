@@ -6,9 +6,11 @@ CREATE DATABASE IF NOT EXISTS MeuProjetoMVC
 
 USE MeuProjetoMVC;
 
+select * from wishlist;
 -- =====================================================
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
+
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -522,7 +524,7 @@ Delimiter $$
 drop procedure if exists cad_Produto $$
 create procedure cad_Produto(p_quantidade int, 
  p_imagens longblob, p_valor double, p_descricao varchar(255), p_nomeproduto varchar(100), 
- p_categorias int, p_codfornecedor int,p_desconto decimal(10,2)) -- Codigo do fornecedor, vai ser pego via select
+ p_categorias int, p_codfornecedor int,p_desconto decimal(10,2), Out p_codProd int) -- Codigo do fornecedor, vai ser pego via select
 begin
 
 -- Declarando Variavéis
@@ -541,6 +543,7 @@ declare quantTotal int;
     insert into Produto( Quantidade, quantidadeTotal, Imagens, Valor, Descricao, nomeProduto, Desconto,codCat,codF)
 				values( p_quantidade, quantTotal, p_imagens, p_valor, p_descricao, p_nomeproduto, p_desconto ,codC, codFo);
 	
+    set p_codProd = last_insert_id();
 		select 'Produto cadastrado com sucesso!' as Sucesso;
   Else
 		select 'Produto já cadastrado ou erro ao cadastrar' as Erro;

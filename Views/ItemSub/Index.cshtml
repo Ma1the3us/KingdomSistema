@@ -1,46 +1,46 @@
-﻿@model List<ItemSubcategoria>
-
+﻿@model IEnumerable<MeuProjetoMVC.Models.ItemSubcategoria>
 @{
-    TempData["Title"] = "Item Subcategoria";
-    int codProd = Model.FirstOrDefault()?.codProd ?? 0;
+    ViewData["Title"] = "Subcategorias do Produto";
+    var produto = ViewBag.Produto as MeuProjetoMVC.Models.Produto;
+    var subcategorias = ViewBag.Subcategorias as List<MeuProjetoMVC.Models.Sub_Categoria>;
 }
- 
-<h2>Item Subcategorias</h2>
 
-<div class="mb-3 text-end">
-    <a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@codProd" class="btn btn-primary">
-        Voltar
-    </a>
-</div>
 
-<table>
+<h2 class="text-xl font-semibold mb-4">Vincular Subcategorias ao Produto</h2>
+
+
+@if (produto != null)
+{
+    <div class="mb-4 p-3 bg-gray-100 rounded">
+        <strong>Produto:</strong> @produto.nomeProduto (Código: @produto.codProd)
+    </div>
+}
+
+
+<a asp-action="Cadastrar" asp-route-codProd="@ViewBag.codProd" class="btn btn-primary mb-3">Adicionar Subcategoria</a>
+
+
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Código Produto</th>
-            <th>Código Subcategoria</th>
+            <th>Subcategoria</th>
             <th>Ações</th>
         </tr>
     </thead>
-
     <tbody>
         @foreach (var item in Model)
         {
+            var nomeSub = subcategorias?.FirstOrDefault(s => s.codSub == item.codSub)?.nomeSubcategoria ?? "-";
+
+
             <tr>
-                <td>@item.codProd</td>
-                <td>@item.codSub</td>
+                <td>@nomeSub</td>
                 <td>
-                    <form asp-action="Excluir" method="post">
-                       <input type="hidden" asp-for="@item.codProd" />
-                       <input type="hidden" asp-for="@item.codSub" />
-                       <button type="submit" onclick="return confirm('Deseja apagar essa subcategoria, vinculada a este item?')"><img src="" alt="Excluir"/></button>
+                    <form asp-action="Excluir" asp-route-codProd="@item.codProd" asp-route-codSub="@item.codSub" method="post">
+                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                     </form>
-                   
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a asp-action="Salvar" asp-route-codProd="@Model.FirstOrDefault()?.codProd">
-    Adicionar Subcategorias
-</a>

@@ -8,147 +8,211 @@ namespace MeuProjetoMVC.Controllers
     public class SubCategoriaController : Controller
     {
         private readonly string _connectionString;
-        public IActionResult Index()
+
+        public SubCategoriaController(IConfiguration configuration)
         {
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                                ?? throw new ArgumentNullException("Connection string não encontrada");
+        }
+
+        // ======================================================
+        // INDEX — Lista subcategorias da categoria selecionada
+        // ======================================================
+        public IActionResult Index(int codCat)
+        {
+            if (codCat == 0)
+                return BadRequest("Código da categoria não informado.");
+
             List<Sub_Categoria> Sub = new List<Sub_Categoria>();
-            List<Categoria> cat = new List<Categoria>();
+
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
-            using var cmd = new MySqlCommand("select codSub, nomeSubcategoria, codCat from Sub_Categoria", conn);
-            var rd = cmd.ExecuteReader();
+            using var cmd = new MySqlCommand(
+                "SELECT codSub, nomeSubcategoria, codCat FROM Sub_Categoria WHERE codCat = @cod;", conn);
+            cmd.Parameters.AddWithValue("@cod", codCat);
 
+            using var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
                 Sub.Add(new Sub_Categoria
                 {
-                    nomeSubcategoria = rd["nomeSubcategoria"] as string,
                     codSub = rd.GetInt32("codSub"),
+                    nomeSubcategoria = rd.GetString("nomeSubcategoria"),
                     codCat = rd.GetInt32("codCat")
                 });
             }
 
-            conn.Close();
-
-            ViewBag.Categoria = categorias();
-    
+            ViewBag.CodCat = codCat;              // mantém categoria atual
+            ViewBag.Categorias = CategoriasListaPorCod(codCat); // usado em telas que suportam troca
 
             return View(Sub);
         }
 
-        public IActionResult Cadastrar()
+        // ======================================================
+        // CADASTRAR (GET)
+        // ======================================================
+        public IActionResult Cadastrar(int codCat)
         {
-            ViewBag.Categoria = categorias();
-            return View();
+            if (codCat == 0)
+                return BadRequest("Categoria não informada.");
+
+            ViewBag.Categorias = CategoriasLista();
+            ViewBag.CodCat = codCat;
+
+            return View(new Sub_Categoria { codCat = codCat });
         }
 
+        // ======================================================
+        // CADASTRAR (POST)
+        // ======================================================
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Cadastrar(Sub_Categoria sub)
         {
-            try{
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categorias = CategoriasLista();
+                return View(sub);
+            }
+
+            try
+            {
                 using var conn = new MySqlConnection(_connectionString);
-                using var cmd = new MySqlCommand("cad_subcat", conn) { CommandType = System.Data.CommandType.StoredProcedure };
+                conn.Open();
+
+                using var cmd = new MySqlCommand("cad_subcat", conn)
+                { CommandType = System.Data.CommandType.StoredProcedure };
+
                 cmd.Parameters.AddWithValue("p_nomesub", sub.nomeSubcategoria);
                 cmd.Parameters.AddWithValue("p_cat", sub.codCat);
                 cmd.ExecuteNonQuery();
 
-                TempData["MensagemS"] = "Cadastro realizado com sucesso";
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemS"] = "Cadastro realizado com sucesso!";
+                return RedirectToAction("Index", new { codCat = sub.codCat });
             }
             catch (MySqlException ex)
             {
-                TempData["ErroS"] = "Erro ao realizar o cadastro"+ ex;
-                return RedirectToAction(nameof(Index));
+                TempData["ErroS"] = "Erro ao realizar o cadastro: " + ex.Message;
+                return RedirectToAction("Index", new { codCat = sub.codCat });
             }
-
         }
 
+        // ======================================================
+        // EDITAR (GET)
+        // ======================================================
         [HttpGet]
         public IActionResult Editar(int codSub)
         {
+            Sub_Categoria? sub = null;
 
-            List<Sub_Categoria> cat = null;
             using var conn = new MySqlConnection(_connectionString);
-            using var cmd = new MySqlCommand("Select codSub, nomeSubcategoria, codCat from Sub_Categoria where codSub = @cod");
+            conn.Open();
+
+            using var cmd = new MySqlCommand(
+                "SELECT codSub, nomeSubcategoria, codCat FROM Sub_Categoria WHERE codSub = @cod;", conn);
             cmd.Parameters.AddWithValue("@cod", codSub);
-            var rd = cmd.ExecuteReader();
 
-            while(rd.Read())
+            using var rd = cmd.ExecuteReader();
+            if (rd.Read())
             {
-                cat.Add(new Sub_Categoria
+                sub = new Sub_Categoria
                 {
-                    nomeSubcategoria = rd["nomeSubcategoria"] as string,
-                    codCat = rd.GetInt32("codCat"),
-                    codSub = rd.GetInt32("codSub")
-                });
+                    codSub = rd.GetInt32("codSub"),
+                    nomeSubcategoria = rd.GetString("nomeSubcategoria"),
+                    codCat = rd.GetInt32("codCat")
+                };
             }
 
-            if(cat == null)
-            {
-                return BadRequest();
-            }
+            if (sub == null)
+                return NotFound();
 
-            ViewBag.Categoria = categorias();
+            ViewBag.Categorias = CategoriasLista();
+            ViewBag.CodCat = sub.codCat;
 
-            return View(cat);
+            return View(sub);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        // ======================================================
+        // EDITAR (POST)
+        // ======================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Editar(Sub_Categoria sub)
         {
-            try{
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categorias = CategoriasLista();
+                return View(sub);
+            }
 
+            try
+            {
                 using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+
                 using var cmd = new MySqlCommand(@"
-                Update Sub_Categoria
-                set nomeSubcategoria = @nome, codCat = @cod
-                where codSub = @sub
-            ");
-                cmd.Parameters.AddWithValue("@cod", sub.codCat);
+                    UPDATE Sub_Categoria 
+                    SET nomeSubcategoria = @nome, codCat = @cat 
+                    WHERE codSub = @sub;", conn);
+
                 cmd.Parameters.AddWithValue("@nome", sub.nomeSubcategoria);
+                cmd.Parameters.AddWithValue("@cat", sub.codCat);
                 cmd.Parameters.AddWithValue("@sub", sub.codSub);
                 cmd.ExecuteNonQuery();
 
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemS"] = "Subcategoria atualizada!";
+                return RedirectToAction("Index", new { codCat = sub.codCat });
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                TempData["ErroS"] = "Erro ao realizar a alteração da subCategoria:"+ sub.codSub + ex;
-                return RedirectToAction(nameof(Index));
+                TempData["ErroS"] = "Erro ao editar: " + ex.Message;
+                return RedirectToAction("Index", new { codCat = sub.codCat });
             }
-            
         }
 
-        public IActionResult Excluir(int codSub)
+        // ======================================================
+        // EXCLUIR
+        // ======================================================
+        [HttpPost]
+        public IActionResult Excluir(int codSub, int codCat)
         {
-            if(codSub != null)
+            try
             {
                 using var conn = new MySqlConnection(_connectionString);
-                using var cmd = new MySqlCommand("Delete from Sub_Categoria where codSub = @cod");
-                cmd.Parameters.AddWithValue("@cod", codSub);
+                conn.Open();
+
+                using var cmd = new MySqlCommand(
+                    "DELETE FROM Sub_Categoria WHERE codSub = @sub AND codCat = @cat;", conn);
+
+                cmd.Parameters.AddWithValue("@sub", codSub);
+                cmd.Parameters.AddWithValue("@cat", codCat);
                 cmd.ExecuteNonQuery();
 
-                TempData["MensagemS"] = "Subcategoria Excluida com sucesso";
-                return RedirectToAction(nameof(Index));
+                TempData["MensagemS"] = "Subcategoria excluída!";
+                return RedirectToAction("Index", new { codCat });
             }
-            else
+            catch
             {
-                TempData["ErroS"] = "Erro, a subcategoria pode estar conectada a algum produto";
-                return RedirectToAction(nameof(Index));
+                TempData["ErroS"] = "Erro ao excluir: a subcategoria pode estar vinculada a produtos.";
+                return RedirectToAction("Index", new { codCat });
             }
-            
         }
 
-
-        public List<SelectListItem> categorias()
+        // ======================================================
+        // LISTA DE CATEGORIAS (SELECT)
+        // ======================================================
+        public List<SelectListItem> CategoriasLista()
         {
             var lista = new List<SelectListItem>();
 
             using var conn = new MySqlConnection(_connectionString);
-            using var cmd = new MySqlCommand("select codCat, nomeCategoria from Categorias", conn);
-            var rd = cmd.ExecuteReader();
+            conn.Open();
 
-            while(rd.Read())
+            using var cmd = new MySqlCommand("SELECT codCat, nomeCategoria FROM Categorias;", conn);
+            using var rd = cmd.ExecuteReader();
+
+            while (rd.Read())
             {
                 lista.Add(new SelectListItem
                 {
@@ -160,6 +224,30 @@ namespace MeuProjetoMVC.Controllers
             return lista;
         }
 
+        public List<SelectListItem> CategoriasListaPorCod(int? codCat)
+        {
+            var lista = new List<SelectListItem>();
+
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            using var cmd = new MySqlCommand("SELECT codCat, nomeCategoria FROM Categorias where codCat = @cod;", conn);
+            cmd.Parameters.AddWithValue("@cod", codCat);
+            var rd = cmd.ExecuteReader();
+
+            while (rd.Read())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = rd.GetInt32("codCat").ToString(),
+                    Text = rd.GetString("nomeCategoria")
+                });
+            }
+
+            return lista;
+        }
+
+    
 
     }
 }

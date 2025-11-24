@@ -1,0 +1,117 @@
+﻿@model MeuProjetoMVC.Models.Produto
+@{
+    var categoria = ViewBag.Categoria as List<MeuProjetoMVC.Models.Categoria>;
+    var sub = ViewBag.Sub as List<MeuProjetoMVC.Models.Sub_Categoria>;
+    var selecionadas = ViewBag.Selecionadas as List<int>;
+}
+
+<h2>Associar Subcategorias</h2>
+
+<div>
+    <h3>Produto</h3>
+    <p><strong>Nome:</strong> @Model.nomeProduto</p>
+    <p><strong>Código:</strong> @Model.codProd</p>
+    <input type="hidden" id="codProdHidden" value="@Model.codProd" />
+</div>
+
+<div>
+    <h3>Categoria</h3>
+    <p>@(categoria?.FirstOrDefault()?.NomeCategoria ?? "-")</p>
+</div>
+
+<hr />
+
+<h3>Subcategorias disponíveis</h3>
+
+<div class="tags-container">
+@foreach (var item in sub)
+{
+    bool marcado = selecionadas.Contains(item.codSub);
+    <label class="tag-item">
+        <input type="checkbox"
+               class="tag-checkbox"
+               name="subSelecionadas"
+               value="@item.codSub"
+               @(marcado ? "checked" : "") />
+        <span class="tag-text">@item.nomeSubcategoria</span>
+    </label>
+}
+
+<button id="btnSalvar" class="btn btn-primary">Salvar</button>
+</div>
+
+<style>
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    margin: 6px;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    background: #f3f3f3;
+}
+
+.tag-checkbox {
+    display: none;
+}
+
+.tag-checkbox:checked + .tag-text {
+    background: #e6f0ff;
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.tag-text {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.tag-item:hover .tag-text {
+    border-color: #4a90e2;
+}
+</style>
+
+
+<script>
+    //Adiciona o evento ao item do documento com o id btnSalvar. O evento é de click, e quando for realizado faz uma arrow function assincrona.
+   document.getElementById("btnSalvar").addEventListener("click", async () => {
+    const codProd = document.getElementById("codProdHidden").value; // Pega no corpo o elemento com o id codProdHidden e pega seu valor
+
+    // Cria uma variavel que vai transformar em um array(... é isso que os 3 pontos fazem, transforma uma lista não "oficial" em um array de verdade).
+    const selecionados = [...document.querySelectorAll("input[name='subSelecionadas']:checked")]// SELECIONE no documento qualquer input com nome subSelecionadas que estiver checado.
+        .map(x => parseInt(x.value)); //Mapeie o valor e cria uma variavel X que tenha o valor dos itens e o tente passar ele para valor do tipo Int
+
+        // Crie um objeto que armaze o valor de codProd e a lista
+    const payload = {
+        codProd: parseInt(codProd),
+        subSelecionados: selecionados
+    };
+
+    try {
+        const resposta = await fetch("/sistema/itemsub/salvar-por-json", { // Variavel que armazena o fetch, que usa uma rota, passando á informação que o metodo é post, mandando em json, e levando os elementos pelo corpo
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const retorno = await resposta.json(); //Espere o resultado da função e traga ela em formato de JSON
+        console.log(retorno); //Informe a informação no console do usuário
+
+        if (retorno.sucesso) {
+            alert("Salvo com sucesso!"); // Fassa um alerta
+            window.location.href = "/Produto/List"; // Envie o usuário para a view Lista da controller Produto
+        } else {
+            alert("Erro: " + retorno.mensagem);
+        }
+
+    } catch (erro) {
+        console.error("Erro no fetch", erro);
+    }
+});
+</script>

@@ -1,0 +1,38 @@
+﻿<!-- Cadastrar.cshtml -->
+@model MeuProjetoMVC.Models.ItemSubcategoria
+@{
+    ViewData["Title"] = "Cadastrar Subcategoria ao Produto";
+    var subcategorias = ViewBag.Subcategorias as List<MeuProjetoMVC.Models.Sub_Categoria>;
+    var produto = ViewBag.Produto as MeuProjetoMVC.Models.Produto;
+}
+
+
+<h2 class="text-xl font-semibold mb-4">Adicionar Subcategoria ao Produto</h2>
+
+
+@if (produto != null)
+{
+    <div class="mb-4 p-3 bg-gray-100 rounded">
+        <strong>Produto:</strong> @produto.nomeProduto
+    </div>
+}
+
+
+<form asp-action="Cadastrar" method="post">
+    <input type="hidden" asp-for="codProd" />
+
+
+    <div class="form-group">
+        <label>Subcategoria</label>
+        <select asp-for="codSub" class="form-control">
+            <option value="">-- Selecione --</option>
+            @foreach (var s in subcategorias!)
+            {
+                <option value="@s.codSub">@s.nomeSubcategoria</option>
+            }
+        </select>
+    </div>
+
+
+    <button type="submit" class="btn btn-success mt-3">Salvar</button>
+</form>

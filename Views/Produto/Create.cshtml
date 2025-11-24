@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Cadastrar Produto";
 }
+
+<link href="~/css//itemSub.css" rel="stylesheet" />
 <link href="~/css/form.css" rel="stylesheet" />
 
 <h2>Cadastrar Produto</h2>
@@ -50,7 +52,7 @@
     <!-- CATEGORIA -->
     <div class="mb-3">
         <label asp-for="codCat" class="form-label">Categoria:</label>
-        <select asp-for="codCat" asp-items="ViewBag.Categorias ?? new List<SelectListItem>()" class="form-select" required>
+        <select asp-for="codCat" asp-items="ViewBag.Categorias ?? new List<SelectListItem>()" onchange="ListaSub(this)" id="categoria" class="form-select" required>
             <option value="">-- Selecione a Categoria --</option>
         </select>
         <span asp-validation-for="codCat" class="text-danger"></span>
@@ -70,9 +72,23 @@
         <input type="file" name="midia" class="form-control" required />
     </div>
 
+
+
+
     <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
     <a asp-action="List" class="btn btn-secondary">Cancelar</a>
+
+
+
+
+
+
 </form>
+
+<script>
+    
+</script>
+
 
 @section Scripts {
     @{
