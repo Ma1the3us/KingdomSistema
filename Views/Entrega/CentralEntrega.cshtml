@@ -26,7 +26,6 @@
                 <label class="form-label">Situação</label>
                 <select id="situacao" class="form-select" disabled>
                     <option value="">Selecione</option>
-    
                 </select>
             </div>
 
@@ -49,16 +48,21 @@
 
 </div>
 
+
 <script>
-    
-    function trocar(tipo) 
-    {
+
+    // -------------------------------
+    // Trocar opções ao mudar retirada
+    // -------------------------------
+    function trocar(tipo) {
 
         const select = document.getElementById("situacao");
         const btn = document.getElementById("btnBuscar");
 
+        // Referência do tbody da tabela
+       
         if (tipo === "Entrega") {
-
+            document.getElementById("resultadoEntregas").innerHTML = "";
             btn.disabled = false;
             select.disabled = false;
 
@@ -70,6 +74,7 @@
             `;
         }
         else if (tipo === "Local") {
+            document.getElementById("resultadoEntregas").innerHTML = "";
 
             btn.disabled = false;
             select.disabled = false;
@@ -80,40 +85,269 @@
                 <option value="Finalizada">Finalizada</option>
             `;
         }
-        else if (tipo === "vazio") {
-
-            btn.disabled = true;     // <-- CORRETO
-            select.disabled = true;  // <-- CORRETO
+        else {
+            // ✔ tipo vazio: desabilita e limpa opções
+            btn.disabled = true;
+            select.disabled = true;
 
             select.innerHTML = `
                 <option value="">Selecione</option>
             `;
+
+            // ✔ limpa a tabela se existir
+            document.getElementById("resultadoEntregas").innerHTML = "";
+
         }
     }
 
-   async function buscar()
-    {
+
+    // -------------------------------
+    // Buscar resultados via fetch
+    // -------------------------------
+    async function buscar() {
+
         var tipoEntrega = document.getElementById("retirada").value;
         var tipoSituacao = document.getElementById("situacao").value;
 
-        var rotaBuscar = "/sistema/Entrega/BuscarEnderecos?retirada="
-                      + encodeURIComponent(tipoEntrega)
-                      + "&situacao="
-                      + encodeURIComponent(tipoSituacao);
+        if (tipoEntrega === "vazio") {
+            alert("Selecione o tipo de retirada!");
+            return;
+        }
+
+        if (tipoSituacao === "") {
+            alert("Selecione a situação!");
+            return;
+        }
+
+        var rotaBuscar =
+            "/sistema/Entrega/BuscarEnderecos?retirada=" +
+            encodeURIComponent(tipoEntrega) +
+            "&situacao=" +
+            encodeURIComponent(tipoSituacao);
 
         console.log(rotaBuscar);
 
-        var response = await fetch(rotaBuscar);
+        const response = await fetch(rotaBuscar);
+        const data = await response.json();
 
+        if (!data.sucesso) {
+            alert("Erro: " + data.mensagem);
+            return;
+        }
+
+        montarTabela(data);
+    }
+
+
+    // -------------------------------
+    // Montar tabela dinamicamente
+    // -------------------------------
+    function montarTabela(data) {
+
+        const div = document.getElementById("resultadoEntregas");
+
+        if (!data.entregas || data.entregas.length === 0) {
+            div.innerHTML = `<div class="alert alert-warning">Nenhuma entrega encontrada.</div>`;
+            return;
+        }
+
+        let retirada = data.retirada;
+
+        // Cabeçalho muda se for Local
+        let colunas = `
+                <tr>
+                    <th>Cód</th>
+                    <th>Usuário</th>
+                    <th>Email</th>
+            `;
+
+        if (retirada === "Entrega") {
+            colunas += `
+                    <th>CEP</th>
+                    <th>Número</th>
+                    <th>Complemento</th>
+                    <th>Tipo Endereço</th>
+                `;
+        }
+
+        colunas += `
+                    <th>Data Inicial</th>
+                    <th>Data Final</th>
+                    <th>Detalhes do pedido</th>
+                </tr>
+            `;
+
+        let html = `
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark" id="tablehead">
+                        ${colunas}
+                    </thead>
+                 <tbody id="tabelaResultados">
+            `;
+
+        for (let i = 0; i < data.entregas.length; i++) {
+
+            let e = data.entregas[i];
+            let user = data.usuarios[i];
+
+            let end = (retirada === "Entrega" && data.enderecos && data.enderecos[i])
+                ? data.enderecos[i]
+                : { cep: "-", numero: "-", complemento: "-", tipoEndereco: "-" };
+
+          
+            html += `
+                    <tr>
+                        <td>${e.codEntrega}</td>
+                        <td>${user.nome}</td>
+                        <td>${user.email}</td>
+                `;
+
+            if (retirada === "Entrega") {
+                html += `
+                            <td>${end.cep || "-"}</td>
+                            <td>${end.numero || "-"}</td>
+                            <td>${end.complemento || "-"}</td>
+                            <td>${end.tipoEndereco || "-"}</td>
+                    `;
+            }
+
+            html += `
+                        <td>${e.dataInicial ?? "-"}</td>
+                        <td>${e.dataFinal.startsWith("0001-01-01") ? "-" : e.dataFinal}</td>
+                       
+            `;
+            
+            let botoes = "";
+            botoes += `
+                    <button class="btn btn-sm btn-info"
+                        onclick="detalhes(${e.codEntrega}, '${retirada}', '${end.tipoEndereco ?? ""}')">
+                        Ver detalhes
+                    </button>
+            `;
+
+            if (e.situacao === "Em andamento" && retirada === "Entrega") {
+                botoes += `
+                <button class="btn btn-sm btn-warning ms-1"
+                   onclick="marcarAcaminho(${e.codEntrega})">
+                   Iniciar a entrega
+                </button>
+                `;
+            }
+
+            if (e.situacao === "A caminho") {
+                botoes += `
+                   <button class="btn btn-sm btn-warning ms-1"
+                       onclick="Emandamento(${e.codEntrega})">
+                       Voltar para andamento
+                    </button>
+
+                    <button class="btn btn-sm btn-warning ms-1"
+                       onclick="FinalizarEntrega(${e.codEntrega})">
+                       FinalizarEntrega
+                    </button>
+                `;
+            }
+
+            if (retirada === "Local" && e.situacao === "Em andamento") {
+                botoes = `
+                    <button class="btn btn-sm btn-warning ms-1"
+                        onclick="FinalizarLocal(${e.codEntrega})">
+                        Entrega Retirada
+                    </button>
+                `;
+            }
+
+            html += `
+                <td> ${botoes} </td></tr>
+            `;
+
+
+
+        }
+        
+
+        html += `
+                    </tbody>
+                </table>
+            `;
+
+        div.innerHTML = html;
+    }
+
+    function detalhes(cod, tipoRetirada, tipoEndereco)
+    {
+        window.location = `/sistema/Entrega/Detalhes?codEntrega=${cod}&tipoRetirada=${tipoRetirada}&tipoEndereco=${tipoEndereco}`;
+    }
+
+    async function marcarAcaminho(codEntrega)
+    {
+        var response = await fetch("/sistema/Entrega/Acaminho",{
+            method:"POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({ codEntrega: codEntrega })
+        });
+        
         var data = await response.json();
 
-        if(!data.sucesso)
+        if(data.sucesso)
         {
-            alert("Erro" + data.mensagem);
+            window.location.reload();
         }
         else
         {
-            alert("Funcionou");
+            alert(data.mensagem ?? "Não foi possivel realizar essa função");
         }
     }
+
+    async function Emandamento(codEntrega) {
+        var response = await fetch("/sistema/Entrega/Em_andamento_Entrega", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ codEntrega: codEntrega })
+        });
+
+        var data = await response.json();
+
+        if (data.sucesso) {
+            window.location.reload();
+        }
+        else {
+            alert(data.mensagem ?? "Não foi possivel realizar essa função");
+        }
+    }
+
+    async function FinalizarEntrega(codEntrega) {
+        var response = await fetch("/sistema/Entrega/Finalizar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ codEntrega: codEntrega })
+        });
+
+        var data = await response.json();
+
+        if (data.sucesso) {
+            window.location.reload();
+        }
+        else {
+            alert(data.mensagem ?? "Não foi possivel realizar essa função");
+        }
+    }
+
+    async function FinalizarLocal(codEntrega) {
+        var response = await fetch("/sistema/Entrega/FinalizarLocal", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ codEntrega: codEntrega })
+        });
+
+        var data = await response.json();
+
+        if (data.sucesso) {
+            window.location.reload();
+        }
+        else {
+            alert(data.mensagem ?? "Não foi possivel realizar essa função");
+        }
+    }
+
 </script>

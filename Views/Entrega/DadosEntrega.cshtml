@@ -16,7 +16,28 @@
 @if (retirada == "Local")
 {
     <div class="alert alert-info">
+        
         <p>Compra realizada com sucesso, basta ir a loja designinada para receber a compra</p>
+
+
+        <div class="row" id="destino2">
+
+            <h4>Insira o Receptor da entrega</h4>
+            <br />
+            <div class="col-md-5">
+                <label>Nome Completo</label>
+                <input id="nomeDestinatario" class="form-control" />
+            </div>
+
+            <div class="col-md-5">
+                <label>Email</label>
+                <input id="emailDestinatario" class="form-control" />
+            </div>
+
+            <button class="btn btn-success mt-3" onclick="salvarDestinatario()">Confirmar Destinatário</button>
+        </div>
+
+
         <div>
             <ul>
                 <li>Local: <p>KingdomGames</p></li>

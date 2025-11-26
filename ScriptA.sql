@@ -11,9 +11,7 @@ USE MeuProjetoMVC;
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
 
-select * from Entrega;
-select * from Endereco_Entrega;
-select * from Entrega_Produto;
+
 
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -135,7 +133,7 @@ select * from Usuario;
 -- TABELA Endereco_Entrega
 -- =====================================================
 CREATE TABLE Endereco_Entrega (
-    codEndereco INT PRIMARY KEY AUTO_INCREMENT PRIMARY KEY,
+    codEndereco INT PRIMARY KEY AUTO_INCREMENT,
     Cep VARCHAR(10),
     Logradouro VARCHAR(100),
     Estado VARCHAR(100),
@@ -1692,6 +1690,74 @@ select * from Carrinho;
 select * from ItemCarrinho;
 select * from Venda;
 select * from Entrega;
+
+describe Entrega;
+
+Delimiter $$
+Delimiter $$
+drop procedure if exists Em_andamentoEntrega $$
+create procedure Em_andamentoEntrega(c_codentrega int)
+begin
+
+		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
+								then
+        Update entrega
+        set Situacao = 'Finalizada'
+        where codEntrega = c_codentrega;
+	else
+		select 'Erro ao atualizar essa entrega' as Erro;
+    end if;
+end $$
+
+
+
+Delimiter $$
+drop procedure if exists FinalizadaLocal $$
+create procedure FinalizadaLocal(c_codentrega int)
+begin
+
+		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
+								then
+        Update entrega
+        set Situacao = 'Finalizada'
+        where codEntrega = c_codentrega;
+	else
+		select 'Erro ao atualizar essa entrega' as Erro;
+    end if;
+end $$
+
+
+Delimiter $$
+drop procedure if exists FinalizadaEntrega $$
+create procedure FinalizadaEntrega(c_codentrega int)
+begin
+
+		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
+								then
+        Update entrega
+        set Situacao = 'Finalizada'
+        where codEntrega = c_codentrega;
+	else
+		select 'Erro ao atualizar essa entrega' as Erro;
+    end if;
+end $$
+
+
+Delimiter $$
+drop procedure if exists AcaminhoEntrega $$
+create procedure AcaminhoEntrega(c_codentrega int)
+begin
+
+		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
+								then
+        Update entrega
+        set Situacao = 'A caminho'
+        where codEntrega = c_codentrega;
+	else
+		select 'Erro ao atualizar essa entrega' as Erro;
+    end if;
+end $$
+
 
 Delimiter $$
 drop procedure if exists deletar_fornecedor $$

@@ -1,0 +1,62 @@
+﻿@model MeuProjetoMVC.Models.Detalhes
+
+<div class="container mt-4">
+    <h2>Detalhes da Entrega</h2>
+
+    <div class="card p-3 mt-3 shadow-sm">
+        <h4>Informações Gerais</h4>
+        <p><strong>Código da Entrega:</strong> @Model.codEndereco</p>
+        <p><strong>Valor Total:</strong> @Model.valorTotal</p>
+        <p><strong>Nome do Cliente:</strong> @Model.Nome</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefone:</strong> @Model.Telefone</p>
+    </div>
+
+    @if (Model.TipoEndereco != null)
+    {
+        <div class="card p-3 mt-3 shadow-sm">
+            <h4>Endereço</h4>
+            <p><strong>CEP:</strong> @Model.Cep</p>
+            <p><strong>Logradouro:</strong> @Model.Logradouro</p>
+            <p><strong>Bairro:</strong> @Model.Bairro</p>
+            <p><strong>Cidade:</strong> @Model.Cidade</p>
+            <p><strong>Estado:</strong> @Model.Estado</p>
+            <p><strong>Número:</strong> @Model.Numero</p>
+            <p><strong>Complemento:</strong> @Model.Complemento</p>
+            <p><strong>Tipo Endereço:</strong> @Model.TipoEndereco</p>
+            @if (Model.TipoEndereco == "Apartamento")
+            {
+                <p><strong>Andar:</strong> @Model.Andar</p>
+                <p><strong>Nome do Prédio:</strong> @Model.NomePredio</p>
+            }
+        </div>
+    }
+
+    <div class="card p-3 mt-3 shadow-sm">
+        <h4>Destinatário</h4>
+        <p><strong>Nome:</strong> @Model.nomeDestinatario</p>
+        <p><strong>Email:</strong> @Model.emailDestinatario</p>
+    </div>
+
+    <div class="card p-3 mt-4 shadow-sm">
+        <h4>Produtos</h4>
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.nomeProduto</td>
+                    <td>@Model.Quantidade</td>
+                    <td>@Model.Valor</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a asp-action="CentralEntrega" asp-controller="Entrega" class="btn btn-primary">Voltar</a>
