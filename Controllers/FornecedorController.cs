@@ -112,7 +112,7 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
                 using var cmd = new MySqlCommand(
-                    "editar_fornecedor", conn);
+                    "editar_fornecedor", conn) {CommandType = System.Data.CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("f_cnpj", fornecedor.CNPJ);
                 cmd.Parameters.AddWithValue("f_nome", fornecedor.Nome);
                 cmd.Parameters.AddWithValue("f_cod", fornecedor.CodF);

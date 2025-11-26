@@ -27,7 +27,7 @@ CREATE TABLE Usuario (
 -- =====================================================
 -- TABELA Fornecedor
 -- =====================================================
-CREATE TABLE Fornecedor (
+CREATE TABLE Fornecedor( 
     codF INT AUTO_INCREMENT PRIMARY KEY,
     CNPJ VARCHAR(18) NOT NULL UNIQUE,
     Nome VARCHAR(100) NOT NULL
@@ -308,7 +308,9 @@ CREATE TABLE IF NOT EXISTS log_debug (
     dataLog DATETIME
 );
 
-
+select  * from Entrega;
+select * from Entrega_Produto;
+select * from Endereco_Entrega;
 -- ===================================================
 -- Criando as procedures de cadastrar
 -- ===================================================
@@ -368,6 +370,8 @@ BEGIN
 END $$
 
 call cadastrar_usuario_cliente('Irineu', 'cliente@Gmail.com', 'TESTE', '(11) 94444-3233', 'http/sadasa');
+
+
 
 DELIMITER $$
 drop procedure if exists cad_cart $$
@@ -521,6 +525,9 @@ BEGIN
 END $$
 
 call cad_zeta_jog('teste', 'dsadasdsa', 'rtx', '1', 'adasdasd', '12', 'HORROR!!!!!');
+
+
+select * from Produto;
 
 Delimiter $$
 drop procedure if exists cad_Produto $$
@@ -1015,6 +1022,7 @@ begin
     where codF = f_cod;
 end $$
 
+select * from Fornedecor;
 /*
 DELIMITER $$ 
 drop procedure if exists editar_imagem_principal_prod $$
@@ -1694,7 +1702,6 @@ select * from Entrega;
 describe Entrega;
 
 Delimiter $$
-Delimiter $$
 drop procedure if exists Em_andamentoEntrega $$
 create procedure Em_andamentoEntrega(c_codentrega int)
 begin
@@ -1702,7 +1709,7 @@ begin
 		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
 								then
         Update entrega
-        set Situacao = 'Finalizada'
+        set Situacao = 'Em andamento'
         where codEntrega = c_codentrega;
 	else
 		select 'Erro ao atualizar essa entrega' as Erro;
@@ -1710,6 +1717,7 @@ begin
 end $$
 
 
+select * from Entrega;
 
 Delimiter $$
 drop procedure if exists FinalizadaLocal $$
@@ -1719,7 +1727,7 @@ begin
 		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
 								then
         Update entrega
-        set Situacao = 'Finalizada'
+        set Situacao = 'Finalizada', dataFinal = curdate()
         where codEntrega = c_codentrega;
 	else
 		select 'Erro ao atualizar essa entrega' as Erro;
@@ -1735,7 +1743,7 @@ begin
 		if exists( select codEntrega from Entrega where codEntrega = c_codentrega) 
 								then
         Update entrega
-        set Situacao = 'Finalizada'
+        set Situacao = 'Finalizada', dataFinal= curdate()
         where codEntrega = c_codentrega;
 	else
 		select 'Erro ao atualizar essa entrega' as Erro;
@@ -1828,6 +1836,7 @@ END $$
 DELIMITER ;
 
 describe Produto;
+
 describe Entrega_Produto;
 select * from Entrega;
 select * from Venda;

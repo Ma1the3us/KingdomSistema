@@ -127,13 +127,13 @@ namespace MeuProjetoMVC.Controllers
                 else
                 {
                     cmd = new MySqlCommand(@"
-                SELECT e.codEntrega, e.dataInicial, e.dataFinal, e.situacao,
+                      SELECT e.codEntrega, e.dataInicial, e.dataFinal, e.situacao,
                        e.codUsuario,
                        u.Nome, u.Email
-                FROM Entrega e
-                INNER JOIN Usuario u ON e.codUsuario = u.codUsuario
-                WHERE e.retirada = @retirada AND e.Situacao = @situacao;
-            ", conn);
+                      FROM Entrega e
+                      INNER JOIN Usuario u ON e.codUsuario = u.codUsuario
+                      WHERE e.retirada = @retirada AND e.Situacao = @situacao;
+                    ", conn);
 
                     cmd.Parameters.AddWithValue("@retirada", retirada);
                     cmd.Parameters.AddWithValue("@situacao", situacao);
@@ -276,18 +276,18 @@ namespace MeuProjetoMVC.Controllers
                     {
                         // SELECT COMPLETO PARA APARTAMENTO
                         using (var cmd = new MySqlCommand(@"
-                    select e.codEntrega, e.codUsuario, e.valorTotal, e.codEnd, 
-                    e.Numero, e.Complemento, e.TipoEndereco, e.andar, e.NomePredio,
-                    e.nomeDestinatario, e.emailDestinatario,
-                    en.Cep, en.Logradouro, en.Estado, en.Bairro, en.Cidade,
-                    u.Nome, u.Email, u.Telefone,
-                    ep.nomeProduto, ep.Quantidade, ep.Valor
-                    from Entrega e
-                    left join endereco_entrega en on e.codEnd = en.codEndereco
-                    inner join entrega_produto ep on e.codEntrega = ep.codEntrega
-                    inner join usuario u on e.codUsuario = u.codUsuario
-                    where e.codEntrega = @cod;
-                ", conn))
+                        select e.codEntrega, e.codUsuario, e.valorTotal, e.codEnd, 
+                        e.Numero, e.Complemento, e.TipoEndereco, e.andar, e.NomePredio,
+                        e.nomeDestinatario, e.emailDestinatario,
+                        en.Cep, en.Logradouro, en.Estado, en.Bairro, en.Cidade,
+                        u.Nome, u.Email, u.Telefone,
+                        ep.nomeProduto, ep.Quantidade, ep.Valor
+                        from Entrega e
+                        left join endereco_entrega en on e.codEnd = en.codEndereco
+                        inner join entrega_produto ep on e.codEntrega = ep.codEntrega
+                        inner join usuario u on e.codUsuario = u.codUsuario
+                        where e.codEntrega = @cod;
+                        ", conn))
                         {
                             cmd.Parameters.AddWithValue("@cod", codEntrega);
                             var rd = cmd.ExecuteReader();

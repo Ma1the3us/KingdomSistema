@@ -17,211 +17,213 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MeuProjetoMVC
 build_property.RootNamespace = MeuProjetoMVC
-build_property.ProjectDir = C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema\
+build_property.ProjectDir = C:\Users\3mod\Desktop\KingdomSistema\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\gatin\OneDrive\Área de Trabalho\KingdomSistema
+build_property.MSBuildProjectDirectory = C:\Users\3mod\Desktop\KingdomSistema
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Auth/AcessoNegado.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Auth/AcessoNegado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBY2Vzc29OZWdhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Auth/Login.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Cart/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Cart/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Categorias/Criar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Categorias/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xDcmlhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Categorias/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Categorias/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xFZGl0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Categorias/Excluir.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Categorias/Excluir.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xFeGNsdWlyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Categorias/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Categorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/Cadastrar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcQ2FkYXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/ConfirmarReativacao.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/ConfirmarReativacao.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcQ29uZmlybWFyUmVhdGl2YWNhby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/Desativar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/Desativar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcRGVzYXRpdmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/Perfil.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/Perfil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcUGVyZmlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/ReativarConta.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/ReativarConta.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcUmVhdGl2YXJDb250YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Conta/Registrar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Conta/Registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcUmVnaXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Entrega/CentralEntrega.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Entrega/CentralEntrega.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVnYVxDZW50cmFsRW50cmVnYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Entrega/DadosEntrega.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Entrega/DadosEntrega.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVnYVxEYWRvc0VudHJlZ2EuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Entrega/Detalhes.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Entrega/Detalhes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVnYVxEZXRhbGhlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Favoritos/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Favoritos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3JpdG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Fornecedores/Criar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Fornecedores/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybmVjZWRvcmVzXENyaWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Fornecedores/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Fornecedores/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybmVjZWRvcmVzXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Fornecedores/Excluir.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Fornecedores/Excluir.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybmVjZWRvcmVzXEV4Y2x1aXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Fornecedores/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Fornecedores/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybmVjZWRvcmVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Home/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Home/Privacy.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ItemSub/Cadastrar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/ItemSub/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXRlbVN1YlxDYWRhc3RyYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ItemSub/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/ItemSub/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXRlbVN1YlxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Cadastrar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/ProdutoMidia/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXENhZGFzdHJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/ProdutoMidia/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/ProdutoMidia/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/ProdutoMidia/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b01pZGlhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/AssociarSub.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/AssociarSub.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xBc3NvY2lhclN1Yi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/Create.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/Detalhes.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/Detalhes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xEZXRhbGhlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/Edit.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/Excluir.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/Excluir.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xFeGNsdWlyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Produto/List.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Produto/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Shared/Error.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Shared/List.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Shared/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXExpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/SubCategoria/Cadastrar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/SubCategoria/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViQ2F0ZWdvcmlhXENhZGFzdHJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/SubCategoria/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/SubCategoria/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViQ2F0ZWdvcmlhXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/SubCategoria/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/SubCategoria/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViQ2F0ZWdvcmlhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Usuarios/Criar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Usuarios/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JpYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Usuarios/Editar.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Usuarios/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Usuarios/Excluir.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Usuarios/Excluir.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRXhjbHVpci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Usuarios/Inativos.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Usuarios/Inativos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5hdGl2b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Usuarios/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Venda/Index.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Venda/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/_ViewImports.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/_ViewStart.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gatin/OneDrive/Área de Trabalho/KingdomSistema/Views/Shared/_Layout.cshtml]
+[C:/Users/3mod/Desktop/KingdomSistema/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-fi7uv8olda
