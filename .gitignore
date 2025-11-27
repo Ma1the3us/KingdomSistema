@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudio,aspnetcore
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,aspnetcore
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,aspnetcore
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,visualstudiocode,aspnetcore
 
 ### ASPNETCore ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -271,6 +271,25 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
 ### VisualStudio ###
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
@@ -504,15 +523,9 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # VS Code files for those working on multiple tools
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 *.code-workspace
 
 # Local History for Visual Studio Code
-.history/
 
 # Windows Installer files from build outputs
 *.cab
@@ -526,4 +539,4 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudio,aspnetcore
+# End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,aspnetcore

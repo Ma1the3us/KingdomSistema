@@ -1,0 +1,50 @@
+﻿@model MeuProjetoMVC.Models.ProdutoMidia
+
+@{
+    ViewData["Title"] = "Detalhes da Mídia";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 text-center">📁 Detalhes da Mídia</h2>
+
+    <div class="card shadow p-4">
+
+        <p><strong>ID:</strong> @Model.codMidia</p>
+        <p><strong>Produto:</strong> @Model.codProd</p>
+        <p><strong>Tipo:</strong> @Model.tipoMidia</p>
+
+        <hr />
+
+        @if (Model.midia != null)
+        {
+            var base64 = Convert.ToBase64String(Model.midia);
+
+            if (Model.tipoMidia == "Imagem")
+            {
+                <img src="data:image/jpeg;base64,@base64"
+                     class="img-fluid rounded"
+                     style="max-height: 400px;" />
+            }
+            else if (Model.tipoMidia == "Video")
+            {
+                <video controls class="w-100" style="max-height:400px;">
+                    <source src="data:video/mp4;base64,@base64" type="video/mp4" />
+                </video>
+            }
+        }
+        else
+        {
+            <p class="text-danger">Nenhuma mídia cadastrada.</p>
+        }
+
+        <hr />
+
+        <a class="btn btn-secondary mt-3"
+           href="/ProdutoMidia/Index?codProd=@Model.codProd">
+            Voltar
+        </a>
+
+    </div>
+
+</div>

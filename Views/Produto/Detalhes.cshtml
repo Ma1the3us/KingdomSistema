@@ -95,7 +95,7 @@
 
                 @if(role == "Funcionario" || role == "Admin")
                 {
-                    <a asp-action="Index" asp-controller="ProdutoMidia">Página de Midia do produto</a>
+                    <a asp-action="Index" asp-controller="ProdutoMidia" asp-route-codProd="@Model.codProd">Página de Midia do produto</a>
                 }
 
             </div>
