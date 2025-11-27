@@ -7,11 +7,13 @@
     <h2 class="text-center mb-4">📤 Adicionar Nova Mídia ao Produto</h2>
 
     <form asp-action="Cadastrar" asp-controller="ProdutoMidia" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
-        <input type="hidden" name="codProd" value="@Model" />
+
+        <!-- CODPROD CORRETO -->
+        <input type="hidden" asp-for="codProd" />
 
         <div class="mb-3">
             <label for="tipoMidia" class="form-label">Tipo da Mídia</label>
-            <select class="form-select" name="tipoMidia" asp-for="tipoMidia" required>
+            <select class="form-select" asp-for="tipoMidia" required>
                 <option value="">Selecione...</option>
                 <option value="Imagem">Imagem</option>
                 <option value="Video">Vídeo</option>
@@ -20,12 +22,16 @@
 
         <div class="mb-3">
             <label for="midia" class="form-label">Arquivo</label>
-            <input type="file" name="midia" class="form-control" accept="image/*,video/*" asp-for="midia" required />
+            <input type="file" class="form-control" name="midia" accept="image/*,video/*" required />
         </div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-success px-4">Salvar</button>
-            <a asp-action="Index" asp-route-codProd="@Model" class="btn btn-secondary ms-2">Voltar</a>
+
+            <!-- VOLTAR CORRETO -->
+            <a asp-action="Index" asp-route-codProd="@Model.codProd" class="btn btn-secondary ms-2">
+                Voltar
+            </a>
         </div>
     </form>
 </div>

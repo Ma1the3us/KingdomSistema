@@ -102,6 +102,7 @@ CREATE TABLE ProdutoMidia (
     FOREIGN KEY (codProd) REFERENCES Produto(codProd)
 );
 
+
 -- =====================================================
 -- TABELA Item_Subcategoria
 -- =====================================================
