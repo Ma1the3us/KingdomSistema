@@ -6,12 +6,11 @@ CREATE DATABASE IF NOT EXISTS MeuProjetoMVC
 
 USE MeuProjetoMVC;
 
-
 -- =====================================================
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
 
-
+select  * from Entrega;
 
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -2062,7 +2061,7 @@ BEGIN
     WHERE codProd = p_id;
 END $$
 
-
+select  * from Entrega;
 -- Listar e obter categorias
 
 Delimiter $$

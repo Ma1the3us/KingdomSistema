@@ -15,6 +15,7 @@
 
 @if (Model != null && Model.Any())
 {
+    <input type="text" id="txtBusca" placeholder="Pesquisar produto..." onkeyup="buscar()">
     <table>
         <thead>
             <tr>
@@ -41,6 +42,9 @@
             }
         </tbody>
     </table>
+    <div id="pesquisa" style="display: none">
+    </div>
+
 }
 else
 {
@@ -50,3 +54,71 @@ else
 <div id="dBtnC" style="margin-top: 10px;">
     <a class="btn btn-primary btn-sm" asp-action="Create">Novo Produto</a>
 </div>
+
+
+<script>
+
+    async function buscar()
+    {
+        const produto = document.getElementById("txtBusca").value;
+
+        const response = await fetch(`/Produto/BuscarProdutos?nomeProduto=${encodeURIComponent(produto)}`);
+
+        data = await response.json();
+
+        montarTabela(data.produtos);
+    }
+
+    async function montarTabela(data)
+    {
+        const tbody = document.querySelector("tbody");
+        const div = document.getElementById("pesquisa");
+        
+        tbody.innerHTML="";
+        div.innerHTML = "";
+
+        
+        if(data.length > 0)
+        {
+            document.querySelector("table").style.display = "table";
+            data.forEach(p => {
+            tbody.innerHTML +=`
+            <tr>
+                <td>${p.nomeProduto}</td>
+                <td>${p.descricao}</td>
+                <td>R$ ${p.valor}</td>
+                <td>${p.quantidade}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Produto/Edit/${p.codProd}">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="/Produto/Excluir/${p.codProd}">Excluir</a>
+                </td>
+            </tr>
+            `
+        });
+        }
+        else
+        {
+          document.querySelector("table").style.display = "none";
+          /*    div.innerHTML = "<p> Nenhum produto encontrado </p>";
+                Opção
+          */
+            div.style.display = "block";
+            div.style.textAlign = "Center";
+
+            const p = document.createElement("p");
+             p.textContent = "Produto não encontrado";
+             p.style.fontSize= "1.2rem";
+             p.style.color = "red";
+             p.style.fontWeight = "bold";
+             p.textContent = "Produto não encontrado";
+             div.append(p);
+
+     
+        }
+        
+
+    }
+
+
+
+</script>

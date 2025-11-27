@@ -176,12 +176,141 @@ namespace MeuProjetoMVC.Controllers
         }
 
 
+        [HttpGet("BuscarEnderecosPorNome")]
+        public IActionResult BuscarEnderecosPorNome(string? retirada, string? situacao, string? nomeCliente)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+
+                MySqlCommand cmd;
+
+                // ================================
+                //     CASO 1 → RETIRADA = ENTREGA
+                // ================================
+                if (retirada == "Entrega")
+                {
+                    cmd = new MySqlCommand(@"
+                SELECT e.codEntrega, e.Numero, e.Complemento, e.TipoEndereco,
+                       e.codUsuario, e.dataInicial, e.dataFinal, e.situacao,
+                       en.Cep, en.codEndereco, 
+                       u.Nome, u.Email
+                FROM Entrega e
+                LEFT JOIN Endereco_Entrega en ON e.codEnd = en.codEndereco
+                INNER JOIN Usuario u ON e.codUsuario = u.codUsuario
+                WHERE e.retirada = @retirada AND e.situacao = @situacao AND (@nome = '' OR u.Nome LIKE CONCAT('%', @nome, '%'));
+            ", conn);
+
+                    cmd.Parameters.AddWithValue("@retirada", retirada);
+                    cmd.Parameters.AddWithValue("@situacao", situacao);
+                    cmd.Parameters.AddWithValue("@nome", nomeCliente);
+                    List<Entrega> entregas = new();
+                    List<EnderecoEntrega> enderecos = new();
+                    List<Usuario> usuarios = new();
+
+                    var rd = cmd.ExecuteReader();
+                    while (rd.Read())
+                    {
+                        entregas.Add(new Entrega
+                        {
+                            codEntrega = rd.GetInt32("codEntrega"),
+                            Situacao = rd["situacao"]?.ToString(),
+                            Numero = rd["Numero"]?.ToString(),
+                            Complemento = rd["Complemento"]?.ToString(),
+                            tipoEndereco = rd["TipoEndereco"]?.ToString(),
+                            dataInicial = rd.IsDBNull("dataInicial") ? default : DateOnly.FromDateTime(rd.GetDateTime("dataInicial")),
+                            dataFinal = rd.IsDBNull("dataFinal") ? default : DateOnly.FromDateTime(rd.GetDateTime("dataFinal"))
+                        });
+
+                        // Endereço só existe no modo "Entrega"
+                        if (!rd.IsDBNull("codEndereco"))
+                        {
+                            enderecos.Add(new EnderecoEntrega
+                            {
+                                codEndereco = rd.GetInt32("codEndereco"),
+                                Cep = rd["Cep"]?.ToString()
+                            });
+                        }
+
+                        usuarios.Add(new Usuario
+                        {
+                            CodUsuario = rd.GetInt32("codUsuario"),
+                            Nome = rd["Nome"]?.ToString(),
+                            Email = rd["Email"]?.ToString()
+                        });
+                    }
+
+                    return Json(new
+                    {
+                        sucesso = true,
+                        retirada = "Entrega",
+                        entregas,
+                        enderecos,
+                        usuarios
+                    });
+                }
+
+                // ================================
+                //     CASO 2 → RETIRADA = LOCAL
+                // ================================
+                else
+                {
+                    cmd = new MySqlCommand(@"
+                      SELECT e.codEntrega, e.dataInicial, e.dataFinal, e.situacao,
+                       e.codUsuario,
+                       u.Nome, u.Email
+                      FROM Entrega e
+                      INNER JOIN Usuario u ON e.codUsuario = u.codUsuario
+                      WHERE e.retirada = @retirada AND e.Situacao = @situacao And (@nome = '' OR u.Nome LIKE CONCAT('%', @nome, '%'));
+                    ", conn);
+
+                    cmd.Parameters.AddWithValue("@retirada", retirada);
+                    cmd.Parameters.AddWithValue("@situacao", situacao);
+                    cmd.Parameters.AddWithValue("@nome", nomeCliente);
+
+                    List<Entrega> entregas = new();
+                    List<Usuario> usuarios = new();
+
+                    var rd = cmd.ExecuteReader();
+                    while (rd.Read())
+                    {
+                        entregas.Add(new Entrega
+                        {
+                            Situacao = rd["situacao"]?.ToString(),
+                            codEntrega = rd.GetInt32("codEntrega"),
+                            dataInicial = rd.IsDBNull("dataInicial") ? default : DateOnly.FromDateTime(rd.GetDateTime("dataInicial")),
+                            dataFinal = rd.IsDBNull("dataFinal") ? default : DateOnly.FromDateTime(rd.GetDateTime("dataFinal"))
+                        });
+
+                        usuarios.Add(new Usuario
+                        {
+                            CodUsuario = rd.GetInt32("codUsuario"),
+                            Nome = rd["Nome"]?.ToString(),
+                            Email = rd["Email"]?.ToString()
+                        });
+                    }
+
+                    return Json(new
+                    {
+                        sucesso = true,
+                        retirada = "Local",
+                        entregas,
+                        usuarios
+                    });
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return BadRequest(new { sucesso = false, mensagem = ex.Message });
+            }
+        }
 
 
-            // ==================================
-            // SALVA DADOS DO ENDEREÇO
-            // ==================================
-            [HttpPost("DadosCliente")]
+        // ==================================
+        // SALVA DADOS DO ENDEREÇO
+        // ==================================
+        [HttpPost("DadosCliente")]
         public IActionResult DadosCliente([FromBody] DadosEntregaDTO dto)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);

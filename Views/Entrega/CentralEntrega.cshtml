@@ -41,6 +41,15 @@
     </div>
 
     <!-- RESULTADOS -->
+
+    <div style="display:none" id="pesquisarBloco">
+        <div>
+            <input type="Text" placeholder="Insira o nome do Usuario" id="nomeCliente" />
+            <button id="Pesquisar" onclick="Pesquisar()">Pesquisar</button>
+            <button id="LimparPesquisa" onclick="Limpar()">Limpar navegação</button>
+        </div>
+    </div>
+
     <div class="mt-4">
         <h4>Resultados</h4>
         <div id="resultadoEntregas" class="mt-3"></div>
@@ -145,6 +154,7 @@
     function montarTabela(data) {
 
         const div = document.getElementById("resultadoEntregas");
+          document.getElementById("pesquisarBloco").style.display = "block";
 
         if (!data.entregas || data.entregas.length === 0) {
             div.innerHTML = `<div class="alert alert-warning">Nenhuma entrega encontrada.</div>`;
@@ -349,5 +359,71 @@
             alert(data.mensagem ?? "Não foi possivel realizar essa função");
         }
     }
+
+       async function Pesquisar(){
+
+        var tipoEntrega = document.getElementById("retirada").value;
+        var tipoSituacao = document.getElementById("situacao").value;
+        var nomeCliente = document.getElementById("nomeCliente").value;
+
+        document.getElementById("resultadoEntregas").innerHTML = "";
+
+        if (tipoEntrega === "vazio") {
+            alert("Selecione o tipo de retirada!");
+            return;
+        }
+
+        if (tipoSituacao === "") {
+            alert("Selecione a situação!");
+            return;
+        }
+
+        var rotaBuscar =
+            "/sistema/Entrega/BuscarEnderecosPorNome?retirada=" +
+            encodeURIComponent(tipoEntrega) +
+            "&situacao=" +
+            encodeURIComponent(tipoSituacao) +
+            "&nomeCliente=" + encodeURIComponent(nomeCliente);
+
+        const response = await fetch(rotaBuscar);
+        const data = await response.json();
+
+        if (!data.sucesso) {
+            alert("Erro: " + data.mensagem);
+            return;
+        }
+
+        montarTabela(data);
+    }
+
+
+
+      async function Limpar(){
+
+        var tipoEntrega = document.getElementById("retirada").value;
+        var tipoSituacao = document.getElementById("situacao").value;
+
+        document.getElementById("nomeCliente").value = "";
+        document.getElementById("resultadoEntregas").innerHTML = "";
+
+        var rotaBuscar =
+            "/sistema/Entrega/BuscarEnderecos?retirada=" +
+            encodeURIComponent(tipoEntrega) +
+            "&situacao=" +
+            encodeURIComponent(tipoSituacao);
+
+        const response = await fetch(rotaBuscar);
+        const data = await response.json();
+
+        if (!data.sucesso) {
+            alert("Erro: " + data.mensagem);
+            return;
+        }
+
+        montarTabela(data);
+    }
+
+  
+
 
 </script>

@@ -44,6 +44,55 @@ namespace MeuProjetoMVC.Controllers
             return View(categorias);
         }
 
+        public IActionResult BuscarCategoria(string? nome)
+        {
+            var categorias = new List<Categoria>();
+
+            var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            MySqlCommand cmd;
+
+            if (nome == null)
+            {
+                cmd = new MySqlCommand(@"
+                SELECT codCat, nomeCategoria
+                FROM Categorias
+                order by nomeCategoria;
+                ", conn);
+            }
+            else
+            {
+                cmd = new MySqlCommand(@"
+                SELECT codCat, nomeCategoria
+                FROM Categorias
+                where
+                (@nome = '' or nomeCategoria like concat('%',@nome,'%'));
+                ", conn);
+                cmd.Parameters.AddWithValue("@nome", nome);
+            }
+           
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                categorias.Add(new Categoria
+                {
+                    CodCat = reader.GetInt32("codCat"),
+                    NomeCategoria = reader.GetString("nomeCategoria")
+                });
+            }
+
+            return Json(new
+            {
+                sucesso = true,
+                categorias
+
+            });
+        }
+
+
+
         // ==========================================================
         // CRIAR CATEGORIA
         // ==========================================================

@@ -105,7 +105,7 @@
 
         if (retorno.sucesso) {
             alert("Salvo com sucesso!"); // Fassa um alerta
-            window.location.href = "/Produto/List"; // Envie o usuário para a view Lista da controller Produto
+                window.location.href = "/ProdutoMidia/Index?codProd=" + codProd; // Envie o usuário para a view Lista da controller Produto
         } else {
             alert("Erro: " + retorno.mensagem);
         }

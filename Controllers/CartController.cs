@@ -7,7 +7,7 @@ using System.Data;
 
 namespace MeuProjetoMVC.Controllers
 {
-    [SessionAuthorize]
+    [SessionAuthorize(RoleAnyOf = "Admin,Funcionario,Cliente")]
     public class CartController : Controller
     {
         private readonly string _connectionString;

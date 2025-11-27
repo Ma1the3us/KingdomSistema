@@ -13,7 +13,7 @@ using System.Data;
 namespace MeuProjetoMVC.Controllers
 {
 
-    [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
+   
     public class ProdutoController : Controller
     {
         private readonly string _connectionString;
@@ -91,6 +91,7 @@ namespace MeuProjetoMVC.Controllers
             }
         }
 
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         private void RecarregarListas()
         {
             using var conn = new MySqlConnection(_connectionString);
@@ -132,7 +133,7 @@ namespace MeuProjetoMVC.Controllers
 
 
 
-
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         public IActionResult Edit(int id)
         {
             Produto? produto = null;
@@ -167,7 +168,9 @@ namespace MeuProjetoMVC.Controllers
             return View(produto);
         }
 
+
         [HttpPost]
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         public IActionResult Edit(Produto produto, IFormFile? midia)
         {
             if (!ModelState.IsValid)
@@ -254,17 +257,19 @@ namespace MeuProjetoMVC.Controllers
             }
         }
         // GET: /Produto/List
-        public IActionResult List()
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
+        public IActionResult List(string? nomeProduto)
         {
             var produtos = new List<Produto>();
-
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
-            using var cmd = new MySqlCommand(
-                "SELECT codProd, Quantidade, Valor, Descricao, nomeProduto FROM Produto;", conn);
 
-            using var reader = cmd.ExecuteReader();
+
+            using var cmd = new MySqlCommand(
+            "SELECT codProd, Quantidade, Valor, Descricao, nomeProduto FROM Produto;", conn);
+
+                using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 produtos.Add(new Produto
@@ -280,6 +285,44 @@ namespace MeuProjetoMVC.Controllers
             return View(produtos);
         }
 
+
+        public IActionResult BuscarProdutos(string? nomeProduto)
+        {
+            var produtos = new List<Produto>();
+            MySqlCommand cmd;
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            if(nomeProduto == null)
+            {
+                cmd = new MySqlCommand("SELECT codProd, Quantidade, Valor, Descricao, nomeProduto FROM Produto;", conn);
+            }
+            else { 
+                cmd = new MySqlCommand(@"
+                   select codProd, Quantidade, Valor, Descricao, nomeProduto from Produto where 
+                   (@nome = '' or nomeProduto like CONCAT('%',@nome,'%'));  
+                 ", conn);
+                cmd.Parameters.AddWithValue("@nome", nomeProduto);
+            }
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                produtos.Add(new Produto
+                {
+                    codProd = reader["codProd"] != DBNull.Value ? Convert.ToInt32(reader["codProd"]) : 0,
+                    Quantidade = reader["Quantidade"] != DBNull.Value ? Convert.ToInt32(reader["Quantidade"]) : 0,
+                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0,
+                    Descricao = reader["Descricao"]?.ToString() ?? string.Empty,
+                    nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty
+                });
+            }
+
+            return Json(new { sucesso = true, produtos});
+        }
+
+
+
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         private void PopularViewBags()
         {
             using var conn = new MySqlConnection(_connectionString);
@@ -322,6 +365,7 @@ namespace MeuProjetoMVC.Controllers
         // Perguntar se não é melhor só desativar o produto do que excluir ele completamente
         // Já que é provavel que seja cascata.
         [ActionName("Excluir")]
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         public IActionResult Excluir(int id)
         {
             Produto? produto = null;
@@ -351,6 +395,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
         [HttpPost, ActionName("Excluir")]
+        [SessionAuthorize(RoleAnyOf = "Admin,Funcionario")]
         public IActionResult ExcluirConfirmado(int id)
         {
             try
