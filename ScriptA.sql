@@ -20,6 +20,7 @@ CREATE TABLE Usuario (
     Role ENUM('Admin','Funcionario','Cliente') NOT NULL DEFAULT 'Cliente',
     Telefone  varchar(15) not null,
     Ativo CHAR(1) NOT NULL DEFAULT '1',
+    PlanoZeta CHAR(1) NOT NULL DEFAULT 'N',
     Foto longblob
 );
 
@@ -246,26 +247,22 @@ CREATE TABLE Entrega_Produto (
 -- =====================================================
 -- TABELA ZetaVersoes
 -- =====================================================
-CREATE TABLE ZetaVersoes (
+/*CREATE TABLE ZetaVersoes (
     codZetaV INT AUTO_INCREMENT PRIMARY KEY,
     Pacote VARCHAR(100) NOT NULL,
     Valor DOUBLE NOT NULL,
     Descricao VARCHAR(255)
-);
+);*/
 
 -- =====================================================
 -- TABELA ZetaPass
 -- =====================================================
 CREATE TABLE ZetaPass (
     codZeta INT AUTO_INCREMENT PRIMARY KEY,
-    dataInicial DATE,
-    dataFinal DATE,
     codUsuario INT,
-    codZetaV INT,
     formaPag enum ('Pix', 'Debito', 'Credito','Outro'),
     situacao varchar(1) default '1',
-    FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
-    FOREIGN KEY (codZetaV) REFERENCES ZetaVersoes(codZetaV)
+    FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
 );
 
 -- =====================================================
@@ -274,13 +271,12 @@ CREATE TABLE ZetaPass (
 CREATE TABLE ZetaJogos (
     codZetaJ INT PRIMARY KEY AUTO_INCREMENT,
     nomeJogo VARCHAR(100) NOT NULL,
-    Jogo LONGBLOB NOT NULL,
-    jogoTipo VARCHAR(255) NOT NULL,
-    codZetaV INT NOT NULL,
+    codUsuario INT NOT NULL,
     imagemCapa  longblob NULL,
     classificacaoEtaria VARCHAR(10) NULL,
-    categoria VARCHAR(100) NULL,
-    FOREIGN KEY (codZetaV) REFERENCES ZetaVersoes(codZetaV)
+    codCat int,
+    FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
+	FOREIGN KEY (codCat) REFERENCES Categorias(codCat)
 );
 
 -- ===================================
