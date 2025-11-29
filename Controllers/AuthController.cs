@@ -45,7 +45,7 @@ namespace MeuProjetoMVC.Controllers
 
 
             using var cmd = new MySqlCommand(
-                "SELECT codUsuario, Nome, Email, Senha, Role, Ativo FROM Usuario WHERE Email = @email LIMIT 1;",
+                "SELECT codUsuario, Nome, Email, Senha, Role, Ativo, PlanoZeta FROM Usuario WHERE Email = @email LIMIT 1;",
                 conn);
             cmd.Parameters.AddWithValue("@email", email);
 
@@ -62,6 +62,7 @@ namespace MeuProjetoMVC.Controllers
             var senhaHash = reader.GetString("Senha");
             var role = reader.GetString("Role");
             var ativo = reader.GetString("Ativo");
+            var plano = reader.GetString("PlanoZeta");
 
             //Tem que redirecionar para a área de ativição do usuário quando for cliente.
             if (ativo != "1")
@@ -83,7 +84,7 @@ namespace MeuProjetoMVC.Controllers
             HttpContext.Session.SetString(SessionKeys.UserName, nome);
             HttpContext.Session.SetString(SessionKeys.UserEmail, emailDb);
             HttpContext.Session.SetString(SessionKeys.UserRole, role);
-
+            HttpContext.Session.SetString(SessionKeys.UserPlanoZeta, plano);
 
             return RedirectToAction("Index", "Home");
         }

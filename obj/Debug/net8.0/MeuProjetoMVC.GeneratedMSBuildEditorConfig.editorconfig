@@ -54,8 +54,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmlhcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/matheus/Desktop/KingdomSistema/Views/Conta/AdicionarCartao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvQWRpY2lvbmFyQ2FydGFvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/matheus/Desktop/KingdomSistema/Views/Conta/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvQ2FkYXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/Conta/Cartoes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvQ2FydG9lcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matheus/Desktop/KingdomSistema/Views/Conta/ConfirmarReativacao.cshtml]
@@ -64,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/matheus/Desktop/KingdomSistema/Views/Conta/Desativar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvRGVzYXRpdmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/Conta/DetalhesVenda.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvRGV0YWxoZXNWZW5kYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matheus/Desktop/KingdomSistema/Views/Conta/Editar.cshtml]
@@ -80,6 +92,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/matheus/Desktop/KingdomSistema/Views/Conta/Registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvUmVnaXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/Conta/_ModalAdicionarCartao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGEvX01vZGFsQWRpY2lvbmFyQ2FydGFvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matheus/Desktop/KingdomSistema/Views/Entrega/CentralEntrega.cshtml]
@@ -128,6 +144,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/matheus/Desktop/KingdomSistema/Views/ItemSub/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSXRlbVN1Yi9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/PlanoZeta/Contratar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxhbm9aZXRhL0NvbnRyYXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/PlanoZeta/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxhbm9aZXRhL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/PlanoZeta/Parabens.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxhbm9aZXRhL1BhcmFiZW5zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/PlanoZeta/ZetaJogos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxhbm9aZXRhL1pldGFKb2dvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matheus/Desktop/KingdomSistema/Views/Produto/AssociarSub.cshtml]
@@ -216,6 +248,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/matheus/Desktop/KingdomSistema/Views/Venda/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmVuZGEvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/ZetaJogos.cshtml/Criar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvWmV0YUpvZ29zLmNzaHRtbC9Dcmlhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/ZetaJogos.cshtml/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvWmV0YUpvZ29zLmNzaHRtbC9FZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/ZetaJogos.cshtml/Excluir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvWmV0YUpvZ29zLmNzaHRtbC9FeGNsdWlyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matheus/Desktop/KingdomSistema/Views/ZetaJogos.cshtml/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvWmV0YUpvZ29zLmNzaHRtbC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matheus/Desktop/KingdomSistema/Views/_ViewImports.cshtml]

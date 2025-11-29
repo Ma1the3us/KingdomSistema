@@ -1,0 +1,29 @@
+@model MeuProjetoMVC.Models.Venda
+
+<h5>Venda #@Model.codVenda</h5>
+<p><b>Data:</b> @Model.dataE.ToString("dd/MM/yyyy HH:mm")</p>
+<p><b>Total:</b> R$ @Model.valorTotalVenda</p>
+
+<hr />
+
+<h5>Itens da Venda</h5>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Qtd</th>
+            <th>Preço</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Produtos)
+        {
+            <tr>
+                <td>@i.nomeProduto</td>
+                <td>@i.Quantidade</td>
+                <td>R$ @i.Valor</td>
+            </tr>
+        }
+    </tbody>
+</table>

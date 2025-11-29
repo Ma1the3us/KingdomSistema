@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "46Z7d/8PMA17aYa53fIqQ87CpW4iMZra5jx8sL7fDXk=",
+=======
+  "Hash": "wEQ9wOHnOPMNViYJI9+cMd3bx6zv8j25Y+1mVp+hyoE=",
+>>>>>>> Dev
   "Source": "MeuProjetoMVC",
   "BasePath": "_content/MeuProjetoMVC",
   "Mode": "Default",
@@ -321,12 +325,20 @@
       "OriginalItemSpec": "wwwroot/img/usuario.png"
     },
     {
+<<<<<<< HEAD
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/js/site.js",
+=======
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/js/cartao.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "js/site.js",
+=======
+      "RelativePath": "js/cartao.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -337,15 +349,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/js/site.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+=======
+      "OriginalItemSpec": "wwwroot/js/cartao.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/js/site.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
+=======
+      "RelativePath": "js/site.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -356,15 +379,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -375,15 +409,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -394,15 +439,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -413,15 +469,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -432,15 +499,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -451,15 +529,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -470,15 +559,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -489,15 +589,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -508,15 +619,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -527,15 +649,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -546,15 +679,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -565,15 +709,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -584,15 +739,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -603,15 +769,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -622,15 +799,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -641,15 +829,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -660,15 +859,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -679,15 +889,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -698,15 +919,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -717,15 +949,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -736,15 +979,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -755,15 +1009,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -774,15 +1039,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -793,15 +1069,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -812,15 +1099,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -831,15 +1129,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -850,15 +1159,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -869,15 +1189,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -888,15 +1219,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -907,15 +1249,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -926,15 +1279,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -945,15 +1309,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -964,15 +1339,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -983,15 +1369,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1002,15 +1399,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1021,15 +1429,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1040,15 +1459,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1059,15 +1489,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1078,15 +1519,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1097,15 +1549,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1116,15 +1579,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1135,15 +1609,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1154,15 +1639,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1173,15 +1669,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/LICENSE",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/bootstrap/LICENSE",
+=======
+      "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1192,15 +1699,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/bootstrap/LICENSE"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/bootstrap/LICENSE",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+=======
+      "RelativePath": "lib/bootstrap/LICENSE",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1211,15 +1729,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/LICENSE"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+=======
+      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1230,15 +1759,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
+=======
+      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1249,15 +1789,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
+=======
+      "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1268,15 +1819,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
+=======
+      "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1287,15 +1849,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
+=======
+      "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1306,15 +1879,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
+=======
+      "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1325,15 +1909,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/LICENSE.md",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery-validation/LICENSE.md",
+=======
+      "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1344,15 +1939,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/LICENSE.md"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery-validation/LICENSE.md",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery/dist/jquery.js",
+=======
+      "RelativePath": "lib/jquery-validation/LICENSE.md",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1363,15 +1969,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.min.js",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery/dist/jquery.min.js",
+=======
+      "RelativePath": "lib/jquery/dist/jquery.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1382,15 +1999,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.js"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.min.map",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.min.js",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery/dist/jquery.min.map",
+=======
+      "RelativePath": "lib/jquery/dist/jquery.min.js",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1401,15 +2029,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.map"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/LICENSE.txt",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/dist/jquery.min.map",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "lib/jquery/LICENSE.txt",
+=======
+      "RelativePath": "lib/jquery/dist/jquery.min.map",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1420,15 +2059,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/lib/jquery/LICENSE.txt"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/God-Of-War-Logo-Free-PNG-Clip-Art.png",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/lib/jquery/LICENSE.txt",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "midia/God-Of-War-Logo-Free-PNG-Clip-Art.png",
+=======
+      "RelativePath": "lib/jquery/LICENSE.txt",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1439,15 +2089,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/midia/God-Of-War-Logo-Free-PNG-Clip-Art.png"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/GTA-V-Logo-PNG-Free-Image.png",
+=======
+      "OriginalItemSpec": "wwwroot/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/God-Of-War-Logo-Free-PNG-Clip-Art.png",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "midia/GTA-V-Logo-PNG-Free-Image.png",
+=======
+      "RelativePath": "midia/God-Of-War-Logo-Free-PNG-Clip-Art.png",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1458,15 +2119,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/midia/GTA-V-Logo-PNG-Free-Image.png"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/gta5-360-1-t1l95jg3bm.webp",
+=======
+      "OriginalItemSpec": "wwwroot/midia/God-Of-War-Logo-Free-PNG-Clip-Art.png"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/GTA-V-Logo-PNG-Free-Image.png",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "midia/gta5-360-1-t1l95jg3bm.webp",
+=======
+      "RelativePath": "midia/GTA-V-Logo-PNG-Free-Image.png",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1477,15 +2149,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/midia/gta5-360-1-t1l95jg3bm.webp"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/pngkey.com-zombies-png-279558.png",
+=======
+      "OriginalItemSpec": "wwwroot/midia/GTA-V-Logo-PNG-Free-Image.png"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/gta5-360-1-t1l95jg3bm.webp",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "midia/pngkey.com-zombies-png-279558.png",
+=======
+      "RelativePath": "midia/gta5-360-1-t1l95jg3bm.webp",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1496,15 +2179,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
       "OriginalItemSpec": "wwwroot/midia/pngkey.com-zombies-png-279558.png"
     },
     {
       "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/The-Last-of-Us-Game-Download-Free-PNG.png",
+=======
+      "OriginalItemSpec": "wwwroot/midia/gta5-360-1-t1l95jg3bm.webp"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/pngkey.com-zombies-png-279558.png",
+>>>>>>> Dev
       "SourceId": "MeuProjetoMVC",
       "SourceType": "Discovered",
       "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
       "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
       "RelativePath": "midia/The-Last-of-Us-Game-Download-Free-PNG.png",
+=======
+      "RelativePath": "midia/pngkey.com-zombies-png-279558.png",
+>>>>>>> Dev
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1515,6 +2209,38 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
+      "OriginalItemSpec": "wwwroot/midia/The-Last-of-Us-Game-Download-Free-PNG.png"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/Watch-Dogs-Black-Logo-Transparent-Image.png",
+=======
+      "OriginalItemSpec": "wwwroot/midia/pngkey.com-zombies-png-279558.png"
+    },
+    {
+      "Identity": "/home/matheus/Desktop/KingdomSistema/wwwroot/midia/The-Last-of-Us-Game-Download-Free-PNG.png",
+>>>>>>> Dev
+      "SourceId": "MeuProjetoMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/matheus/Desktop/KingdomSistema/wwwroot/",
+      "BasePath": "_content/MeuProjetoMVC",
+<<<<<<< HEAD
+      "RelativePath": "midia/Watch-Dogs-Black-Logo-Transparent-Image.png",
+=======
+      "RelativePath": "midia/The-Last-of-Us-Game-Download-Free-PNG.png",
+>>>>>>> Dev
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+<<<<<<< HEAD
+=======
       "OriginalItemSpec": "wwwroot/midia/The-Last-of-Us-Game-Download-Free-PNG.png"
     },
     {
@@ -1534,6 +2260,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
+>>>>>>> Dev
       "OriginalItemSpec": "wwwroot/midia/Watch-Dogs-Black-Logo-Transparent-Image.png"
     }
   ]

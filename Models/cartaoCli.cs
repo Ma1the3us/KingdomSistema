@@ -2,7 +2,8 @@
 {
     public class cartaoCli
     {
-        public string? codCart { get; set; }
+        public string?  Numero {get;set;}
+        public int codCart { get; set; }
 
         public string? digitos { get; set; }
 

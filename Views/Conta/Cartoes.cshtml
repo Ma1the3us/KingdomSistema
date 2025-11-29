@@ -1,0 +1,45 @@
+@model List<MeuProjetoMVC.Models.cartaoCli>
+
+@{
+    ViewData["Title"] = "Meus Cartões";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Sucesso"]
+    </div>
+}
+
+<a href="@Url.Action("AdicionarCartao", "Cartao")" class="btn btn-primary">Adicionar Novo Cartão</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Número do Cartão</th>
+            <th>Últimos 4 Dígitos</th>
+            <th>Bandeira</th>
+            <th>Tipo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cartao in Model)
+        {
+            <tr>
+                <td>@cartao.Numero</td>
+                <td>@cartao.digitos</td>
+                <td>@cartao.bandeira</td>
+                <td>@cartao.tipoCart</td>
+                <td>
+                    <form method="post" asp-action="ExcluirCartao" onsubmit="return confirm('Tem certeza que deseja excluir este cartão?');">
+                        <input type="hidden" name="codCart" value="@cartao.codCart" />
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

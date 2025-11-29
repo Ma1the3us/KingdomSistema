@@ -1,0 +1,41 @@
+@model MeuProjetoMVC.Models.cartaoCli
+
+@{
+    ViewData["Title"] = "Adicionar Cartão";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" asp-action="AdicionarCartao">
+    <div class="form-group">
+        <label for="Numero">Número do Cartão</label>
+        <input type="text" class="form-control" id="Numero" name="Numero" placeholder="Digite o número do cartão" required />
+    </div>
+
+    <div class="form-group">
+        <label for="digitos">Últimos 4 Dígitos</label>
+        <input type="text" class="form-control" id="digitos" name="digitos" maxlength="4" placeholder="Últimos 4 dígitos" required />
+    </div>
+
+    <div class="form-group">
+        <label for="bandeira">Bandeira</label>
+        <select class="form-control" id="bandeira" name="bandeira">
+            <option value="Visa">Visa</option>
+            <option value="MasterCard">MasterCard</option>
+            <option value="Amex">Amex</option>
+            <option value="Elo">Elo</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="tipoCart">Tipo de Cartão</label>
+        <select class="form-control" id="tipoCart" name="tipoCart">
+            <option value="Débito">Débito</option>
+            <option value="Crédito">Crédito</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Adicionar Cartão</button>
+</form>
+
+<a href="@Url.Action("Cartoes", "Cartao")" class="btn btn-secondary mt-2">Voltar para a Lista de Cartões</a>

@@ -3,7 +3,10 @@ using System.ComponentModel.DataAnnotations;
 namespace MeuProjetoMVC.Models
 {
     public class Usuario
-    {
+    {   
+        public List<cartaoCli> CartaoCli { get; set; } = new();
+        public List<Venda> Vendas { get; set; } = new();
+
         public int CodUsuario { get; set; }
 
         

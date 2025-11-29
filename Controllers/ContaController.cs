@@ -25,7 +25,13 @@ namespace MeuProjetoMVC.Controllers
         {
             return View(new Usuario());
         }
-
+    
+         [HttpGet]
+        public IActionResult AdicionarCartao()
+        {
+            return View(new cartaoCli());
+        }
+        
         [HttpPost]
         public IActionResult Registrar(Usuario model, string confirmarSenha, IFormFile capa)
         {
@@ -231,5 +237,232 @@ namespace MeuProjetoMVC.Controllers
             TempData["Sucesso"] = "Conta desativada com sucesso.";
             return RedirectToAction("Login", "Auth");
         }
+   
+
+        // ========================
+        // Método para visualizar perfil
+        // ========================
+        [HttpGet]
+public IActionResult Perfil()
+{
+    var codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
+    if (codUsuario == null)
+        return RedirectToAction("Login", "Auth");
+
+    Usuario model = null;
+
+    using (var conn = new MySqlConnection(_connectionString))
+    {
+        conn.Open();
+
+        // ------------------------------------------------
+        // 1. BUSCA OS DADOS DO USUÁRIO
+        // ------------------------------------------------
+        using (var cmd = new MySqlCommand("CALL sp_usuario_buscar_por_id(@id)", conn))
+        {
+            cmd.Parameters.AddWithValue("@id", codUsuario.Value);
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    model = new Usuario
+                    {
+                        CodUsuario = Convert.ToInt32(reader["codUsuario"]),
+                        Nome = reader["Nome"]?.ToString() ?? "",
+                        Email = reader["Email"]?.ToString() ?? "",
+                        Role = reader["Role"]?.ToString() ?? "Cliente",
+                        Telefone = reader["Telefone"]?.ToString(),
+                        Imagens = reader["Foto"] as byte[]
+                    };
+                }
+            }
+        }
+
+        if (model == null)
+            return NotFound();
+
+        // ------------------------------------------------
+        // 2. BUSCA OS CARTÕES DO USUÁRIO
+        // ------------------------------------------------
+        model.CartaoCli = new List<cartaoCli>();
+        using (var cmd = new MySqlCommand("SELECT * FROM Cartao_Clie WHERE codUsuario = @id", conn))
+        {
+            cmd.Parameters.AddWithValue("@id", codUsuario.Value);
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    model.CartaoCli.Add(new cartaoCli
+                    {
+                        codCart = Convert.ToInt32(reader["codCart"]),
+                        Numero = reader["Numero"]?.ToString(),
+                        digitos = reader["digitos"]?.ToString(),
+                        bandeira = reader["bandeira"]?.ToString(),
+                        tipoCart = reader["tipoCart"]?.ToString()
+                    });
+                }
+            }
+        }
+
+        // ------------------------------------------------
+        // 3. BUSCA HISTÓRICO DE VENDAS
+        // ------------------------------------------------
+        model.Vendas = new List<Venda>();
+        using (var cmd = new MySqlCommand(
+            "SELECT codVenda, valorTotalVenda FROM Venda WHERE codUsuario=@id", conn))
+        {
+            cmd.Parameters.AddWithValue("@id", codUsuario.Value);
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    model.Vendas.Add(new Venda
+                    {
+                        codVenda = Convert.ToInt32(reader["codVenda"]),
+                        valorTotalVenda = Convert.ToDecimal(reader["valorTotalVenda"])
+                    });
+                }
+            }
+        }
+    }
+
+    return View(model);
+}
+
+
+  
+        // ========================
+        // Métodos para Cartões (Listar, Excluir e Adicionar)
+        // ========================
+        [HttpGet]
+        public IActionResult Cartoes()
+        {
+            var codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            if (codUsuario == null)
+                return RedirectToAction("Login", "Auth");
+
+            List<cartaoCli> cartoes = new List<cartaoCli>();
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT * FROM Cartao_Clie WHERE codUsuario = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", codUsuario.Value);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cartoes.Add(new cartaoCli
+                            {
+                                codCart = Convert.ToInt32(reader["codCart"]),
+                                Numero = reader["Numero"]?.ToString(),
+                                digitos = reader["digitos"]?.ToString(),
+                                bandeira = reader["bandeira"]?.ToString(),
+                                tipoCart = reader["tipoCart"]?.ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return View(cartoes);
+        }
+
+
+        [HttpPost]
+        public IActionResult AdicionarCartao(cartaoCli cartao)
+        {
+            var codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            if (codUsuario == null)
+                return RedirectToAction("Login", "Auth");
+
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO Cartao_Clie (Numero, digitos, bandeira, tipoCart, codUsuario) VALUES (@Numero, @digitos, @bandeira, @tipoCart, @codUsuario)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@Numero", cartao.Numero);
+                    cmd.Parameters.AddWithValue("@digitos", cartao.digitos);
+                    cmd.Parameters.AddWithValue("@bandeira", cartao.bandeira);
+                    cmd.Parameters.AddWithValue("@tipoCart", cartao.tipoCart);
+                    cmd.Parameters.AddWithValue("@codUsuario", codUsuario.Value);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            TempData["Sucesso"] = "Cartão cadastrado com sucesso!";
+            return RedirectToAction("Cartoes");
+        }
+
+        [HttpPost]
+        public IActionResult ExcluirCartao(int codCart)
+        {
+            var codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            if (codUsuario == null)
+                return RedirectToAction("Login", "Auth");
+
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("DELETE FROM Cartao_Clie WHERE codCart = @codCart AND codUsuario = @codUsuario", conn))
+                {
+                    cmd.Parameters.AddWithValue("@codCart", codCart);
+                    cmd.Parameters.AddWithValue("@codUsuario", codUsuario.Value);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            TempData["Sucesso"] = "Cartão excluído com sucesso!";
+            return RedirectToAction("Cartoes");
+        }
+
+        // ========================
+        // Histórico de Vendas
+        // ========================
+        [HttpGet]
+        public IActionResult HistoricoVendas()
+        {
+            var codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            if (codUsuario == null)
+                return RedirectToAction("Login", "Auth");
+
+            List<Venda> vendas = new List<Venda>();
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT v.codVenda, v.valorTotalVenda, v.formaPag, v.situacao, v.dataE FROM Venda v LEFT JOIN Entrega e ON v.codVenda = e.codVenda WHERE v.codUsuario = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", codUsuario.Value);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            vendas.Add(new Venda
+                            {
+                                codVenda = Convert.ToInt32(reader["codVenda"]),
+                                valorTotalVenda = Convert.ToDecimal(reader["valorTotalVenda"]),
+                                formaPag = reader["formaPag"]?.ToString(),
+                                situacao = reader["situacao"]?.ToString(),
+                                dataE = Convert.ToDateTime(reader["dataE"]),
+                                
+                            });
+                        }
+                    }
+                }
+            }
+
+            return View(vendas);
+        }
+
+        // ========================
+        // Detalhes da Venda
+        // ========================
+        [HttpGet]
+        public IActionResult DetalhesVenda(int codEntrega)
+        {
+            // Reutiliza o método Detalhes de Entrega que já existe, só adapta
+            return RedirectToAction("Detalhes", "Entrega", new { codEntrega });
+        }
+        
     }
 }

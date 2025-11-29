@@ -2,6 +2,7 @@
 {
     public class Venda
     {
+        
         public int? codVenda { get; set; }
 
         public int? codUsuario { get; set; }
@@ -12,6 +13,8 @@
 
         public string? situacao { get; set; }
 
-        public DateOnly? dataE { get; set; }
+        public DateTime dataE { get; set; }
+
+        public List<Produto> Produtos { get; set; }
     }
 }
