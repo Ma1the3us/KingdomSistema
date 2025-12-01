@@ -379,13 +379,20 @@ public IActionResult Perfil()
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO Cartao_Clie (Numero, digitos, bandeira, tipoCart, codUsuario) VALUES (@Numero, @digitos, @bandeira, @tipoCart, @codUsuario)", conn))
+
+                string sql = @"INSERT INTO Cartao_Clie 
+                       (Numero, digitos, bandeira, tipoCart, dataVencimento, codUsuario) 
+                       VALUES (@Numero, @digitos, @bandeira, @tipoCart, @dataVencimento, @codUsuario)";
+
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@Numero", cartao.Numero);
                     cmd.Parameters.AddWithValue("@digitos", cartao.digitos);
                     cmd.Parameters.AddWithValue("@bandeira", cartao.bandeira);
                     cmd.Parameters.AddWithValue("@tipoCart", cartao.tipoCart);
+                    cmd.Parameters.AddWithValue("@dataVencimento", cartao.dataVencimento); // novo campo
                     cmd.Parameters.AddWithValue("@codUsuario", codUsuario.Value);
+
                     cmd.ExecuteNonQuery();
                 }
             }

@@ -10,10 +10,33 @@
 <h2>@Model.nomeJogo</h2>
 <p>Categoria Indicativa: @Model.classificacaoEtaria+</p>
 
-<div style="position:relative; width:100%; padding-top:56.25%;">
-    <!-- 16:9 -->
+<div class="game-container">
     <iframe src="~/@Model.caminhoJogo"
-            style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
-            allowfullscreen>
+            class="game-frame"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            allow="fullscreen">
     </iframe>
 </div>
+
+<style>
+
+.game-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* proporção 16:9 */
+    background: #000;
+    overflow: hidden;
+}
+
+.game-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+</style>
