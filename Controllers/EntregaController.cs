@@ -425,7 +425,7 @@ namespace MeuProjetoMVC.Controllers
                             {
                                 model.codEntrega = rd["codEntrega"] as int?;
                                 model.codUsuario = rd["codUsuario"] as int?;
-                                model.valorTotal = rd["valorTotal"] as decimal?;
+                                model.valorTotal = rd["valorTotal"] as double?;
                                 model.Numero = rd["Numero"]?.ToString();
                                 model.Complemento = rd["Complemento"]?.ToString();
                                 model.TipoEndereco = rd["TipoEndereco"]?.ToString();
@@ -470,8 +470,9 @@ namespace MeuProjetoMVC.Controllers
                             if (rd.Read())
                             {
                                 // mesmos campos, exceto andar e NomePredio
+                                model.codEntrega = rd["codEntrega"] as int?;
                                 model.codUsuario = rd["codUsuario"] as int?;
-                                model.valorTotal = rd["valorTotal"] as decimal?;
+                                model.valorTotal = rd["valorTotal"] as double?;
                                 model.Numero = rd["Numero"]?.ToString();
                                 model.Complemento = rd["Complemento"]?.ToString();
                                 model.TipoEndereco = rd["TipoEndereco"]?.ToString();
@@ -512,7 +513,7 @@ namespace MeuProjetoMVC.Controllers
                             model.nomeDestinatario = rd["nomeDestinatario"]?.ToString();
                             model.emailDestinatario = rd["emailDestinatario"]?.ToString();
                             model.codUsuario = rd["codUsuario"] as int?;
-                            model.valorTotal = rd["valorTotal"] as decimal?;
+                            model.valorTotal = rd["valorTotal"] as double?;
                             model.Nome = rd["Nome"]?.ToString();
                             model.Email = rd["Email"]?.ToString();
                             model.Telefone = rd["Telefone"]?.ToString();

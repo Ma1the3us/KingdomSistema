@@ -8,7 +8,7 @@
 
         public int? codUsuario { get; set; }
 
-        public decimal? valorTotal { get; set; }
+        public double? valorTotal { get; set; }
 
         public int? codEnd { get; set; }
 
@@ -49,6 +49,6 @@
 
         public string? Valor { get; set; }
 
-
+        
     }
 }

@@ -1,12 +1,139 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\models\\detalhes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:models\\detalhes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\views\\entrega\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\entrega\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\controllers\\favoritoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\favoritoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\gatin\\onedrive\\\u00E1rea de trabalho\\kingdomsistema\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Detalhes.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Models\\Detalhes.cs",
+              "RelativeDocumentMoniker": "Models\\Detalhes.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Models\\Detalhes.cs",
+              "RelativeToolTip": "Models\\Detalhes.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAoAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:29:01.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Detalhes.cshtml",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Views\\Entrega\\Detalhes.cshtml",
+              "RelativeDocumentMoniker": "Views\\Entrega\\Detalhes.cshtml",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Views\\Entrega\\Detalhes.cshtml",
+              "RelativeToolTip": "Views\\Entrega\\Detalhes.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-01T01:28:46.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProdutoController.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\ProdutoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProdutoController.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\ProdutoController.cs",
+              "RelativeToolTip": "Controllers\\ProdutoController.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAArwCcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:33.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAtwMwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:34.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FavoritosController.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\FavoritosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FavoritosController.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\FavoritosController.cs",
+              "RelativeToolTip": "Controllers\\FavoritosController.cs",
+              "ViewState": "AgIAALQAAAAAAAAAAAAtwL8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:34.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EntregaController.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\EntregaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EntregaController.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\EntregaController.cs",
+              "RelativeToolTip": "Controllers\\EntregaController.cs",
+              "ViewState": "AgIAANUBAAAAAAAAAAAkwNgBAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:34.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoriasController.cs",
+              "DocumentMoniker": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\CategoriasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
+              "ToolTip": "C:\\Users\\gatin\\OneDrive\\\u00C1rea de Trabalho\\KingdomSistema\\Controllers\\CategoriasController.cs",
+              "RelativeToolTip": "Controllers\\CategoriasController.cs",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAIwKAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:34.768Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

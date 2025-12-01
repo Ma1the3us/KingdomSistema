@@ -54,10 +54,8 @@ CREATE TABLE Sub_Categoria (
 -- =====================================================
 -- TABELA Produto
 -- =====================================================
-select * from ZetaJogos;
-select * from Venda;
-select * from Entrega;
-select * from entrega_produto;
+
+
 CREATE TABLE Produto (
     codProd INT AUTO_INCREMENT PRIMARY KEY,
     nomeProduto VARCHAR(200),
