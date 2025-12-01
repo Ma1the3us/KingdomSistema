@@ -13,5 +13,7 @@
         public int? codUsuario { get; set; } 
     
         public string? tipoCart { get; set; }
+
+        public string? dataVencimento { get; set; } // formato MM/YY
     }
 }

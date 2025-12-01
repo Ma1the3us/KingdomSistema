@@ -2,32 +2,18 @@
 
 <div class="container mt-4">
     <h2>Cadastrar Jogo</h2>
-
     <form asp-action="Criar" method="post" enctype="multipart/form-data" class="mt-3">
-
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <!-- Nome -->
         <div class="mb-3">
             <label asp-for="nomeJogo" class="form-label"></label>
             <input asp-for="nomeJogo" class="form-control" required maxlength="100" />
             <span asp-validation-for="nomeJogo" class="text-danger"></span>
         </div>
 
-        <!-- Categoria -->
-        <div class="mb-3">
-            <label asp-for="categoria" class="form-label">Categoria</label>
-            <select asp-for="categoria" asp-items="ViewBag.Categorias" class="form-select">
-                <option value="">Selecione</option>
-            </select>
-            <span asp-validation-for="categoria" class="text-danger"></span>
-        </div>
-
-        <!-- Classificação etária -->
-        <div class="mb-3">
-            <label asp-for="classificacaoEtaria" class="form-label">Classificação Etária</label>
-            <select asp-for="classificacaoEtaria" class="form-select">
-                <option value="">Selecione</option>
+        <div class="form-group">
+            <label>Classificação</label>
+            <select asp-for="classificacaoEtaria" class="form-control">
                 <option value="L">Livre</option>
                 <option value="10">10+</option>
                 <option value="12">12+</option>
@@ -35,22 +21,29 @@
                 <option value="16">16+</option>
                 <option value="18">18+</option>
             </select>
-            <span asp-validation-for="classificacaoEtaria" class="text-danger"></span>
         </div>
 
-        <!-- Nome da pasta -->
         <div class="mb-3">
-            <label class="form-label">Nome da Pasta</label>
-            <input type="text" name="nomePasta" class="form-control" placeholder="Ex: MeuJogo" />
+            <label asp-for="categoria" class="form-label">Categoria</label>
+            <select asp-for="categoria" asp-items="ViewBag.Categorias" class="form-select"></select>
+            <span asp-validation-for="categoria" class="text-danger"></span>
         </div>
-
-        <!-- Capa -->
         <div class="mb-3">
             <label class="form-label">Imagem de Capa</label>
-            <input type="file" name="imagemCapa" class="form-control" accept="image/*" />
+            <input type="file" name="imagemCapa" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Selecione a pasta do jogo</label>
+            <input type="file"
+                   name="pastaJogo"
+                   class="form-control"
+                   webkitdirectory
+                   directory
+                   multiple
+                   required />
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn btn-success">Salvar</button>
         <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

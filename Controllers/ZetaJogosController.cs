@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MeuProjetoMVC.Controllers
 {
-    [SessionAuthorize(RoleAnyOf = "Admin,User")] 
+    [SessionAuthorize(RoleAnyOf = "Admin,User")]
     public class ZetaJogosController : Controller
     {
         private readonly string _connectionString;
@@ -45,6 +45,7 @@ namespace MeuProjetoMVC.Controllers
 
             return View(lista);
         }
+        [HttpGet]
 
         // GET: Criar
         public IActionResult Criar()
@@ -53,9 +54,9 @@ namespace MeuProjetoMVC.Controllers
             return View();
         }
 
-     
+        // POST: Criar
         [HttpPost]
-        public IActionResult Criar(ZetaJogos jogo, IFormFile? imagemCapa, string? nomePasta)
+        public IActionResult Criar(ZetaJogos jogo, IFormFile? imagemCapa, List<IFormFile> pastaJogo)
         {
             if (!ModelState.IsValid)
             {
@@ -63,26 +64,21 @@ namespace MeuProjetoMVC.Controllers
                 return View(jogo);
             }
 
-
-            // -------------------------
-            // 1. Gerar caminho do jogo
-            // -------------------------
-            if (!string.IsNullOrEmpty(nomePasta))
+            // ==========================
+            // 0. VALIDAÇÃO DA PASTA
+            // ==========================
+            if (pastaJogo == null || pastaJogo.Count == 0)
             {
-                // Ex: /jogos/MeuJogo/index.html
-                jogo.caminhoJogo = $"jogos/{nomePasta}/index.html";
-            }
-            else
-            {
-                ModelState.AddModelError("", "Informe o nome da pasta do jogo.");
+                ModelState.AddModelError("", "Você deve selecionar a pasta do jogo.");
                 CarregarCategorias();
                 return View(jogo);
             }
 
-            // -------------------------
-            // 2. Imagem da capa
-            // -------------------------
+            // ==========================
+            // 1. CAPA DO JOGO
+            // ==========================
             byte[]? capaBytes = null;
+
             if (imagemCapa != null)
             {
                 using var ms = new MemoryStream();
@@ -90,6 +86,59 @@ namespace MeuProjetoMVC.Controllers
                 capaBytes = ms.ToArray();
             }
 
+            // ==========================
+            // 2. CRIAR A PASTA DO JOGO
+            // ==========================
+            string nomePasta = jogo.nomeJogo.Replace(" ", "_").ToLower();
+            string pastaDestino = Path.Combine("wwwroot", "Jogos", nomePasta);
+
+            Directory.CreateDirectory(pastaDestino);
+
+            // ==========================
+            // 3. SALVAR TODOS ARQUIVOS
+            // ==========================
+            string? caminhoIndex = null;
+
+            foreach (var arquivo in pastaJogo)
+            {
+                // Exemplo de filename vindo do navegador:
+                // "assets/js/game.js"
+                // "index.html"
+                string caminhoRelativo = arquivo.FileName;
+
+                // Caminho físico final
+                string destinoFinal = Path.Combine(pastaDestino, caminhoRelativo);
+
+                // Cria subpastas automaticamente
+                Directory.CreateDirectory(Path.GetDirectoryName(destinoFinal)!);
+
+                using var stream = new FileStream(destinoFinal, FileMode.Create);
+                arquivo.CopyTo(stream);
+
+                // Detecta automaticamente o index.html
+                if (caminhoRelativo.EndsWith("index.html", StringComparison.OrdinalIgnoreCase))
+                {
+                    caminhoIndex = $"Jogos/{nomePasta}/{caminhoRelativo.Replace("\\", "/")}";
+                }
+            }
+
+            // ==========================
+            // 4. GARANTIR QUE INDEX EXISTE
+            // ==========================
+            if (caminhoIndex == null)
+            {
+                ModelState.AddModelError("", "A pasta não contém um arquivo index.html.");
+                CarregarCategorias();
+                return View(jogo);
+            }
+
+            // Salva no banco o caminho relativo
+            jogo.caminhoJogo = caminhoIndex;
+
+
+            // ==========================
+            // 5. SALVAR NO BANCO
+            // ==========================
             using var conex = new MySqlConnection(_connectionString);
             conex.Open();
 
@@ -99,7 +148,6 @@ namespace MeuProjetoMVC.Controllers
 
             using var cmd = new MySqlCommand(sql, conex);
             cmd.Parameters.AddWithValue("@nome", jogo.nomeJogo);
-           
             cmd.Parameters.AddWithValue("@img", capaBytes);
             cmd.Parameters.AddWithValue("@class", jogo.classificacaoEtaria);
             cmd.Parameters.AddWithValue("@cat", jogo.categoria);
@@ -110,11 +158,30 @@ namespace MeuProjetoMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Editar
         public IActionResult Editar(int id)
         {
-            ZetaJogos? jogo = BuscarPorId(id);
-            if (jogo == null) return NotFound();
+            using var conex = new MySqlConnection(_connectionString);
+            conex.Open();
+
+            string sql = "SELECT * FROM ZetaJogos WHERE codZetaJ = @id";
+            using var cmd = new MySqlCommand(sql, conex);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using var reader = cmd.ExecuteReader();
+            if (!reader.Read())
+            {
+                return NotFound();
+            }
+
+            var jogo = new ZetaJogos
+            {
+                codZetaJ = reader.GetInt32("codZetaJ"),
+                nomeJogo = reader.GetString("nomeJogo"),
+                classificacaoEtaria = reader.GetString("classificacaoEtaria"),
+                categoria = reader.GetInt32("codCat"),
+                caminhoJogo = reader.GetString("caminhoJogo"),
+                Capa = reader["imagemCapa"] as byte[]
+            };
 
             CarregarCategorias();
             return View(jogo);
@@ -122,7 +189,7 @@ namespace MeuProjetoMVC.Controllers
 
         // POST: Editar
         [HttpPost]
-        public IActionResult Editar(ZetaJogos jogo, IFormFile? novaImagem, string? nomePasta)
+        public IActionResult Editar(ZetaJogos jogo, IFormFile? imagemCapa, List<IFormFile>? pastaJogo)
         {
             if (!ModelState.IsValid)
             {
@@ -130,73 +197,86 @@ namespace MeuProjetoMVC.Controllers
                 return View(jogo);
             }
 
-            // -------------------------
-            // 1. Caminho do jogo
-            // -------------------------
-            if (!string.IsNullOrEmpty(nomePasta))
+            // ==========================
+            // 1. CAPA DO JOGO (opcional)
+            // ==========================
+            byte[]? capaBytes = jogo.Capa; // mantém a capa antiga se não houver nova
+
+            if (imagemCapa != null)
             {
-                // Usuário quer alterar a pasta → gera novo caminho
-                jogo.caminhoJogo = $"jogos/{nomePasta}/index.html";
+                using var ms = new MemoryStream();
+                imagemCapa.CopyTo(ms);
+                capaBytes = ms.ToArray();
             }
-            else
+
+            // ==========================
+            // 2. SALVAR NOVA PASTA (opcional)
+            // ==========================
+            string caminhoIndex = jogo.caminhoJogo; // mantém caminho antigo
+
+            if (pastaJogo != null && pastaJogo.Count > 0)
             {
-                // Mantém o caminho antigo vindo do model
-                // (em caso de nullable, pode garantir segurança)
-                if (string.IsNullOrWhiteSpace(jogo.caminhoJogo))
+                string nomePasta = jogo.nomeJogo.Replace(" ", "_").ToLower();
+                string pastaDestino = Path.Combine("wwwroot", "Jogos", nomePasta);
+
+                // Limpa a pasta antiga se existir
+                if (Directory.Exists(pastaDestino))
                 {
-                    ModelState.AddModelError("", "O jogo não possui um caminho válido salvo.");
+                    Directory.Delete(pastaDestino, true);
+                }
+                Directory.CreateDirectory(pastaDestino);
+
+                foreach (var arquivo in pastaJogo)
+                {
+                    string caminhoRelativo = arquivo.FileName;
+                    string destinoFinal = Path.Combine(pastaDestino, caminhoRelativo);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destinoFinal)!);
+
+                    using var stream = new FileStream(destinoFinal, FileMode.Create);
+                    arquivo.CopyTo(stream);
+
+                    if (caminhoRelativo.EndsWith("index.html", StringComparison.OrdinalIgnoreCase))
+                    {
+                        caminhoIndex = $"Jogos/{nomePasta}/{caminhoRelativo.Replace("\\", "/")}";
+                    }
+                }
+
+                if (caminhoIndex == null)
+                {
+                    ModelState.AddModelError("", "A pasta não contém um arquivo index.html.");
                     CarregarCategorias();
                     return View(jogo);
                 }
             }
 
-
-            // -------------------------
-            // 2. Nova imagem?
-            // -------------------------
-            byte[]? imagemBytes = null;
-            if (novaImagem != null)
-            {
-                using var ms = new MemoryStream();
-                novaImagem.CopyTo(ms);
-                imagemBytes = ms.ToArray();
-            }
-
-
+            // ==========================
+            // 3. ATUALIZAR NO BANCO
+            // ==========================
             using var conex = new MySqlConnection(_connectionString);
             conex.Open();
 
-            // SQL com ou sem imagem nova
-            string sql = (imagemBytes == null)
-                ? @"UPDATE ZetaJogos 
-             SET nomeJogo=@nome,
-                 classificacaoEtaria=@class,
-                 codCat=@cat,
-                 caminhoJogo=@caminho
-             WHERE codZetaJ=@id"
-                : @"UPDATE ZetaJogos 
-             SET nomeJogo=@nome,
-                 classificacaoEtaria=@class,
-                 codCat=@cat,
-                 caminhoJogo=@caminho,
-                 imagemCapa=@img
-             WHERE codZetaJ=@id";
+            string sql = @"UPDATE ZetaJogos
+                   SET nomeJogo = @nome,
+                       imagemCapa = @img,
+                       classificacaoEtaria = @class,
+                       codCat = @cat,
+                       caminhoJogo = @caminho
+                   WHERE codZetaJ = @id";
 
             using var cmd = new MySqlCommand(sql, conex);
             cmd.Parameters.AddWithValue("@nome", jogo.nomeJogo);
+            cmd.Parameters.AddWithValue("@img", (object?)capaBytes ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@class", jogo.classificacaoEtaria);
             cmd.Parameters.AddWithValue("@cat", jogo.categoria);
-            cmd.Parameters.AddWithValue("@caminho", jogo.caminhoJogo);
+            cmd.Parameters.AddWithValue("@caminho", caminhoIndex);
             cmd.Parameters.AddWithValue("@id", jogo.codZetaJ);
-
-            if (imagemBytes != null)
-                cmd.Parameters.AddWithValue("@img", imagemBytes);
 
             cmd.ExecuteNonQuery();
 
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         // GET: Excluir
         public IActionResult Excluir(int id)
         {
@@ -207,7 +287,7 @@ namespace MeuProjetoMVC.Controllers
 
         // POST: Excluir Confirmado
         [HttpPost, ActionName("Excluir")]
-        public IActionResult Excluir(int? id)
+        public IActionResult ExcluirConfirmado(int id)
         {
             using var conex = new MySqlConnection(_connectionString);
             conex.Open();
@@ -226,7 +306,7 @@ namespace MeuProjetoMVC.Controllers
             using var conex = new MySqlConnection(_connectionString);
             conex.Open();
             string sql = @"SELECT z.codZetaJ, z.nomeJogo, z.classificacaoEtaria, 
-                                  z.codCat, c.nomeCategoria,z.caminhoJogo 
+                                  z.codCat, c.nomeCategoria 
                            FROM ZetaJogos z
                            LEFT JOIN Categorias c ON z.codCat = c.nomeCategoria
                            WHERE z.codZetaJ=@id";
@@ -243,8 +323,7 @@ namespace MeuProjetoMVC.Controllers
                     nomeJogo = dr.GetString("nomeJogo"),
                     classificacaoEtaria = dr["classificacaoEtaria"] as string,
                     categoria = dr.GetInt32("codCat"),
-                    nomeCategoria = dr["nomeCategoria"] as string,
-                    caminhoJogo = dr["caminhoJogo"] as string
+                    nomeCategoria = dr["nomeCategoria"] as string
                 };
             }
 
@@ -272,5 +351,6 @@ namespace MeuProjetoMVC.Controllers
 
             ViewBag.Categorias = categorias;
         }
+
     }
 }

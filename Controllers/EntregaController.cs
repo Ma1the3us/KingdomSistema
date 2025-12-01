@@ -42,6 +42,11 @@ namespace MeuProjetoMVC.Controllers
         [HttpGet("CentralEntrega")]
         public IActionResult CentralEntrega()
         {
+            var role = HttpContext.Session.GetString(SessionKeys.UserRole);
+            var codigo = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+            if (role == "Cliente")
+                return RedirectToAction("Perfil", "Conta", new { codUsuario = codigo });
 
             return View();
         }

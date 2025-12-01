@@ -10,7 +10,6 @@ USE MeuProjetoMVC;
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
 
-
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,

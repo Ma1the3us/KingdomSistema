@@ -1,0 +1,150 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Press Start 2P", cursive;
+      user-select: none;
+    }
+
+    body {
+      background: black;
+      overflow: hidden;
+    }
+
+    /* CONTAINER PRINCIPAL EM TELA CHEIA */
+    #gameContainer {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* HUD SUPERIOR */
+    #hud {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .healthBarContainer {
+      position: relative;
+      width: 100%;
+      height: 30px;
+      border: 4px solid white;
+      overflow: hidden;
+    }
+
+    .healthBackground {
+      background: red;
+      width: 100%;
+      height: 100%;
+    }
+
+    .healthFill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: #818cf8;
+      width: 100%;
+    }
+
+    #timer {
+      width: 100px;
+      height: 50px;
+      background: black;
+      color: white;
+      border: 4px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* GAME OVER / RESULTADO */
+    #displayText {
+      position: absolute;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 32px;
+      color: white;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 20;
+    }
+
+    #restartBtn {
+      margin-top: 30px;
+      padding: 20px 40px;
+      background: #222;
+      color: white;
+      border: 4px solid white;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="gameContainer">
+    <!-- HUD SUPERIOR -->
+    <div id="hud">
+      <!-- VIDA DO PLAYER -->
+      <div class="healthBarContainer">
+        <div class="healthBackground"></div>
+        <div id="playerHealth" class="healthFill"></div>
+      </div>
+
+      <!-- TIMER -->
+      <div id="timer">10</div>
+
+      <!-- VIDA DO INIMIGO -->
+      <div class="healthBarContainer">
+        <div class="healthBackground"></div>
+        <div id="enemyHealth" class="healthFill"></div>
+      </div>
+    </div>
+
+    <!-- TELA DE GAME OVER -->
+    <div id="displayText">
+      <div id="gameResultText"></div>
+      <button id="restartBtn">Reiniciar</button>
+    </div>
+
+    <!-- CANVAS DO JOGO -->
+    <canvas></canvas>
+  </div>
+
+  <!-- SCRIPTS DO JOGO -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/classes.js"></script>
+  <script src="index.js"></script>
+</body>
