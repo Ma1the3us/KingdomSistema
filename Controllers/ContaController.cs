@@ -437,7 +437,7 @@ public IActionResult Perfil()
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("SELECT v.codVenda, v.valorTotalVenda, v.formaPag, v.situacao, v.dataE FROM Venda v LEFT JOIN Entrega e ON v.codVenda = e.codVenda WHERE v.codUsuario = @id", conn))
+                using (var cmd = new MySqlCommand("SELECT v.codVenda, v.valorTotalVenda, v.formaPag, v.situacao, v.dataE FROM Venda v LEFT JOIN Entrega e ON v.codVenda = e.codVenda WHERE v.codUsuario = @id and v.situacao = 'Finalizada'", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", codUsuario.Value);
                     using (var reader = cmd.ExecuteReader())

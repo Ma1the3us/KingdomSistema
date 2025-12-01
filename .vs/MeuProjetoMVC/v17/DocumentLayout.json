@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\controllers\\contacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\contacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\views\\conta\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\conta\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\controllers\\zetajogoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\zetajogoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\models\\cartaocli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:models\\cartaocli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\controllers\\contacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\contacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\views\\planozeta\\zetajogos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -51,10 +63,6 @@
       "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\planozetacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:controllers\\entregacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\3mod\\desktop\\kingdomsistema\\models\\detalhes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:models\\detalhes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -78,24 +86,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AdicionarCartao.cshtml",
-              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
-              "RelativeDocumentMoniker": "Views\\Conta\\AdicionarCartao.cshtml",
-              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
-              "RelativeToolTip": "Views\\Conta\\AdicionarCartao.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-01T19:06:59.913Z",
+              "DocumentIndex": 1,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Models\\Usuario.cs",
+              "RelativeToolTip": "Models\\Usuario.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T19:38:29.876Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Perfil.cshtml",
+              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\Perfil.cshtml",
+              "RelativeDocumentMoniker": "Views\\Conta\\Perfil.cshtml",
+              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\Perfil.cshtml",
+              "RelativeToolTip": "Views\\Conta\\Perfil.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-01T19:37:41.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Cadastrar.cshtml",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\Cadastrar.cshtml",
               "RelativeDocumentMoniker": "Views\\Conta\\Cadastrar.cshtml",
@@ -108,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "cartaoCli.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Models\\cartaoCli.cs",
               "RelativeDocumentMoniker": "Models\\cartaoCli.cs",
@@ -121,20 +142,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "ContaController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\ContaController.cs",
               "RelativeDocumentMoniker": "Controllers\\ContaController.cs",
               "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\ContaController.cs",
               "RelativeToolTip": "Controllers\\ContaController.cs",
-              "ViewState": "AgIAAHEBAAAAAAAAAAAUwJMBAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAKUBAAAAAAAAAAAqwLkBAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-01T19:05:23.082Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Editar.cshtml",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Editar.cshtml",
               "RelativeDocumentMoniker": "Views\\ZetaJogos\\Editar.cshtml",
@@ -147,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "ZetaJogos.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Models\\ZetaJogos.cs",
               "RelativeDocumentMoniker": "Models\\ZetaJogos.cs",
@@ -160,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Criar.cshtml",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Criar.cshtml",
               "RelativeDocumentMoniker": "Views\\ZetaJogos\\Criar.cshtml",
@@ -173,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "ZetaJogos.cshtml",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\ZetaJogos.cshtml",
               "RelativeDocumentMoniker": "Views\\PlanoZeta\\ZetaJogos.cshtml",
@@ -186,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "ZetaJogosController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\ZetaJogosController.cs",
               "RelativeDocumentMoniker": "Controllers\\ZetaJogosController.cs",
@@ -199,7 +220,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "PlanoZetaController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\PlanoZetaController.cs",
               "RelativeDocumentMoniker": "Controllers\\PlanoZetaController.cs",
@@ -211,7 +232,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
+              "Title": "EntregaController.cs",
+              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\EntregaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EntregaController.cs",
+              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\EntregaController.cs",
+              "RelativeToolTip": "Controllers\\EntregaController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAwwDAAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T01:10:34.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AdicionarCartao.cshtml",
+              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
+              "RelativeDocumentMoniker": "Views\\Conta\\AdicionarCartao.cshtml",
+              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
+              "RelativeToolTip": "Views\\Conta\\AdicionarCartao.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-01T19:06:59.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "ProdutoController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\ProdutoController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProdutoController.cs",
@@ -224,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "UsuarioController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\UsuarioController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
@@ -236,19 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "EntregaController.cs",
-              "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\EntregaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EntregaController.cs",
-              "ToolTip": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\EntregaController.cs",
-              "RelativeToolTip": "Controllers\\EntregaController.cs",
-              "ViewState": "AgIAANUBAAAAAAAAAAAkwNgBAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T01:10:34.738Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "Detalhes.cshtml",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Views\\Entrega\\Detalhes.cshtml",
               "RelativeDocumentMoniker": "Views\\Entrega\\Detalhes.cshtml",
@@ -260,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "Detalhes.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Models\\Detalhes.cs",
               "RelativeDocumentMoniker": "Models\\Detalhes.cs",
@@ -272,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "FavoritosController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\FavoritosController.cs",
               "RelativeDocumentMoniker": "Controllers\\FavoritosController.cs",
@@ -284,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "CategoriasController.cs",
               "DocumentMoniker": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\Controllers\\CategoriasController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
