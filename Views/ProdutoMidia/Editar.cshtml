@@ -29,7 +29,7 @@
         {
             <div class="text-center mb-3">
                 <p><strong>Mídia Atual:</strong></p>
-                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.midia)"
+                <img src="@Model.midia"
                      style="max-height: 200px; border-radius: 10px;" />
             </div>
         }
@@ -38,7 +38,7 @@
             <div class="text-center mb-3">
                 <p><strong>Mídia Atual:</strong></p>
                 <video controls style="max-height: 200px; border-radius: 10px;">
-                    <source src="data:video/mp4;base64,@Convert.ToBase64String(Model.midia)" />
+                    <source src="@Model.midia" />
                 </video>
             </div>
         }

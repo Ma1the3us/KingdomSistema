@@ -166,7 +166,11 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
-                using var cmd = new MySqlCommand("CALL sp_atualizar_categoria(@p_id, @p_nome);", conn);
+                using var cmd = new MySqlCommand(@"
+                    Update Categorias
+                    set nomeCategoria = @p_nome
+                    where codCat = @p_id;
+                    ;", conn);
                 cmd.Parameters.AddWithValue("@p_id", categoria.CodCat);
                 cmd.Parameters.AddWithValue("@p_nome", categoria.NomeCategoria);
                 cmd.ExecuteNonQuery();
@@ -221,7 +225,7 @@ namespace MeuProjetoMVC.Controllers
                 using var conn = new MySqlConnection(_connectionString);
                 conn.Open();
 
-                using var cmd = new MySqlCommand("CALL sp_excluir_categoria(@p_id);", conn);
+                using var cmd = new MySqlCommand("Delete from Categorias where codCat = @p_id;", conn);
                 cmd.Parameters.AddWithValue("@p_id", id);
                 cmd.ExecuteNonQuery();
 

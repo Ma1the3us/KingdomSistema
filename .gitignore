@@ -534,9 +534,24 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+# Ignorar vídeos
+wwwroot/midiaproduto/videos/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+
+# Ignorar imagens grandes dos produtos
+wwwroot/midiaproduto/imagens/
+*.png
+*.jpg
+*.jpeg
+
 # JetBrains Rider
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,aspnetcore
+

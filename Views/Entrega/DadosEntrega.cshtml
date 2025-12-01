@@ -227,8 +227,15 @@ else
         const json = await response.json();
 
         if (json.sucesso) {
-            alert("Destinatário salvo!");
-            document.getElementById("confirmacao").style.display = "block";
+            const tipo = document.getElementById("tipoRetirada").value;
+            if(tipo === "Entrega")
+            {
+                alert("Destinatário salvo!");
+                document.getElementById("confirmacao").style.display = "block";
+            }
+            else{
+                alert("Destinatário salvo! Receptor da entrega foi cadastro!");
+            }
         } else {
             alert("Erro ao salvar: " + json.mensagem);
         }

@@ -166,7 +166,7 @@
         // Cabeçalho muda se for Local
         let colunas = `
                 <tr>
-                    <th>Cód</th>
+                    <th>Código</th>
                     <th>Usuário</th>
                     <th>Email</th>
             `;
@@ -259,7 +259,7 @@
             }
 
             if (retirada === "Local" && e.situacao === "Em andamento") {
-                botoes = `
+                botoes += `
                     <button class="btn btn-sm btn-warning ms-1"
                         onclick="FinalizarLocal(${e.codEntrega})">
                         Entrega Retirada

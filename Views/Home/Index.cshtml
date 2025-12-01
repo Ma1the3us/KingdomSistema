@@ -3,6 +3,13 @@
 <h2 style="margin-bottom:20px;">Produtos mais recentes</h2>
 <link href="~/css/vitrine.css" rel="stylesheet" />
 
+@{
+    
+    var categorias = ViewBag.produtosCategoria as List<MeuProjetoMVC.Models.CategoriaProdutos>;
+
+}
+
+
 @if (!string.IsNullOrEmpty(ViewBag.Mensagem))
 {
     <p style="color:red;">@ViewBag.Mensagem</p>
@@ -81,9 +88,119 @@ else
     <p>Nenhum produto encontrado.</p>
 }
 
+@if (categorias != null && categorias.Count > 0)
+{
+    <hr />
+    <h2 style="margin-top:40px;">Produtos por Categoria</h2>
+
+    @foreach (var cat in categorias)
+    {
+        <div class="categoria-bloco" style="margin-top:40px;">
+
+            <h3>@cat.nomeCategoria</h3>
+
+            <div class="carousel-wrapper">
+
+                <!-- Botão anterior -->
+                <button class="carousel-btn btn-prev" data-target="@cat.codCat">◀</button>
+
+                <!-- Área de itens -->
+                <div class="carousel-container" id="carousel-@cat.codCat">
+                    @foreach (var p in cat.Produtos)
+                    {
+                        <div class="carousel-item dItem" style="width:220px;">
+                            <h4 style="text-align:center;">@p.nomeProduto</h4>
+
+                            @if (p.Imagens != null && p.Imagens.Length > 0)
+                            {
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Imagens))"
+                                     style="width:200px;height:200px;object-fit:cover;margin:5px auto;display:block;" />
+                            }
+                            else
+                            {
+                                <div style="width:200px;height:200px;background:#ddd;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:gray;">Sem imagem</span>
+                                </div>
+                            }
+
+                            <div style="margin-top:5px;text-align:center;">
+                                <span>Preço: R$ @p.Valor</span><br />
+                                <a asp-controller="Produto"
+                                   asp-action="Detalhes"
+                                   asp-route-codProd="@p.codProd"
+                                   class="btn btn-primary btn-sm"
+                                   style="margin-top:5px;">
+                                    Saiba mais
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Botão próximo -->
+                <button class="carousel-btn btn-next" data-target="@cat.codCat">▶</button>
+
+            </div>
+        </div>
+    }
+}
+
+
+
 @section Scripts {
     <script>
         
+        document.addEventListener("DOMContentLoaded", () => {
+
+    function setupCarousel(id) {
+        const container = document.getElementById("carousel-" + id);
+        const itemWidth = 240; // largura + margem
+        let anim = false;
+
+        function next() {
+            if (anim) return;
+            anim = true;
+
+            container.style.transition = "transform 0.5s ease-in-out";
+            container.style.transform = `translateX(-${itemWidth}px)`;
+
+            setTimeout(() => {
+                let first = container.children[0];
+                container.appendChild(first);
+
+                container.style.transition = "none";
+                container.style.transform = "translateX(0)";
+                anim = false;
+            }, 500);
+        }
+
+        function prev() {
+            if (anim) return;
+            anim = true;
+
+            let last = container.children[container.children.length - 1];
+            container.insertBefore(last, container.firstChild);
+
+            container.style.transition = "none";
+            container.style.transform = `translateX(-${itemWidth}px)`;
+
+            setTimeout(() => {
+                container.style.transition = "transform 0.5s ease-in-out";
+                container.style.transform = "translateX(0)";
+                anim = false;
+            }, 20);
+        }
+
+        document.querySelector(`.btn-next[data-target='${id}']`).onclick = next;
+        document.querySelector(`.btn-prev[data-target='${id}']`).onclick = prev;
+    }
+
+    // Inicializa todos os carrosséis da página
+    document.querySelectorAll(".btn-next").forEach(btn => {
+        setupCarousel(btn.dataset.target);
+    });
+
+});
 
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('secItens');

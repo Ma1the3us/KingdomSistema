@@ -2,6 +2,8 @@
 {
     public class Detalhes
     {
+
+        public int? codEntrega { get; set; }
         public int codEndereco { get; set; }
 
         public int? codUsuario { get; set; }

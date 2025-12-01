@@ -11,10 +11,14 @@
 
         public int? codUsuario { get; set; }
 
-        public int? codZetaV { get; set; }
-
         public string? formaPag { get; set; }
 
         public string? situacao { get; set; }
+        
+        public string? Pacote { get; set; }
+
+        public double? Valor { get; set; }
+
+        public string? Descricao { get; set; }
     }
 }

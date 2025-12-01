@@ -10,7 +10,6 @@ USE MeuProjetoMVC;
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
 
-select  * from Entrega;
 
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,6 +19,7 @@ CREATE TABLE Usuario (
     Role ENUM('Admin','Funcionario','Cliente') NOT NULL DEFAULT 'Cliente',
     Telefone  varchar(15) not null,
     Ativo CHAR(1) NOT NULL DEFAULT '1',
+    PlanoZeta CHAR(1) NOT NULL DEFAULT 'N',
     Foto longblob
 );
 
@@ -40,6 +40,7 @@ CREATE TABLE Categorias (
     nomeCategoria VARCHAR(100) NOT NULL
 );
 
+
 -- =====================================================
 -- TABELA Sub_Categoria
 -- =====================================================
@@ -53,6 +54,10 @@ CREATE TABLE Sub_Categoria (
 -- =====================================================
 -- TABELA Produto
 -- =====================================================
+select * from ZetaJogos;
+select * from Venda;
+select * from Entrega;
+select * from entrega_produto;
 CREATE TABLE Produto (
     codProd INT AUTO_INCREMENT PRIMARY KEY,
     nomeProduto VARCHAR(200),
@@ -76,6 +81,7 @@ CREATE TABLE wishlist (
   FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario) ON DELETE CASCADE
 );
 
+
 CREATE TABLE Avaliacao (
     codAvaliacao INT AUTO_INCREMENT PRIMARY KEY,
     codProd INT NOT NULL,
@@ -92,16 +98,15 @@ CREATE TABLE Avaliacao (
 -- =====================================================
 -- TABELA ProdutoMidia
 -- =====================================================
+
 CREATE TABLE ProdutoMidia (
     codMidia INT AUTO_INCREMENT PRIMARY KEY,
     codProd INT NOT NULL,
     tipoMidia ENUM('Imagem', 'Video') NOT NULL,
-    midia longblob,
+    midia varchar(255),
     Ordem int,
     FOREIGN KEY (codProd) REFERENCES Produto(codProd)
 );
-
-
 -- =====================================================
 -- TABELA Item_Subcategoria
 -- =====================================================
@@ -128,10 +133,10 @@ CREATE TABLE Cartao_Clie (
     FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
 );
 
-select * from Usuario;
 -- =====================================================
 -- TABELA Endereco_Entrega
 -- =====================================================
+
 CREATE TABLE Endereco_Entrega (
     codEndereco INT PRIMARY KEY AUTO_INCREMENT,
     Cep VARCHAR(10),
@@ -246,41 +251,36 @@ CREATE TABLE Entrega_Produto (
 -- =====================================================
 -- TABELA ZetaVersoes
 -- =====================================================
-CREATE TABLE ZetaVersoes (
+/*CREATE TABLE ZetaVersoes (
     codZetaV INT AUTO_INCREMENT PRIMARY KEY,
     Pacote VARCHAR(100) NOT NULL,
     Valor DOUBLE NOT NULL,
     Descricao VARCHAR(255)
-);
+);*/
 
 -- =====================================================
 -- TABELA ZetaPass
 -- =====================================================
 CREATE TABLE ZetaPass (
     codZeta INT AUTO_INCREMENT PRIMARY KEY,
-    dataInicial DATE,
-    dataFinal DATE,
     codUsuario INT,
-    codZetaV INT,
     formaPag enum ('Pix', 'Debito', 'Credito','Outro'),
     situacao varchar(1) default '1',
-    FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario),
-    FOREIGN KEY (codZetaV) REFERENCES ZetaVersoes(codZetaV)
+    FOREIGN KEY (codUsuario) REFERENCES Usuario(codUsuario)
 );
 
 -- =====================================================
 -- TABELA ZetaJogos
 -- =====================================================
+
 CREATE TABLE ZetaJogos (
     codZetaJ INT PRIMARY KEY AUTO_INCREMENT,
     nomeJogo VARCHAR(100) NOT NULL,
-    Jogo LONGBLOB NOT NULL,
-    jogoTipo VARCHAR(255) NOT NULL,
-    codZetaV INT NOT NULL,
     imagemCapa  longblob NULL,
     classificacaoEtaria VARCHAR(10) NULL,
-    categoria VARCHAR(100) NULL,
-    FOREIGN KEY (codZetaV) REFERENCES ZetaVersoes(codZetaV)
+    codCat int,
+    caminhoJogo varchar(255),
+	FOREIGN KEY (codCat) REFERENCES Categorias(codCat)
 );
 
 -- ===================================
@@ -308,9 +308,6 @@ CREATE TABLE IF NOT EXISTS log_debug (
     dataLog DATETIME
 );
 
-select  * from Entrega;
-select * from Entrega_Produto;
-select * from Endereco_Entrega;
 -- ===================================================
 -- Criando as procedures de cadastrar
 -- ===================================================
@@ -343,7 +340,7 @@ BEGIN
     END IF;
 END $$
 
-call cadastrar_usuario('Irineu', 'teste@Gmail.com', 'TESTE', '(11) 94444-3233', 'http/sadasa', 'Funcionario');
+-- call cadastrar_usuario('Irineu', 'teste@Gmail.com', 'TESTE', '(11) 94444-3233', 'http/sadasa', 'Funcionario');
 
 DELIMITER $$
 drop procedure if exists cadastrar_usuario_cliente $$
@@ -369,16 +366,14 @@ BEGIN
     END IF;
 END $$
 
-call cadastrar_usuario_cliente('Irineu', 'cliente@Gmail.com', 'TESTE', '(11) 94444-3233', 'http/sadasa');
-
-
+-- call cadastrar_usuario_cliente('Irineu', 'cliente@Gmail.com', 'TESTE', '(11) 94444-3233', 'http/sadasa');
 
 DELIMITER $$
 drop procedure if exists cad_cart $$
 CREATE PROCEDURE cad_cart(
     IN c_numero VARCHAR(19),
-    IN c_digito VARCHAR(5),
-    IN c_ultdigitos VARCHAR(4),
+    IN c_digitofinais VARCHAR(5),
+    IN c_digitoSeguranca VARCHAR(4),
     IN c_bandeira VARCHAR(255),
     IN c_data VARCHAR(5),
     IN c_tipo VARCHAR(10),
@@ -401,9 +396,9 @@ BEGIN
             codUsuario
         ) VALUES (
             c_numero,
-            c_ultdigitos,
+             c_digitofinais,
             c_bandeira,
-            c_digito,
+            c_digitoSeguranca,
             c_data,
             c_tipo,
             c_codusuario
@@ -416,7 +411,6 @@ BEGIN
     END IF;
 END $$
 
-call  cad_cart('400289221222','4232','2323','SALVE O CORITHIANS!!!!!!!!', '05/39','Debito', 2);
 
 
 DELIMITER $$
@@ -437,7 +431,7 @@ BEGIN
     END IF;
 END $$
 
-call cad_zeta_ver('DELUXE',10.20,'AQUI MAL É, AQUI MAL É');
+-- call cad_zeta_ver('DELUXE',10.20,'AQUI MAL É, AQUI MAL É');
 
 -- TEM QUE TESTAR A FUNÇÃO !!!!! E INSERIR UMA VERIFICAÇÃO A CASO HAJA CARTÃO  CADASTRADO USAR
 
@@ -471,15 +465,7 @@ BEGIN
     END IF;
 END $$
 
-call cad_usuario_zeta(2,1,'Debito');
-
-select * from ZetaPass;
-
-select * from log_debug;
-
-select * from log_debug;
-
-
+-- call cad_usuario_zeta(2,1,'Debito');
 
 DELIMITER $$
 drop procedure if exists cad_zeta_jog $$
@@ -524,10 +510,7 @@ BEGIN
     END IF;
 END $$
 
-call cad_zeta_jog('teste', 'dsadasdsa', 'rtx', '1', 'adasdasd', '12', 'HORROR!!!!!');
-
-
-select * from Produto;
+-- call cad_zeta_jog('teste', 'dsadasdsa', 'rtx', '1', 'adasdasd', '12', 'HORROR!!!!!');
 
 Delimiter $$
 drop procedure if exists cad_Produto $$
@@ -561,12 +544,12 @@ declare quantTotal int;
 end $$
 
 
-CALL  cad_produto(2, 'asasd', 12.20, 'ADSDSDSD', 'DSDS', 1, 1, 30);
+-- CALL  cad_produto(2, 'asasd', 12.20, 'ADSDSDSD', 'DSDS', 1, 1, 30);
 
 DELIMITER $$
 drop procedure if exists cad_midia_prod $$
 CREATE  PROCEDURE cad_midia_prod(
-    IN p_midia  LONGBLOB,
+    IN p_midia  varchar(255),
     IN p_cod INT,
     IN p_tipomidia VARCHAR(10)
 )
@@ -581,12 +564,7 @@ BEGIN
         SELECT 'Produto não encontrado.' AS Erro;
     ELSE
         -- Verifica se a mídia já existe para esse produto
-        IF NOT EXISTS (
-            SELECT 1 FROM ProdutoMidia
-            WHERE midia = p_midia 
-              AND tipoMidia = p_tipomidia 
-              AND codProd = codP
-        ) THEN
+       
             -- Define a próxima ordem (pega o maior valor atual + 1)
             SELECT IFNULL(MAX(ordem), 0) + 1 INTO proxOrdem
             FROM ProdutoMidia
@@ -597,12 +575,11 @@ BEGIN
             VALUES (p_midia, codP, p_tipomidia, proxOrdem);
 
             SELECT CONCAT('Mídia cadastrada com sucesso! Ordem = ', proxOrdem) AS Sucesso;
-        ELSE
-            SELECT 'Mídia já cadastrada para esse produto.' AS Erro;
-        END IF;
+       
     END IF;
-END
-call cad_midia_prod('asdsdasd',1,'Video');
+END $$
+
+-- call cad_midia_prod('asdsdasd',1,'Video');
 
 
 Delimiter $$
@@ -623,7 +600,7 @@ declare Erro varchar(100);
     end if;
 End $$
 
-call cad_categoria('teste');
+-- call cad_categoria('teste');
 
 Delimiter $$
 drop procedure if exists cad_subcat $$
@@ -645,7 +622,7 @@ begin
 end $$
 
 
-call cad_subcat('teste2',1);
+-- call cad_subcat('teste2',1);
 
 Delimiter $$ 
 drop procedure if exists cad_itemSub $$
@@ -669,7 +646,7 @@ set codS = (select codSub from Sub_Categoria where codSub = p_codSub);
 	End if;
 End $$
 
-call cad_itemSub(1,1);
+-- call cad_itemSub(1,1);
 
 
 
@@ -695,7 +672,7 @@ BEGIN
 END $$
 
 
-call cad_fornecedor(1212131,'Delimiter');
+-- call cad_fornecedor(1212131,'Delimiter');
 
 
 DELIMITER $$
@@ -834,11 +811,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-select * from Carrinho;
-select * from Venda;
-select * from ItemCarrinho;
-select * from Produto;
-
 
 -- call cad_carrinho(1,2,2);
 
@@ -860,8 +832,7 @@ BEGIN
     END IF;
 END $$
 
-select * from ItemCarrinho;
-call inserir_favorito(1,2);
+-- call inserir_favorito(1,2);
 
 DELIMITER $$
 drop procedure if exists inserir_avaliacao $$
@@ -884,7 +855,7 @@ BEGIN
     END IF;
 END $$
 
-call inserir_avaliacao(1,2,5,'QUERO CAFÉ!!!!!!');
+-- call inserir_avaliacao(1,2,5,'QUERO CAFÉ!!!!!!');
 
 
 
@@ -918,7 +889,6 @@ begin
 end $$
 */
 
-describe Destinatario;
 -- =========================
 -- ALTERAR TABELAS
 -- =========================
@@ -944,7 +914,7 @@ BEGIN
     SELECT 'Usuário atualizado com sucesso!' AS Sucesso;
 END $$
 
-call alterar_usuario_cliente(2,'Alexandro','adsad@gmail.com', 'Aulas', '(14) 12312-123', 'asdas');
+-- call alterar_usuario_cliente(2,'Alexandro','adsad@gmail.com', 'Aulas', '(14) 12312-123', 'asdas');
 
 DELIMITER $$
 drop procedure if exists atualizar_usuario_adm $$
@@ -975,7 +945,7 @@ BEGIN
    
 END $$
 
-call atualizar_usuario_adm(1,'asdasd','email@gmail','12321','Admin','(11) 92323-1232', 'asdad');
+-- call atualizar_usuario_adm(1,'asdasd','email@gmail','12321','Admin','(11) 92323-1232', 'asdad');
 
 DELIMITER $$
 drop procedure if exists editar_produto $$
@@ -1011,7 +981,7 @@ BEGIN
     END IF;
 END $$
 
-call editar_produto(1,221,1223,20,'teste','OLHA O PASQUAL!!!!',1,1,15);
+-- call editar_produto(1,221,1223,20,'teste','OLHA O PASQUAL!!!!',1,1,15);
 
 Delimiter $$
 drop procedure if exists editar_fornecedor $$
@@ -1022,7 +992,6 @@ begin
     where codF = f_cod;
 end $$
 
-select * from Fornedecor;
 /*
 DELIMITER $$ 
 drop procedure if exists editar_imagem_principal_prod $$
@@ -1044,6 +1013,7 @@ END $$
 
 call editar_imagem_principal_prod(1, 'ADASD');
 */
+
 DELIMITER $$
 drop procedure if exists editar_carrinho $$
 CREATE PROCEDURE editar_carrinho (
@@ -1129,7 +1099,7 @@ BEGIN
    
 END $$
 
-call editar_carrinho(1,21,2);
+-- call editar_carrinho(1,21,2);
 
 /*
 DELIMITER $$
@@ -1151,13 +1121,12 @@ END $$
 
 call alterar_promocao(1,21)
 */
-select * from ProdutoMidia;
 
 DELIMITER $$
 drop procedure if exists alterar_produto_midia $$
 CREATE PROCEDURE alterar_produto_midia (
     IN p_codProd INT,
-    IN p_midia  longblob,
+    IN p_midia  varchar(255),
     IN p_tipoMidia ENUM('Imagem', 'Video')
 )
 BEGIN
@@ -1168,11 +1137,7 @@ BEGIN
         SELECT CONCAT(p_tipoMidia, ' atualizada com sucesso.') AS Sucesso;
 END $$
 
-call alterar_produto_midia(1,'sasdsadasd','Imagem');
-
-select * from Endereco_Entrega;
-select * from Entrega;
-select * from Entrega_Produto;
+-- call alterar_produto_midia(1,'sasdsadasd','Imagem');
 
 
 DELIMITER $$
@@ -1285,7 +1250,7 @@ BEGIN
 
 END $$
 
-call atualizar_dados_entrega_cliente(2,1,'10','12','1asda','casa','12','sada','asda','asda','dazs','asd');
+-- call atualizar_dados_entrega_cliente(2,1,'10','12','1asda','casa','12','sada','asda','asda','dazs','asd');
 
 
 -- É UM INSERIR E EDITAR DESTINATÁRIO, JÁ QUE OS CAMPOS SÃO O MESMO! E na verdade vai acontecer na mesma situação
@@ -1361,61 +1326,67 @@ BEGIN
 END $$
 
 
-call atualizar_avaliacao(1,2,5,'120');
+-- call atualizar_avaliacao(1,2,5,'120');
 
 
 DELIMITER $$
-
 DROP PROCEDURE IF EXISTS inserir_formapagamento $$
 CREATE PROCEDURE inserir_formapagamento(
     IN u_formaPag VARCHAR(30),
-    IN u_codUsuario INT
+    IN u_codUsuario INT,
+    IN u_codCart INT  -- cartão opcional (NULL quando PIX)
 )
 BEGIN
     DECLARE codV INT;
-    DECLARE cart INT;
+    DECLARE existeCart INT;
 
-    -- Busca a venda "Em andamento" do usuário
+    -- Busca a venda em andamento
     SELECT codVenda INTO codV
     FROM Venda
     WHERE codUsuario = u_codUsuario AND situacao = 'Em andamento'
     LIMIT 1;
 
     IF codV IS NULL THEN
-        SELECT ' Erro: Nenhuma venda em andamento encontrada para este usuário.' AS mensagem;
+        SELECT 'Erro: Nenhuma venda em andamento encontrada para este usuário.' AS mensagem;
     ELSE
-        -- Se o pagamento for PIX, atualiza direto
-        IF u_formaPag = 'Pix' THEN
+
+        -- Caso seja PIX (não precisa cartão)
+        IF u_formaPag = 'Pix' AND u_codCart IS NULL THEN
+            
             UPDATE Venda
-            SET formaPag = u_formaPag
+            SET formaPag = 'Pix', codCart = NULL
             WHERE codVenda = codV;
 
-            SELECT ' Forma de pagamento atualizada para PIX com sucesso.' AS mensagem;
+            SELECT 'Forma de pagamento atualizada para PIX com sucesso.' AS mensagem;
 
-        -- Se for Crédito ou Débito, checa se o cartão existe
+        -- Caso seja pagamento com cartão (Crédito ou Débito)
         ELSEIF u_formaPag IN ('Credito', 'Debito') THEN
-            SELECT codCart INTO cart
+            
+            -- Verifica se o cartão existe e pertence ao usuário
+            SELECT COUNT(*) INTO existeCart
             FROM Cartao_Clie
-            WHERE tipoCart = u_formaPag AND codUsuario = u_codUsuario
-            LIMIT 1;
+            WHERE codCart = u_codCart AND codUsuario = u_codUsuario;
 
-            IF cart IS NOT NULL THEN
+            IF existeCart = 1 THEN
+
                 UPDATE Venda
                 SET formaPag = u_formaPag
                 WHERE codVenda = codV;
 
-                SELECT CONCAT(' Forma de pagamento atualizada para ', u_formaPag, '.') AS mensagem;
+                SELECT CONCAT('Forma de pagamento "', u_formaPag, '" registrada com sucesso.') AS mensagem;
+
             ELSE
-                SELECT CONCAT('Nenhum cartão do tipo "', u_formaPag, '" encontrado para este usuário.') AS mensagem;
+                SELECT 'Erro: Cartão inválido ou não pertence ao usuário.' AS mensagem;
             END IF;
 
         ELSE
-            SELECT ' Tipo de pagamento inválido. Use "Pix", "Credito" ou "Debito".' AS mensagem;
+            SELECT 'Erro: Tipo de pagamento inválido.' AS mensagem;
         END IF;
+
     END IF;
 END $$
-
 DELIMITER ;
+
 -- call inserir_formaPagamento(2,'Pix');
 -- =======================
 -- PROCEDURES DE DELETE!!!
@@ -1446,7 +1417,7 @@ BEGIN
 END $$
 
 
-call desativar_usuario(1);
+-- call desativar_usuario(1);
 
 DELIMITER $$
 drop procedure if exists deletar_prod_carrinho $$
@@ -1490,9 +1461,9 @@ BEGIN
     SELECT 'Produto removido do carrinho e total atualizado.' AS Sucesso;
 END $$
 
-call deletar_prod_carrinho(1,2,1);
+-- call deletar_prod_carrinho(1,2,1);
 
-describe Venda;
+
 
 -- ???
 DELIMITER $$
@@ -1694,12 +1665,6 @@ DELIMITER ;
 
 -- call concluir_compra(1,null,0,'Local');
 
-select * from Carrinho;
-select * from ItemCarrinho;
-select * from Venda;
-select * from Entrega;
-
-describe Entrega;
 
 Delimiter $$
 drop procedure if exists Em_andamentoEntrega $$
@@ -1715,9 +1680,6 @@ begin
 		select 'Erro ao atualizar essa entrega' as Erro;
     end if;
 end $$
-
-
-select * from Entrega;
 
 Delimiter $$
 drop procedure if exists FinalizadaLocal $$
@@ -1777,13 +1739,9 @@ begin
 end $$
 
 
-select * from Venda;
-select * from ItemCarrinho;
+
  -- call concluir_compra(2,1, null,30);
 
-select * from Venda;
-select * from Log_debug;
-select * from Comprovante;
 
 -- VERSÃO 4!
 Delimiter $$
@@ -1832,14 +1790,7 @@ BEGIN
 
     END IF;
 END $$
-
 DELIMITER ;
-
-describe Produto;
-
-describe Entrega_Produto;
-select * from Entrega;
-select * from Venda;
 
 DELIMITER $$
 CREATE PROCEDURE deletar_avaliacao (
@@ -1858,7 +1809,7 @@ BEGIN
     END IF;
 END $$
 
-call deletar_avaliacao(1,2);
+-- call deletar_avaliacao(1,2);
 
 
 Delimiter $$
@@ -1878,7 +1829,7 @@ BEGIN
     END IF;
 END $$
 
-call deletar_favorito(1,2);
+-- call deletar_favorito(1,2);
 
 
 
@@ -1898,7 +1849,6 @@ End $$
 
 -- ATIVAR O CLIENTE DESATIVADO
 
-select * from Usuario;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS ativar_cliente $$
 CREATE PROCEDURE ativar_cliente(c_email VARCHAR(150))
@@ -1930,7 +1880,7 @@ BEGIN
     END IF;
 END $$
 
-call ativar_cliente(1);
+-- call ativar_cliente(1);
 
 
 
@@ -2061,7 +2011,7 @@ BEGIN
     WHERE codProd = p_id;
 END $$
 
-select  * from Entrega;
+
 -- Listar e obter categorias
 
 Delimiter $$

@@ -239,7 +239,7 @@ namespace MeuProjetoMVC.Controllers
                 cmd.Parameters.AddWithValue("p_valor", produto.Valor);
                 cmd.Parameters.AddWithValue("p_nome", produto.nomeProduto ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_descricao", produto.Descricao ?? string.Empty);
-                cmd.Parameters.AddWithValue("p_imagens", (object?)produto.Imagens ?? string.Empty);
+                cmd.Parameters.AddWithValue("p_imagem", (object?)produto.Imagens ?? string.Empty);
                 cmd.Parameters.AddWithValue("p_desconto", (double?)produto.Desconto ?? 0);
                 cmd.Parameters.AddWithValue("p_cat", produto.codCat);
                 cmd.Parameters.AddWithValue("p_for", produto.codF);
@@ -281,9 +281,15 @@ namespace MeuProjetoMVC.Controllers
                     nomeProduto = reader["nomeProduto"]?.ToString() ?? string.Empty
                 });
             }
+      
 
             return View(produtos);
         }
+
+
+        
+
+
 
 
         public IActionResult BuscarProdutos(string? nomeProduto)
@@ -425,40 +431,112 @@ namespace MeuProjetoMVC.Controllers
                 return BadRequest();
             }
 
+            // Listas
             Produto produtos = new Produto();
+            List<Avaliacao> avaliacaoCliente = new List<Avaliacao>();
+            List<Avaliacao> avaliacaoGeral = new List<Avaliacao>();
+            List<Usuario> usuarios = new List<Usuario>();
 
-            using var conn = new MySqlConnection(_connectionString);
+            var conn = new MySqlConnection(_connectionString);
             conn.Open();
-            using var cmd = new MySqlCommand(@"
+            using (var cmd = new MySqlCommand(@"
                 Select codProd, nomeProduto, Descricao, Quantidade, quantidadeTotal, Valor, Imagens, codCat, codF, Desconto
                 From Produto 
                 where codProd = @cod
-                ", conn);
-            cmd.Parameters.AddWithValue("@cod", codProd);
-
-            var rd = cmd.ExecuteReader();
-            
-            while(rd.Read())
+                ", conn))
             {
-                produtos = new Produto
+                cmd.Parameters.AddWithValue("@cod", codProd);
+
+                var rd = cmd.ExecuteReader();
+
+                while (rd.Read())
                 {
-                    codProd = rd["codProd"] != DBNull.Value ? Convert.ToInt32(rd["codProd"]) : 0,
-                    codCat = rd["codCat"] != DBNull.Value ? Convert.ToInt32(rd["codCat"]) : 0,
-                    codF = rd["codF"] != DBNull.Value ? Convert.ToInt32(rd["codF"]) : 0,
-                    nomeProduto = rd["nomeProduto"]?.ToString() ?? string.Empty,
-                    Descricao = rd["Descricao"]?.ToString() ?? string.Empty,
-                    Quantidade = rd["Quantidade"] != DBNull.Value ? Convert.ToInt32(rd["Quantidade"]) : 0,
-                    Desconto = rd["Desconto"] != DBNull.Value ? Convert.ToDecimal(rd["Desconto"]) : 0,
-                    Valor = rd["Valor"] != DBNull.Value ? Convert.ToDecimal(rd["Valor"]) : 0,
-                    Imagens = rd["Imagens"] != DBNull.Value? (byte[])rd["Imagens"] : Array.Empty<byte>(),
-                    quantidadeTotal = rd["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(rd["quantidadeTotal"]) : 0
-                    
-                };
+                    produtos = new Produto
+                    {
+                        codProd = rd["codProd"] != DBNull.Value ? Convert.ToInt32(rd["codProd"]) : 0,
+                        codCat = rd["codCat"] != DBNull.Value ? Convert.ToInt32(rd["codCat"]) : 0,
+                        codF = rd["codF"] != DBNull.Value ? Convert.ToInt32(rd["codF"]) : 0,
+                        nomeProduto = rd["nomeProduto"]?.ToString() ?? string.Empty,
+                        Descricao = rd["Descricao"]?.ToString() ?? string.Empty,
+                        Quantidade = rd["Quantidade"] != DBNull.Value ? Convert.ToInt32(rd["Quantidade"]) : 0,
+                        Desconto = rd["Desconto"] != DBNull.Value ? Convert.ToDecimal(rd["Desconto"]) : 0,
+                        Valor = rd["Valor"] != DBNull.Value ? Convert.ToDecimal(rd["Valor"]) : 0,
+                        Imagens = rd["Imagens"] != DBNull.Value ? (byte[])rd["Imagens"] : Array.Empty<byte>(),
+                        quantidadeTotal = rd["quantidadeTotal"] != DBNull.Value ? Convert.ToInt32(rd["quantidadeTotal"]) : 0
+
+                    };
+                }
+               
             }
+            var conn2 = new MySqlConnection(_connectionString);
+            conn2.Open();
+           using (var cmd = new MySqlCommand(@"
+            Select 
+            codAvaliacao, codProd, nota, comentario
+            from Avaliacao where codUsuario = @codU and codProd = @codP
+           ",conn2))
+            {
+                var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+
+                cmd.Parameters.AddWithValue("@codU", user);
+                cmd.Parameters.AddWithValue("@codP", codProd);
+
+                var rd2 = cmd.ExecuteReader();
+
+                while(rd2.Read())
+                {
+                    avaliacaoCliente.Add(new Avaliacao
+                    {
+                        codAvaliacao = rd2["codAvaliacao"] != DBNull.Value ? rd2.GetInt32("codAvaliacao") : 0,
+                        codProd = rd2["codProd"] != DBNull.Value ? rd2.GetInt32("codProd") : 0,
+                        nota = rd2["nota"] != DBNull.Value ? rd2.GetInt32("nota") : 0,
+                        comentario = rd2["comentario"] != DBNull.Value ? rd2.GetString("comentario") : null
+                    });
+                }
+            }
+
+            var conn3 = new MySqlConnection(_connectionString);
+            conn3.Open();
+            using (var cmd = new MySqlCommand(@"
+            Select 
+            a.codAvaliacao, a.codProd, a.nota, a.comentario,a.dataAvaliacao, u.Nome, u.codUsuario
+            from Avaliacao a
+            inner Join Usuario u on a.codUsuario = u.codUsuario
+            where a.codProd = @codP
+           ", conn3))
+            {
+
+                cmd.Parameters.AddWithValue("@codP", codProd);
+
+                var rd3 = cmd.ExecuteReader();
+
+                while (rd3.Read())
+                {
+                    avaliacaoGeral.Add(new Avaliacao
+                    {
+                        codAvaliacao = rd3["codAvaliacao"] != DBNull.Value ? rd3.GetInt32("codAvaliacao") : 0,
+                        codProd = rd3["codProd"] != DBNull.Value ? rd3.GetInt32("codProd") : 0,
+                        nota = rd3["nota"] != DBNull.Value ? rd3.GetInt32("nota") : 0,
+                        comentario = rd3["comentario"] != DBNull.Value ? rd3.GetString("comentario") : null,
+                        dataAvaliacao = rd3.IsDBNull("dataAvaliacao") ? default(DateTime) : rd3.GetDateTime("dataAvaliacao"),
+                        codUsuario = rd3["codUsuario"] != DBNull.Value ? rd3.GetInt32("codUsuario") : 0
+                    });
+
+                    usuarios.Add(new Usuario
+                    {
+                        CodUsuario = rd3["codUsuario"] != DBNull.Value ? rd3.GetInt32("codUsuario") : 0,
+                        Nome = rd3["Nome"] != DBNull.Value ? rd3.GetString("Nome") : null
+                    });
+
+                }
+            }
+
 
             DetalhesM(codProd);
 
-
+            ViewBag.ComentarioCliente = avaliacaoCliente;
+            ViewBag.ComentarioGeral = avaliacaoGeral;
+            ViewBag.Usuarios = usuarios;
             return View(produtos);
         }
 
@@ -557,7 +635,7 @@ namespace MeuProjetoMVC.Controllers
                             codMidia = reader.GetInt32("codMidia"),
                             codProd = reader.GetInt32("codProd"),
                             tipoMidia = reader.GetString("tipoMidia"),
-                            midia = (byte[]?)reader["midia"],
+                            midia = (string?)reader["midia"],
                             Ordem = reader["Ordem"] != DBNull.Value ? Convert.ToInt32(reader["Ordem"]) : 0
                         });
                     }
@@ -587,35 +665,6 @@ namespace MeuProjetoMVC.Controllers
 
             ViewBag.Favoritos = favoritos;
 
-        }
-
-        [Route("ProdutoMidia/Exibir/{codMidia}")]
-        public IActionResult ExibirMidia(int codMidia)
-        {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
-
-            ProdutoMidia midia = null;
-            using (var cmd = new MySqlCommand("SELECT codMidia, tipoMidia, midia FROM ProdutoMidia WHERE codMidia = @cod", conn))
-            {
-                cmd.Parameters.AddWithValue("@cod", codMidia);
-                using var reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    midia = new ProdutoMidia
-                    {
-                        codMidia = reader.GetInt32("codMidia"),
-                        tipoMidia = reader.GetString("tipoMidia"),
-                        midia = (byte[])reader["midia"]
-                    };
-                }
-            }
-
-            if (midia == null || midia.midia == null)
-                return NotFound();
-
-            string contentType = midia.tipoMidia == "Video" ? "video/mp4" : "image/jpeg";
-            return File(midia.midia, contentType);
         }
 
 

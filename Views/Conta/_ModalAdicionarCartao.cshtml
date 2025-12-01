@@ -1,0 +1,47 @@
+@model MeuProjetoMVC.Models.cartaoCli
+
+<!-- Modal de Adicionar Cartão -->
+<div class="modal fade" id="modalAdicionarCartao" tabindex="-1" aria-labelledby="modalAdicionarCartaoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAdicionarCartaoLabel">Adicionar Novo Cartão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="@Url.Action("AdicionarCartao", "Conta")">
+                    <div class="mb-3">
+                        <label for="Numero" class="form-label">Número do Cartão</label>
+                        <input type="text" class="form-control" id="Numero" name="Numero" required placeholder="Digite o número do cartão" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Digitos" class="form-label">Últimos 4 Dígitos</label>
+                        <input type="text" class="form-control" id="Digitos" name="Digitos" required placeholder="Últimos 4 dígitos" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Bandeira" class="form-label">Bandeira</label>
+                        <select class="form-select" id="Bandeira" name="Bandeira" required>
+                            <option value="Visa">Visa</option>
+                            <option value="MasterCard">MasterCard</option>
+                            <option value="Amex">Amex</option>
+                            <option value="Elo">Elo</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="TipoCartao" class="form-label">Tipo de Cartão</label>
+                        <select class="form-select" id="TipoCartao" name="TipoCartao" required>
+                            <option value="Débito">Débito</option>
+                            <option value="Crédito">Crédito</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

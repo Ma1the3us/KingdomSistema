@@ -1,6 +1,17 @@
 using MeuProjetoMVC.Services;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 300_000_000;
+});
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 300_000_000; // 300 MB
+});
+
 
 builder.Services.AddHttpClient<IEnderecoService, EnderecoService>();
 builder.Services.AddHttpClient<IFreteServices, FreteService>();

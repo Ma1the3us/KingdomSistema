@@ -217,7 +217,7 @@ namespace MeuProjetoMVC.Controllers
 
                 cmd.ExecuteNonQuery();
 
-                return View();
+                return RedirectToAction("Index");
 
             }
             catch (MySqlException ex)

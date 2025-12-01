@@ -16,20 +16,18 @@
 
         <hr />
 
-        @if (Model.midia != null)
+        @if (!string.IsNullOrEmpty(Model.midia))
         {
-            var base64 = Convert.ToBase64String(Model.midia);
-
             if (Model.tipoMidia == "Imagem")
             {
-                <img src="data:image/jpeg;base64,@base64"
+                <img src="@Model.midia"
                      class="img-fluid rounded"
                      style="max-height: 400px;" />
             }
             else if (Model.tipoMidia == "Video")
             {
                 <video controls class="w-100" style="max-height:400px;">
-                    <source src="data:video/mp4;base64,@base64" type="video/mp4" />
+                    <source src="@Model.midia" type="video/mp4" />
                 </video>
             }
         }

@@ -48,7 +48,7 @@ namespace MeuProjetoMVC.Controllers
                     codProd = rd.GetInt32("codProd"),
                     codMidia = rd.GetInt32("codMidia"),
                     tipoMidia = rd["tipoMidia"] as string,
-                    midia = rd["midia"] != DBNull.Value ? (byte[])rd["midia"] : null,
+                    midia = rd["midia"] != DBNull.Value ? (string?)rd["midia"] : null,
                     Ordem = rd.GetInt32("Ordem")
                 });
 
@@ -83,39 +83,52 @@ namespace MeuProjetoMVC.Controllers
         // =========================
         // CADASTRAR (POST)
         // =========================
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Cadastrar(ProdutoMidia produto, IFormFile midia)
         {
-            try
+            if (midia != null && midia.Length > 0)
             {
-                using var conn = new MySqlConnection(_connectionString);
-                conn.Open();
+                // Define a pasta correta baseado no tipo
+                string pastaBase = produto.tipoMidia == "Imagem"
+                    ? "imagens"
+                    : "videos";
 
-                using var cmd = new MySqlCommand("cad_midia_prod", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                // Cria uma pasta por produto (opcional, mas profissional)
+                var pasta = Path.Combine("wwwroot", "midiaproduto", pastaBase, $"produto_{produto.codProd}");
+                Directory.CreateDirectory(pasta);
 
-                if (midia != null && midia.Length > 0)
+                // Gera nome aleatório
+                var fileName = $"{Guid.NewGuid()}_{midia.FileName}";
+                var filePath = Path.Combine(pasta, fileName);
+
+                // Salva fisicamente
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    using var ms = new MemoryStream();
-                    midia.CopyTo(ms);
-                    produto.midia = ms.ToArray();
+                    midia.CopyTo(stream);
                 }
 
-                cmd.Parameters.AddWithValue("p_midia", produto.midia);
-                cmd.Parameters.AddWithValue("p_cod", produto.codProd);
-                cmd.Parameters.AddWithValue("p_tipomidia", produto.tipoMidia);
-
-                cmd.ExecuteNonQuery();
-
-                TempData["MensagemPI"] = "Mídia cadastrada com sucesso!";
-                return RedirectToAction("Index", new { codProd = produto.codProd });
+                // Caminho para salvar no banco (URL)
+                produto.midia = $"/midiaproduto/{pastaBase}/produto_{produto.codProd}/{fileName}";
             }
-            catch (MySqlException ex)
-            {
-                TempData["MensagemEPI"] = "Erro ao realizar o cadastro: " + ex.Message;
-                return RedirectToAction("Index", new { codProd = produto.codProd });
-            }
+
+            // SALVAR NO BANCO
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            using var cmd = new MySqlCommand("cad_midia_prod", conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("p_midia", produto.midia);
+            cmd.Parameters.AddWithValue("p_cod", produto.codProd);
+            cmd.Parameters.AddWithValue("p_tipomidia", produto.tipoMidia);
+
+            cmd.ExecuteNonQuery();
+
+            TempData["MensagemPI"] = "Mídia cadastrada com sucesso!";
+
+            return RedirectToAction("Index", new { codProd = produto.codProd });
         }
 
         // =========================
@@ -148,7 +161,7 @@ namespace MeuProjetoMVC.Controllers
                 produto.codMidia = rd.GetInt32("codMidia");
                 produto.codProd = rd.GetInt32("codProd");
                 produto.tipoMidia = rd.GetString("tipoMidia");
-                produto.midia = !rd.IsDBNull(rd.GetOrdinal("midia")) ? (byte[])rd["midia"] : null;
+                produto.midia = !rd.IsDBNull(rd.GetOrdinal("midia"))  ? rd.GetString("midia") : null;
             }
             else
             {
@@ -175,16 +188,33 @@ namespace MeuProjetoMVC.Controllers
 
                 if (midia != null && midia.Length > 0)
                 {
-                    using var ms = new MemoryStream();
-                    midia.CopyTo(ms);
-                    produto.midia = ms.ToArray();
+                    // Define a pasta correta
+                    string pastaBase = produto.tipoMidia == "Imagem"
+                        ? "imagens"
+                        : "videos";
+
+                    // Pasta organizada por produto
+                    var pasta = Path.Combine("wwwroot", "midiaproduto", pastaBase, $"produto_{produto.codProd}");
+                    Directory.CreateDirectory(pasta);
+
+                    // Nome do arquivo
+                    var fileName = $"{Guid.NewGuid()}_{midia.FileName}";
+                    var filePath = Path.Combine(pasta, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        midia.CopyTo(stream);
+                    }
+
+                    // Caminho salvo no banco
+                    produto.midia = $"/uploads/{pastaBase}/produto_{produto.codProd}/{fileName}";
                 }
 
                 using var cmd = new MySqlCommand(@"
-                    UPDATE ProdutoMidia
-                    SET tipoMidia = @tipomidia,
-                        midia = @midia
-                    WHERE codMidia = @codM AND codProd = @codP;
+                   UPDATE ProdutoMidia
+                   SET tipoMidia = @tipomidia,
+                   midia = @midia
+                   WHERE codMidia = @codM AND codProd = @codP;
                 ", conn);
 
                 cmd.Parameters.AddWithValue("@codM", produto.codMidia);
@@ -266,7 +296,7 @@ namespace MeuProjetoMVC.Controllers
                             codMidia = reader.GetInt32("codMidia"),
                             codProd = reader.GetInt32("codProd"),
                             tipoMidia = reader.GetString("tipoMidia"),
-                            midia = reader["midia"] as byte[]
+                            midia = reader["midia"] as string
                         };
                     }
                 }

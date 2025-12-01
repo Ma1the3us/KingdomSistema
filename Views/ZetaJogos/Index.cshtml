@@ -1,0 +1,33 @@
+﻿@model List<MeuProjetoMVC.Models.ZetaJogos>
+
+<div class="container mt-4">
+    <h2 class="mb-3">Lista de Jogos</h2>
+    <a class="btn btn-primary mb-3" href="/ZetaJogos/Criar">Adicionar Novo</a>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Classificação</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var j in Model)
+            {
+                <tr>
+                    <td>@j.codZetaJ</td>
+                    <td>@j.nomeJogo</td>
+                    <td>@j.classificacaoEtaria</td>
+                    <td>@j.categoria</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="/ZetaJogos/Editar/@j.codZetaJ">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/ZetaJogos/Excluir/@j.codZetaJ">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

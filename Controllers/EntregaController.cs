@@ -423,6 +423,7 @@ namespace MeuProjetoMVC.Controllers
 
                             if (rd.Read())
                             {
+                                model.codEntrega = rd["codEntrega"] as int?;
                                 model.codUsuario = rd["codUsuario"] as int?;
                                 model.valorTotal = rd["valorTotal"] as decimal?;
                                 model.Numero = rd["Numero"]?.ToString();
@@ -495,7 +496,7 @@ namespace MeuProjetoMVC.Controllers
                 {
                     using (var cmd = new MySqlCommand(@"
                 select e.codEntrega, e.codUsuario, e.valorTotal,
-                u.Nome, u.Email, u.Telefone,
+                u.Nome, u.Email, u.Telefone, e.nomeDestinatario, e.emailDestinatario,
                 ep.nomeProduto, ep.Quantidade, ep.Valor
                 from Entrega e
                 inner join entrega_produto ep on e.codEntrega = ep.codEntrega
@@ -508,6 +509,8 @@ namespace MeuProjetoMVC.Controllers
 
                         while (rd.Read())
                         {
+                            model.nomeDestinatario = rd["nomeDestinatario"]?.ToString();
+                            model.emailDestinatario = rd["emailDestinatario"]?.ToString();
                             model.codUsuario = rd["codUsuario"] as int?;
                             model.valorTotal = rd["valorTotal"] as decimal?;
                             model.Nome = rd["Nome"]?.ToString();

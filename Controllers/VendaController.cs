@@ -9,6 +9,7 @@ using System.Text.Json;
 
 namespace MeuProjetoMVC.Controllers
 {
+    [Route("sistema/Venda")]
     public class VendaController : Controller
     {
         private readonly string _connectionString;
@@ -26,15 +27,22 @@ namespace MeuProjetoMVC.Controllers
                 ?? throw new ArgumentNullException("Connection string não encontrada");
         }
 
+        [HttpGet("Index")]
         public IActionResult Index()
         {
+            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            if (user == null || user == 0)
+                return RedirectToAction("Auth", "Login");
+
             var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
             List<Venda> venda = new List<Venda>();
             List<CartItem> carrinho = new List<CartItem>();
             List<Produto> produto = new List<Produto>();
-            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
+            List<cartaoCli> cartao = new List<cartaoCli>();
+
+      
 
             using var cmd = new MySqlCommand(@"
                Select
@@ -56,7 +64,7 @@ namespace MeuProjetoMVC.Controllers
                 {
                     codCarrinho = rd.GetInt32("codCarrinho"),
                     codProd = rd.GetInt32("codProd"),
-                    Quantidade = rd.GetInt32("codProd"),
+                    Quantidade = rd.GetInt32("quantidade"),
                     Valor = rd.GetDecimal("valorProduto")
                 });
                 produto.Add(new Produto
@@ -69,6 +77,29 @@ namespace MeuProjetoMVC.Controllers
                 });
 
             }
+            rd.Close();
+
+            var cmd2 = new MySqlCommand(@"
+                Select codCart, digitos, bandeira,tipoCart
+                from Cartao_Clie
+                where codUsuario = @usercode;
+            ",conn);
+            cmd2.Parameters.AddWithValue("@usercode", user);
+
+            var rd2 = cmd2.ExecuteReader();
+
+            while(rd2.Read())
+            {
+                cartao.Add(new cartaoCli
+                {
+                    codCart = rd2["codCart"] != DBNull.Value ? rd2.GetInt32("codCart") : 0,
+                    digitos = rd2["digitos"] != DBNull.Value ? rd2.GetString("digitos") : null,
+                    bandeira = rd2["bandeira"] != DBNull.Value ? rd2.GetString("bandeira") : null,
+                    tipoCart = rd2["tipoCart"] != DBNull.Value ? rd2.GetString("tipoCart") : null
+                });
+            }
+
+            ViewBag.Cartao = cartao;
             ViewBag.codVenda = venda;
             ViewBag.ProdutoNome = produto;
             return View(carrinho);
@@ -77,35 +108,46 @@ namespace MeuProjetoMVC.Controllers
         // ================================
         // SALVAR FORMA DE PAGAMENTO (ASYNC)
         // ================================
-        public async Task<IActionResult> FormaPagamentoAsync(string? forma)
+
+        [HttpPost("FormaPagamento")]
+        public IActionResult AdicionarPagamento([FromBody] FormaPagamentoRequest req)
         {
-            if (forma == null)
-                return BadRequest("Forma de pagamento inválida");
+            if (string.IsNullOrWhiteSpace(req.Forma))
+                return Json(new { sucesso = false, mensagem = "Selecione uma forma de pagamento" });
 
-            var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
-            if (user == null)
-                return Unauthorized();
-
-            using var conn = new MySqlConnection(_connectionString);
-            await conn.OpenAsync();
-
-            using var cmd = new MySqlCommand("inserir_formapagamento", conn)
+            try
             {
-                CommandType = System.Data.CommandType.StoredProcedure
-            };
+                var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
-            cmd.Parameters.AddWithValue("u_formaPag", forma);
-            cmd.Parameters.AddWithValue("u_codUsuario", user);
+                if (user == null || user == 0)
+                    return Unauthorized();
 
-            await cmd.ExecuteNonQueryAsync();
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
 
-            return Ok("Forma de pagamento salva");
+                using var cmd = new MySqlCommand("inserir_formapagamento", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("u_formaPag", req.Forma);      // agora correto
+                cmd.Parameters.AddWithValue("u_codCart", req.Codigo ?? 0); // se não tem cartão, salva 0
+                cmd.Parameters.AddWithValue("u_codUsuario", user);
+
+                cmd.ExecuteNonQuery();
+
+                return Json(new { sucesso = true, mensagem = "Forma de pagamento salva!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { sucesso = false, mensagem = "Erro: " + ex.Message });
+            }
         }
 
         // ===============================================
         // CONCLUIR COMPRA (ASYNC COMPLETO)
         // ===============================================
-        [HttpPost]
+        [HttpPost("ConcluirCompra")]
         public async Task<IActionResult> ConcluirCompra([FromBody] ConcluirCompraRequest req)
         {
             var user = HttpContext.Session.GetInt32(SessionKeys.UserId);
@@ -193,5 +235,10 @@ namespace MeuProjetoMVC.Controllers
 
 
 
+    }
+    public class FormaPagamentoRequest
+    {
+        public string? Forma { get; set; }
+        public int? Codigo { get; set; }
     }
 }

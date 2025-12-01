@@ -88,7 +88,7 @@ namespace MeuProjetoMVC.Controllers
                 SELECT 
                     ic.codProd, ic.quantidade, ic.valorProduto,
                     ic.codCarrinho, p.nomeProduto,
-                    p.Imagens, p.Valor
+                    p.Imagens, p.Valor, p.Desconto
                 FROM ItemCarrinho ic
                 JOIN Carrinho c ON ic.codCarrinho = c.codCarrinho
                 JOIN Venda v ON c.codVenda = v.codVenda
@@ -115,7 +115,8 @@ namespace MeuProjetoMVC.Controllers
                     codProd = rd.GetInt32("codProd"),
                     nomeProduto = rd.GetString("nomeProduto"),
                     Valor = rd.GetDecimal("Valor"),
-                    Imagens = rd["Imagens"] is DBNull ? Array.Empty<byte>() : (byte[])rd["Imagens"]
+                    Imagens = rd["Imagens"] is DBNull ? Array.Empty<byte>() : (byte[])rd["Imagens"],
+                    Desconto = rd["Desconto"] != DBNull.Value ? rd.GetDecimal("Desconto") : 0
                 });
             }
 

@@ -1,0 +1,31 @@
+@model List<MeuProjetoMVC.Models.ZetaJogos>
+
+<h2 style="margin-bottom:15px;">🎮 Jogos Zeta</h2>
+
+@if (!Model.Any())
+{
+    <p>Nenhum jogo disponível.</p>
+}
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;">
+    @foreach (var jogo in Model)
+    {
+        <div style="background:#1b1b1b;padding:20px;border-radius:15px;text-align:center;
+                    box-shadow:0 0 12px rgba(0,0,0,0.4);">
+                
+            <img src="data:image/jpeg;base64,@Convert.ToBase64String(jogo.Capa)"
+                 style="width:100%;height:200px;object-fit:cover;border-radius:12px;" />
+
+            <h3 style="margin-top:15px;font-size:20px;">@jogo.nomeJogo</h3>
+
+            <p style="opacity:0.8;font-size:14px;margin-top:5px;">
+                Categoria: @jogo.categoria<br />
+                Classificação: @jogo.classificacaoEtaria
+            </p>
+
+            <a asp-action="Jogar" asp-route-id="@jogo.codZetaJ" class="btn btn-primary">
+                Jogar
+            </a>
+        </div>
+    }
+</div>
