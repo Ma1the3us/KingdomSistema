@@ -46,6 +46,7 @@ namespace MeuProjetoMVC.Controllers
 
             return View(lista);
         }
+        [HttpGet]
 
         // GET: Criar
         public IActionResult Criar()
@@ -56,7 +57,7 @@ namespace MeuProjetoMVC.Controllers
 
         // POST: Criar
         [HttpPost]
-        public IActionResult Criar(ZetaJogos jogo, IFormFile? imagemCapa)
+        public IActionResult Criar(ZetaJogos jogo, IFormFile? imagemCapa,IFormFile arquivoJogo)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +82,44 @@ namespace MeuProjetoMVC.Controllers
                 imagemCapa.CopyTo(ms);
                 capaBytes = ms.ToArray();
             }
+             // -------------------------
+    // 2. Upload do JOGO HTML
+    // -------------------------
+    if (arquivoJogo == null || arquivoJogo.Length == 0)
+    {
+        ModelState.AddModelError("", "Você deve enviar o arquivo do jogo (HTML).");
+        CarregarCategorias();
+        return View(jogo);
+    }
 
+    // Valida extensão
+    var extensao = Path.GetExtension(arquivoJogo.FileName).ToLower();
+    if (extensao != ".html" && extensao != ".htm")
+    {
+        ModelState.AddModelError("", "O jogo deve ser um arquivo HTML.");
+        CarregarCategorias();
+        return View(jogo);
+    }
+
+    // Cria pasta com nome do jogo
+    string nomePasta = jogo.nomeJogo.Replace(" ", "_").ToLower();
+    string pastaDestino = Path.Combine("wwwroot", "Jogos", nomePasta);
+
+    if (!Directory.Exists(pastaDestino))
+        Directory.CreateDirectory(pastaDestino);
+
+    // Salva o arquivo
+    string caminhoArquivo = Path.Combine(pastaDestino, arquivoJogo.FileName);
+
+    using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+    {
+        arquivoJogo.CopyTo(stream);
+    }
+
+   // Caminho relativo salvo no banco
+    string caminhoRelativo = $"Jogos/{nomePasta}/{arquivoJogo.FileName}";
+    jogo.caminhoJogo = caminhoRelativo;
+    Console.WriteLine(">>> Caminho Jogo Gerado: " + jogo.caminhoJogo);
             using var conex = new MySqlConnection(_connectionString);
             conex.Open();
             string sql = @"INSERT INTO ZetaJogos (nomeJogo, codUsuario, imagemCapa, classificacaoEtaria, codCat, caminhoJogo)
@@ -100,7 +138,7 @@ namespace MeuProjetoMVC.Controllers
 
             return RedirectToAction("Index");
         }
-
+         [HttpGet]
         // GET: Editar
         public IActionResult Editar(int id)
         {
@@ -148,6 +186,7 @@ namespace MeuProjetoMVC.Controllers
             cmd.Parameters.AddWithValue("@caminho", jogo.caminhoJogo);
 
 
+
             if (imagemBytes != null)
                 cmd.Parameters.AddWithValue("@img", imagemBytes);
 
@@ -155,7 +194,7 @@ namespace MeuProjetoMVC.Controllers
 
             return RedirectToAction("Index");
         }
-
+         [HttpGet]
         // GET: Excluir
         public IActionResult Excluir(int id)
         {
@@ -231,5 +270,6 @@ namespace MeuProjetoMVC.Controllers
 
             ViewBag.Categorias = categorias;
         }
+        
     }
 }

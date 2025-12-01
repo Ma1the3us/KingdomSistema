@@ -12,7 +12,7 @@
         public byte[] Capa { get; set; } = Array.Empty<byte>();       
         public string? classificacaoEtaria { get; set; }
         public int categoria { get; set; }
-        public string caminhoJogo { get; set; }
+        public string? caminhoJogo { get; set; }
 
     }
 }

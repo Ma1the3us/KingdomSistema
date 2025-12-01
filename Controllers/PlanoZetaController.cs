@@ -74,6 +74,7 @@ namespace MeuProjetoMVC.Controllers
         // Jogos para usuário com plano ativo
         public IActionResult ZetaJogos()
         {
+             
             int? codUsuario = HttpContext.Session.GetInt32(SessionKeys.UserId);
 
             if (codUsuario == null)
@@ -96,6 +97,7 @@ namespace MeuProjetoMVC.Controllers
             {
                 jogos.Add(new ZetaJogos
                 {
+                    caminhoJogo = reader.GetString("caminhoJogo"),
                     codZetaJ = reader.GetInt32("codZetaJ"),
                     nomeJogo = reader.GetString("nomeJogo"),
                     categoria = reader.GetInt32("codCat"),
@@ -103,7 +105,7 @@ namespace MeuProjetoMVC.Controllers
                     Capa = reader["imagemCapa"] as byte[] ?? new byte[0]
                 });
             }
-
+               
             return View(jogos);
         }
 
