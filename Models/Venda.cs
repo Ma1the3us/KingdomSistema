@@ -15,6 +15,8 @@
 
         public DateTime dataE { get; set; }
 
+        public int? codEntrega { get; set; }
+
         public List<Produto> Produtos { get; set; }
     }
 }

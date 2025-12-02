@@ -18,7 +18,7 @@ namespace MeuProjetoMVC.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string? busca)
         {
 
             var produtos = ObterProdutos();
@@ -29,7 +29,20 @@ namespace MeuProjetoMVC.Controllers
                 ViewBag.Mensagem = "⚠️ Nenhum produto encontrado ou erro ao carregar produtos.";
             }
 
+            if(busca != null)
+            {
+                produtos = produtos
+                .FindAll(p => p.nomeProduto.Contains(busca, StringComparison.OrdinalIgnoreCase));
+
+                if (produtos.Count == 0)
+                {
+                    ViewBag.Mensagem = "⚠️ Nenhum produto encontrado.";
+                }
+            }
+
             ViewBag.produtosCategoria = PesquisarProdutosPorCategorias();
+
+            ViewBag.Busca = busca;
 
             return View(produtos);
         }

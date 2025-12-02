@@ -14,6 +14,8 @@
     
         public string? tipoCart { get; set; }
 
+        public string? DigitoSeguranca { get; set; }
+
         public string? dataVencimento { get; set; } // formato MM/YY
     }
 }

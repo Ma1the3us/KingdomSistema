@@ -16,7 +16,7 @@
 
     <p class="text-center mb-3">Deseja reativar esta conta?</p>
 
-    <input type="hidden" name="codUsuario" value="@ViewBag.ReativarId" />
+    <input type="hidden" asp-for="CodUsuario" />
 
     <section>
         <div>
@@ -34,10 +34,7 @@
             <span>@Model.Email</span>
         </div>
 
-        <div>
-            <label>Função:</label>
-            <span>@Model.Role</span>
-        </div>
+
     </section>
 
     <div class="mt-4 d-flex justify-content-between">

@@ -1,6 +1,9 @@
 @model MeuProjetoMVC.Models.Usuario
+@using MeuProjetoMVC.Autenticacao;
+
 @{
     ViewData["Title"] = "Editar Conta";
+    var role = Context.Session.GetString(SessionKeys.UserRole);
 }
 <link href="~/css/form.css" rel="stylesheet" />
 
@@ -44,10 +47,15 @@
         <label for="ConfirmarSenha" class="form-label">Confirmar Nova Senha</label>
         <input name="ConfirmarSenha" class="form-control" type="password" placeholder="Repita a nova senha" />
     </div>
-    
+
+
 
     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-    <a asp-action="Desativar" class="btn btn-danger ms-2">Desativar Conta</a>
+    @if(role == "Cliente")
+    {
+        <a asp-action="Desativar" class="btn btn-danger ms-2">Desativar Conta</a>
+    }
+   
 </form>
 
 @section Scripts {

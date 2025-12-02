@@ -1,3 +1,4 @@
+@model IEnumerable<MeuProjetoMVC.Models.cartaoCli>
 @{
     ViewBag.Title = "Contratar Plano Zeta";
 }
@@ -10,22 +11,30 @@
         <div style="margin:20px 0;">
             <label style="font-size:18px;">Forma de pagamento:</label>
 
-            <select name="formaPagamento" required 
-                    style="padding:10px;border-radius:8px;width:100%;font-size:16px;">
+            <select class="form-control" style="max-width:300px;" required>
                 <option value="">Selecione...</option>
                 <option value="Pix">Pix</option>
-                <option value="Debito">Débito</option>
-                <option value="Credito">Crédito</option>
-                <option value="Outro">Outro</option>
+
+                @if (Model != null && Model.Any())
+                {
+                    <option disabled>──────────── Cartões ────────────</option>
+
+                    foreach (var c in Model)
+                    {
+                        <option value="@c.tipoCart" data-codcart="@c.codCart">
+                            @c.bandeira - @c.digitos (@c.tipoCart)
+                        </option>
+                    }
+                }
             </select>
         </div>
 
-        <button <a class="nav-link text-white" asp-controller="PlanoZeta" asp-action="ZetaJogos"
+        <button 
+            <a class="nav-link text-white" asp-controller="PlanoZeta" asp-action="ZetaJogos"
            style="padding:15px 35px;background:#00c853;color:white;border-radius:10px;
                   font-size:22px;text-decoration:none;font-weight:bold;transition:0.2s;"> Confirmar Pagamento
             
         </a>
-       
         </button>
 
     </form>

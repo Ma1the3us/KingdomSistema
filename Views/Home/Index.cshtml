@@ -4,8 +4,9 @@
 <link href="~/css/vitrine.css" rel="stylesheet" />
 
 @{
-    
+
     var categorias = ViewBag.produtosCategoria as List<MeuProjetoMVC.Models.CategoriaProdutos>;
+    var busca = ViewBag.busca as string;
 
 }
 
@@ -14,6 +15,23 @@
 {
     <p style="color:red;">@ViewBag.Mensagem</p>
 }
+
+
+
+<form method="get" asp-controller="Home" asp-action="Index" style="margin-bottom:20px;">
+    <div class="input-group">
+        <input type="text" class="form-control"
+               placeholder="Buscar produto..."
+               name="busca"
+               value="@ViewBag.Busca" />
+
+        <button type="submit" class="btn btn-primary">
+            Buscar
+        </button>
+    </div>
+</form>
+
+
 
 @if (Model != null && Model.Count >= 5)
 {
@@ -88,7 +106,7 @@ else
     <p>Nenhum produto encontrado.</p>
 }
 
-@if (categorias != null && categorias.Count > 0)
+@if (categorias != null && categorias.Count > 0 && busca == null)
 {
     <hr />
     <h2 style="margin-top:40px;">Produtos por Categoria</h2>

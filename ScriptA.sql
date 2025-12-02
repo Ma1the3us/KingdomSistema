@@ -10,6 +10,7 @@ USE MeuProjetoMVC;
 -- TABELA Usuario (Cliente e Admin)
 -- =====================================================
 
+
 CREATE TABLE Usuario (
     codUsuario INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -379,7 +380,7 @@ CREATE PROCEDURE cad_cart(
 BEGIN
     -- Verifica se o número do cartão já existe
     IF NOT EXISTS (
-        SELECT 1 FROM Cartao_Clie WHERE Numero = c_numero
+       Select digitos, digitoSeguranca from Cartao_Clie where codUsuario = c_codusuario
     ) THEN
 
         -- Insere o cartão vinculado ao codUsuario
