@@ -37,10 +37,37 @@ namespace MeuProjetoMVC.Controllers
             if (codUsuario == null)
                 return RedirectToAction("Login", "Auth");
 
+            List<cartaoCli> cartao = new List<cartaoCli>();
+
+            var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            var cmd = new MySqlCommand(@"
+                Select codCart, digitos, bandeira,tipoCart
+                from Cartao_Clie
+                where codUsuario = @usercode;
+            ", conn);
+            cmd.Parameters.AddWithValue("@usercode", codUsuario.Value);
+
+            var rd2 = cmd.ExecuteReader();
+
+            while (rd2.Read())
+            {
+                cartao.Add(new cartaoCli
+                {
+                    codCart = rd2["codCart"] != DBNull.Value ? rd2.GetInt32("codCart") : 0,
+                    digitos = rd2["digitos"] != DBNull.Value ? rd2.GetString("digitos") : null,
+                    bandeira = rd2["bandeira"] != DBNull.Value ? rd2.GetString("bandeira") : null,
+                    tipoCart = rd2["tipoCart"] != DBNull.Value ? rd2.GetString("tipoCart") : null
+                });
+            }
+
+         
+
             if (UsuarioTemPlano(codUsuario.Value))
                 return RedirectToAction("ZetaJogos");
-
-            return View();
+           
+            return View(cartao);
         }
 
         // Confirmação do pagamento

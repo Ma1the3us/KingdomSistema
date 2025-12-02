@@ -33,6 +33,12 @@
         <span asp-validation-for="dataVencimento" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label class="form-label">Digito Segurança</label>
+        <input asp-for="DigitoSeguranca" class="form-control" placeholder="XXX" maxlength="5" required />
+        <span asp-validation-for="DigitoSeguranca" class="text-danger"></span>
+    </div>
+
     <div class="form-group">
         <label for="tipoCart">Tipo de Cartão</label>
         <select class="form-control" id="tipoCart" name="tipoCart">

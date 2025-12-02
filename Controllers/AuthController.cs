@@ -68,7 +68,7 @@ namespace MeuProjetoMVC.Controllers
             if (ativo != "1")
             {
                 ViewBag.Erro = "Usuário inativo. Contate o administrador.";
-                return View();
+                return RedirectToAction("ReativarConta", "Conta", new { codUsuario = codUsuario});
             }
 
 
