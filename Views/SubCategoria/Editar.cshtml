@@ -3,11 +3,11 @@
     ViewData["Title"] = "Editar Subcategoria";
     int codCat = ViewBag.CodCat;
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
 <h2>Editar Subcategoria</h2>
 
 <form asp-action="Editar" method="post">
-
     <input type="hidden" asp-for="codSub" />
     <input type="hidden" asp-for="codCat" />
 
@@ -35,5 +35,4 @@
        asp-route-codCat="@codCat">
         Voltar
     </a>
-
 </form>

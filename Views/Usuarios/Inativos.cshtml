@@ -6,45 +6,41 @@
 
 <h2>Usuários Inativos</h2>
 
-@if (TempData["Mensagem"] != null)
-{
-    <div class="alert alert-info">@TempData["Mensagem"]</div>
-}
-
-
 @if (Model != null && Model.Any())
 {
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Role</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var u in Model)
-            {
+    <div id="dTable">
+        <table>
+            <thead>
                 <tr>
-                    <td>@u.CodUsuario</td>
-                    <td>@u.Role</td>
-                    <td>@u.Nome</td>
-                    <td>@u.Email</td>
-                    <td>
-                        <a class="btn btn-sm btn-success" asp-action="Reativar" asp-route-id="@u.CodUsuario">Reativar</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Role</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td>@u.CodUsuario</td>
+                        <td>@u.Role</td>
+                        <td>@u.Nome</td>
+                        <td>@u.Email</td>
+                        <td>
+                            <a class="btn btn-sm btn-success" asp-action="Reativar" asp-route-id="@u.CodUsuario"><img src="~/img/lampAcesa.png" title="Reativar usuário" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
     <p>Nenhum usuário inativo encontrado.</p>
 }
 
-<div id="dBtnC">
+<div id="dBtn">
     <a class="btn btn-secondary" asp-action="Index">Ver Ativos</a>
 </div>

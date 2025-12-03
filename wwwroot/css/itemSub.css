@@ -1,38 +1,162 @@
-﻿.tag-item {
-    display: inline-flex;
-    align-items: center;
-    margin: 6px;
-    cursor: pointer;
-    user-select: none;
-    border: 2px solid #ccc;
-    padding: 8px 14px;
-    border-radius: 10px;
-    transition: all 0.2s ease-in-out;
-    background: #f3f3f3;
+﻿/* ==========================
+   CONTAINER GERAL
+========================== */
+.itemsub-page {
+    width: 80%;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 18px;
+    background: rgba(20, 20, 31, 0.75);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(91, 74, 245, 0.25);
+    color: #f0f0ff;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeIn 0.4s ease;
 }
 
-/* Oculta o checkbox */
+/* Animação suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================
+   TITULOS
+========================== */
+.title {
+    font-size: 2.3rem;
+    text-align: center;
+    font-weight: 700;
+    color: #9b92ff;
+    text-shadow: 0 0 12px rgba(155, 146, 255, 0.45);
+    margin-bottom: 35px;
+}
+
+.subtitle {
+    margin-top: 25px;
+    font-size: 1.5rem;
+    color: #41e6ff;
+    text-shadow: 0 0 10px rgba(65, 230, 255, 0.4);
+}
+
+/* ==========================
+   CARD BOXES
+========================== */
+.produto-box, .categoria-box {
+    background: rgba(40, 40, 60, 0.45);
+    border: 1px solid rgba(130, 120, 255, 0.25);
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 22px rgba(0,0,0,0.45);
+    transition: 0.3s;
+}
+
+/* ==========================
+   DIVISOR FUTURISTA
+========================== */
+.divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #7b74ff, transparent);
+    margin: 40px 0;
+}
+
+/* ==========================
+   TAGS / BOTÕES INTELIGENTES
+========================== */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.tag-item {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.25s ease;
+}
+
 .tag-checkbox {
     display: none;
 }
 
-    /* Quando o checkbox está marcado → estilo ativo */
-    .tag-checkbox:checked + .tag-text {
-        background: #e6f0ff;
-        border-color: #4a90e2;
-        box-shadow: 0 0 8px rgba(0,0,0,0.15);
-        transform: translateY(-2px);
-    }
-
-/* Span que recebe o estado visual */
 .tag-text {
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease-in-out;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    border-radius: 30px;
+    background: rgba(70, 70, 110, 0.4);
+    color: #dcdcff;
+    border: 2px solid rgba(130, 120, 255, 0.25);
+    transition: 0.25s;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0,0,0,0.35);
 }
 
-/* Efeito hover */
+/* Hover */
 .tag-item:hover .tag-text {
-    border-color: #4a90e2;
+    border-color: #7b74ff;
+    box-shadow: 0 0 10px rgba(125, 110, 255, 0.55);
+    transform: translateY(-2px);
+}
+
+/* SELECIONADO */
+.tag-item.active .tag-text,
+.tag-checkbox:checked + .tag-text {
+    background: linear-gradient(90deg, #5b4af5, #7d6cff);
+    border-color: #41e6ff;
+    color: white;
+    box-shadow: 0 0 14px rgba(91, 74, 245, 0.55), 0 0 20px rgba(65, 230, 255, 0.35);
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* ==========================
+   BOTÃO "SALVAR"
+========================== */
+.btn-save {
+    margin-top: 30px;
+    padding: 14px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #5b4af5, #7d6cff);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 18px rgba(91, 74, 245, 0.55);
+    letter-spacing: 0.7px;
+}
+
+    .btn-save:hover {
+        background: linear-gradient(90deg, #7368ff, #8f83ff);
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 0 25px rgba(91, 74, 245, 0.65), 0 0 12px rgba(65, 230, 255, 0.35);
+    }
+
+/* ==========================
+   RESPONSIVIDADE
+========================== */
+@media (max-width: 600px) {
+    .itemsub-page {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .tag-text {
+        padding: 8px 14px;
+    }
+
+    .btn-save {
+        width: 100%;
+        text-align: center;
+    }
 }

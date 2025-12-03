@@ -4,48 +4,52 @@
 }
 <link href="~/css/lista.css" rel="stylesheet" />
 
-<div class="d-flex justify-content-center align-items-center mb-3">
-    <h2>Usuários Ativos</h2>
-</div>
-
+<h2>Usuários Ativos</h2>
 
 @if (Model != null && Model.Any())
 {
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Role</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Ativo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var u in Model)
-            {
+    <div id="dTable">
+        <table>
+            <thead>
                 <tr>
-                    <td>@u.CodUsuario</td>
-                    <td>@u.Role</td>
-                    <td>@u.Nome</td>
-                    <td>@u.Email</td>
-                    <td>@u.Ativo</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning" asp-action="Editar" asp-route-id="@u.CodUsuario">Editar</a>
-                        <a class="btn btn-sm btn-danger" asp-action="Excluir" asp-route-id="@u.CodUsuario">Desativar</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Função</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td>@u.CodUsuario</td>
+                        @if (u.Role == "Admin")
+                        {
+                            <td>Administrador</td>
+                        }
+                        else
+                        {
+                            <td>@u.Role</td>
+                        }
+                        <td>@u.Nome</td>
+                        <td>@u.Email</td>
+                        <td class="w-fit mx-auto">
+                            <a class="btn btn-warning btn-sm" asp-action="Editar" asp-route-id="@u.CodUsuario" title="Editar usuário"><img src="~/img/editar.png" /></a>
+                            <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@u.CodUsuario" title="Desativar usuário"><img src="~/img/lampDesligada.png" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
     <p>Nenhum usuário encontrado</p>
 }
 
-<div style="display: flex; justify-content: space-evenly; margin-top: 10px;">
+<div id="dBtn">
     <a class="btn btn-primary" asp-action="Criar">Novo Usuário</a>
     <a class="btn btn-secondary" asp-action="Inativos">Usuários Inativos</a>
 </div>

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Adicionar Cartão";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
 <h2>@ViewData["Title"]</h2>
 
@@ -27,13 +28,13 @@
         </select>
     </div>
 
-    <div class="mb-3">
+    <div class="form-group">
         <label class="form-label">Data de Vencimento</label>
         <input asp-for="dataVencimento" class="form-control" placeholder="MM/YY" maxlength="5" required />
         <span asp-validation-for="dataVencimento" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
+    <div class="form-group">
         <label class="form-label">Digito Segurança</label>
         <input asp-for="DigitoSeguranca" class="form-control" placeholder="XXX" maxlength="5" required />
         <span asp-validation-for="DigitoSeguranca" class="text-danger"></span>
@@ -46,8 +47,9 @@
             <option value="Crédito">Crédito</option>
         </select>
     </div>
-
-    <button type="submit" class="btn btn-primary">Adicionar Cartão</button>
+    <div id="dBtn">
+        <button type="submit" class="btn btn-primary">Adicionar Cartão</button>
+        <a asp-action="Perfil"class="btn btn-secondary">Voltar</a>
+    </div>
 </form>
 
-<a href="@Url.Action("Cartoes", "Cartao")" class="btn btn-secondary mt-2">Voltar para a Lista de Cartões</a>

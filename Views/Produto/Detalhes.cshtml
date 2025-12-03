@@ -1,6 +1,6 @@
-﻿@model MeuProjetoMVC.Models.Produto;
-@using MeuProjetoMVC.Models;
-@using MeuProjetoMVC.Autenticacao;
+﻿@model MeuProjetoMVC.Models.Produto
+@using MeuProjetoMVC.Models
+@using MeuProjetoMVC.Autenticacao
 
 @{
     TempData["title"] = Model.nomeProduto;
@@ -10,49 +10,35 @@
     var itemsub = ViewBag.ItemSub as List<ItemSubcategoria>;
     var midias = ViewBag.Midias as List<ProdutoMidia>;
     var favoritos = ViewBag.Favoritos as List<wishlist>;
-
-
     var role = Context.Session.GetString(SessionKeys.UserRole);
-
 }
+<link href="~/css/proddetalhes.css" rel="stylesheet" />
 
+<input type="hidden" value="@Model.codProd" id="codProd" />
 
-<body>
-    <input type="hidden" value="@Model.codProd" id="codProd"/>
+<section class="produto-page container mt-4">
 
-    <section>
-        <div>
-            <h2>@Model.nomeProduto</h2>
-        </div>
+    <h2 class="text-neon text-center mb-4">@Model.nomeProduto</h2>
 
-        <article>
-            <figure>
-                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Imagens))" alt="Imagem Principal" />
-            </figure>
-            
-            <div>
-                <p>@Model.Descricao</p>
-            </div>
-        </article>
+    <div class="row g-4">
 
-        <div>
-            <figure id="midiaCenterContainer">
-                
-            </figure>
+        <!-- IMAGEM CENTRAL -->
+        <div class="col-md-6">
+            <figure id="midiaCenterContainer" class="shadow-sm rounded bg-dark p-2" style="max-width: 600px; max-height: fit-content;"></figure>
 
-            <div class="row">
+            <div class="row mt-3">
                 @if (midias != null && midias.Any())
                 {
                     foreach (var m in midias)
                     {
-                        string src = m.midia; // CAMINHO ABSOLUTO DA IMAGEM/VÍDEO
+                        string src = m.midia;
 
                         if (m.tipoMidia == "Imagem")
                         {
-                            <div class="col-md-3 col-6 mb-3 text-center">
+                            <div class="col-6 col-md-3 mb-3 text-center">
                                 <img src="@src"
                                      class="img-thumbnail thumb"
-                                     style="cursor:pointer; max-height:150px;"
+                                     style="cursor:pointer; max-height:120px;"
                                      data-tipo="Imagem"
                                      data-src="@src"
                                      onclick="trocarMidiaCentral('Imagem', '@src')" />
@@ -60,9 +46,9 @@
                         }
                         else
                         {
-                            <div class="col-md-3 col-6 mb-3 text-center">
+                            <div class="col-6 col-md-3 mb-3 text-center">
                                 <video class="img-thumbnail thumb"
-                                       style="cursor:pointer; max-height:150px;"
+                                       style="cursor:pointer; max-height:120px;"
                                        data-tipo="Video"
                                        data-src="@src"
                                        onclick="trocarMidiaCentral('Video', '@src')"
@@ -75,63 +61,55 @@
                 }
                 else
                 {
-                    <p><i>Nenhuma mídia disponível.</i></p>
+                    <p>Nenhuma mídia disponível.</p>
                 }
-                <div id="msg"></div>
-
-                <div>
-
-                    <button id="btnFavorito" type="button"
-                            class="@((favoritos != null && favoritos.Any()) ? "btn-remover" : "btn-favorito")"
-                            onclick="@((favoritos != null && favoritos.Any()) ? "RemoverFavorito()" : "AdicionarFavorito()")">
-
-                        <img id="imgFavorito"
-                             src="@((favoritos != null && favoritos.Any()) ? "/img/CoracaoCheio.png" : "/img/CoracaoVazio.png")"
-                             class="@((favoritos != null && favoritos.Any()) ? "imagem-remover" : "imagem-adicionar")"
-                             alt=" @((favoritos != null && favoritos.Any()) ? "Remover" : "Adicionar")"/>
-                    </button>
-                    
-                </div>
-
-
-                @if(role == "Funcionario" || role == "Admin")
-                {
-                    <a asp-action="Index" asp-controller="ProdutoMidia" asp-route-codProd="@Model.codProd">Página de Midia do produto</a>
-                }
-
             </div>
         </div>
 
-        <article>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Fornecedor:</td>
-                            <td>Categoria:</td>
-                            <td>Quantidade em estoque:</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                             @*Pega a variavel que foi dada o valor da viewBag, define para pegar o primeiro ou padrão do valor*@
-                             @*Depois cria uma variavel/instância que pode acessar os valores da variavel com a viewBag, fazendo uma comparação de valores*@
-                             @*?.Nome se existir um nome para esse código ele traz o nome ?? Se não ele tráz o - como não existe o nome do fornecedor ou categoria*@
-                            <td>@(Fornecedor?.FirstOrDefault(f => f.CodF == Model.codF)?.Nome ?? "-")</td>
-                            <td>@(Categoria?.FirstOrDefault(c => c.CodCat == Model.codCat)?.NomeCategoria ?? "-")</td>
-                            <td>@Model.Quantidade</td>
-                        </tr>
-                    </tbody>
+        <!-- DETALHES DO PRODUTO -->
+        <div class="col-md-6">
 
-                </table>
+            <div class="produto-descricao shadow-sm rounded bg-dark p-3 mb-3">
+                <p>@Model.Descricao</p>
             </div>
 
-            <div>
-                <h4>Subcategorias</h4>
+            <div class="d-flex align-items-center mb-3">
+                <button id="btnFavorito" type="button"
+                        class="@((favoritos != null && favoritos.Any()) ? "btn-remover" : "btn-favorito")"
+                        onclick="@((favoritos != null && favoritos.Any()) ? "RemoverFavorito()" : "AdicionarFavorito()")">
+                    <img id="imgFavorito"
+                         src="@((favoritos != null && favoritos.Any()) ? "/img/CoracaoCheio.png" : "/img/CoracaoVazio.png")"
+                         class="@((favoritos != null && favoritos.Any()) ? "imagem-remover" : "imagem-adicionar")"
+                         alt="@((favoritos != null && favoritos.Any()) ? "Remover" : "Adicionar")" />
+                </button>
+
+                @if (role == "Funcionario" || role == "Admin")
+                {
+                    <a class="ms-3 btn btn-outline-light btn-sm" asp-action="Index" asp-controller="ProdutoMidia" asp-route-codProd="@Model.codProd">Gerenciar Mídias</a>
+                }
+            </div>
+
+            <table class="table table-bordered table-dark mb-3">
+                <thead>
+                    <tr>
+                        <th>Fornecedor</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@(Fornecedor?.FirstOrDefault(f => f.CodF == Model.codF)?.Nome ?? "-")</td>
+                        <td>@(Categoria?.FirstOrDefault(c => c.CodCat == Model.codCat)?.NomeCategoria ?? "-")</td>
+                        <td>@Model.Quantidade</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mb-3">
+                <h5>Subcategorias</h5>
                 @if (itemsub != null && subcat != null)
                 {
-                    // Cria uma variavel, onde ele cria nomes, para chamar as funções que estão com as viewbags
-                    // fazendo uma conexão entre elas, buscando somente os resultados conectados a aquela área.
                     var subProd = from i in itemsub
                                   join s in subcat on i.codSub equals s.codSub
                                   select s.nomeSubcategoria;
@@ -145,346 +123,290 @@
                             }
                         </ul>
                     }
-
-                }                
+                }
                 else
                 {
                     <p><i>Nenhuma subcategoria associada.</i></p>
                 }
 
-                @if(role == "Funcionario" || role == "Admin")
+                @if (role == "Funcionario" || role == "Admin")
                 {
-                    <a asp-action="Index" asp-controller="ItemSub" asp-route-codProd="@Model.codProd">Página de subcategorias associadas</a>
+                    <a class="btn btn-outline-light btn-sm mt-2" asp-action="Index" asp-controller="ItemSub" asp-route-codProd="@Model.codProd">Gerenciar Subcategorias</a>
                 }
             </div>
 
-        </article>
+            <div class="preco mb-3">
+                @if (Model.Desconto == 0 || Model.Desconto == null)
+                {
+                    <p class="text-neon">Preço: <strong>R$:@Model.Valor</strong></p>
+                }
+                else
+                {
+                    dynamic precoUnitario = @Model.Valor * (1 - @Model.Desconto / 100);
+                    <p class="text-neon">Preço: <del>R$:@Model.Valor</del> <strong>R$:@($"{precoUnitario}"))</strong></p>
+                }
+            </div>
 
-        <div>
-            @if(Model.Desconto == 0 || Model.Desconto == null)
+            <form asp-action="Add" asp-controller="Cart" method="post" class="d-flex gap-2 mb-3">
+                <input type="number" name="quantidade" value="1" min="1" class="form-control w-25" />
+                <input type="hidden" name="codProd" value="@Model.codProd" />
+                <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- AVALIAÇÕES -->
+    <div id="avaliacao-container" class="mt-5">
+        <h3 class="text-neon mb-3">Avaliações</h3>
+
+        @* Avaliação do cliente *@
+        @if (role == "Cliente" || role == "Funcionario" || role == "Admin")
+        {
+            <div id="avaliacaoCliente" class="mb-5 shadow-sm rounded bg-dark p-3">
+                <h4>Sua avaliação</h4>
+                @{
+                    var avaliacaoCliente = ViewBag.ComentarioCliente as List<Avaliacao>;
+                    bool clienteAvaliou = avaliacaoCliente != null && avaliacaoCliente.Any();
+                    Avaliacao minhaAvaliacao = clienteAvaliou ? avaliacaoCliente.First() : null;
+                }
+
+                @if (clienteAvaliou)
+                {
+                    <div id="avaliacaoExistente">
+                        <h6>Sua nota:</h6>
+                        <div class="estrela-container mb-2">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                var img = i <= minhaAvaliacao.nota ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
+                                <img src="@img" width="28" />
+                            }
+                        </div>
+                        <p><strong>Comentário:</strong></p>
+                        <p>@minhaAvaliacao.comentario</p>
+                        <button class="btn btn-warning me-2" onclick="habilitarEdicao()">Editar</button>
+                        <button class="btn btn-danger" onclick="deletarAvaliacao()">Excluir</button>
+                    </div>
+                }
+
+                <div id="formAvaliacao" style="display:@(clienteAvaliou ? "none" : "block")" class="mt-3">
+                    <h5>@(clienteAvaliou ? "Editar sua avaliação" : "Faça sua avaliação")</h5>
+                    <div id="rating" class="d-flex mt-2 mb-2">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <label class="me-1">
+                                <input type="radio" name="estrela" value="@i" hidden @(clienteAvaliou && minhaAvaliacao.nota == i ? "checked" : "") />
+                                <img class="star" src="@((clienteAvaliou && i <= minhaAvaliacao.nota) ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg")" width="28" />
+                            </label>
+                        }
+                    </div>
+                    <textarea id="comentario" class="form-control mb-2" placeholder="Escreva um comentário...">@((clienteAvaliou ? minhaAvaliacao.comentario : ""))</textarea>
+                    <button class="btn btn-primary" onclick="@(clienteAvaliou ? "salvarEdicao()" : "enviarAvaliacao()")">
+                        @(clienteAvaliou ? "Salvar alterações" : "Enviar avaliação")
+                    </button>
+                </div>
+            </div>
+        }
+
+        @* Avaliações gerais *@
+        <div id="avaliacaoGeral" class="shadow-sm rounded bg-dark p-3">
+            <h4>Comentários de outros clientes</h4>
+            @{
+                var avaliacaoGeral = ViewBag.ComentarioGeral as List<Avaliacao>;
+                var usuarios = ViewBag.Usuarios as List<Usuario>;
+            }
+
+            @if (avaliacaoGeral != null && avaliacaoGeral.Any())
             {
-                <p>Preço:<strong>R$:@Model.Valor</strong></p>
+                foreach (var av in avaliacaoGeral)
+                {
+                    var usuario = usuarios.FirstOrDefault(u => u.CodUsuario == av.codUsuario);
+                    string nome = usuario?.Nome ?? "Usuário";
+                    string data = av.dataAvaliacao.HasValue
+                    ? av.dataAvaliacao.Value.ToString("dd/MM/yyyy HH:mm")
+                    : "-";
+                    <div class="border rounded p-2 mb-3 bg-dark text-light">
+                        <strong>@nome</strong> <span class="text-muted">(@data)</span>
+                        <div class="estrela-container mb-1">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                var img = i <= av.nota ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
+                                <img src="@img" width="22" />
+                            }
+                        </div>
+                        <p>@av.comentario</p>
+                    </div>
+                }
             }
             else
             {
-                var precoUnitario = @Model.Valor * (1 - @Model.Desconto / 100);
-                // É para poder realizar aquele traço no valor e adicionar o valor com o desconto na frente, para dar aquele efeito :D
-                <p>Preço: <strong>R$:@Model.Valor</strong> <strong>R$:@($"{precoUnitario}")</strong></p>
+                <p>Nenhuma avaliação encontrada.</p>
             }
         </div>
-        
-        <form asp-action="Add" asp-controller="Cart" method="post">
-            <label>Quantidade:</label>
-            <input type="number" name="quantidade" value="1" min="1"/>
-            <input type="hidden" name="codProd" value="@Model.codProd" />
+    </div>
+</section>
 
-            <button type="submit" onclick="this.form.submit()">Adicionar ao carrinho</button>
-        </form>
+<script>
+            var rotaFavoritoAdicionar = "/sistema/favorito/adicionar";
+            var rotaFavoritoRemover = "/sistema/favorito/remover";
 
+            function trocarMidiaCentral(tipo, src) {
+                const container = document.getElementById("midiaCenterContainer");
+                container.innerHTML = "";
 
-<div id="avaliacao-container" class="mt-5">
+                let midia;
 
-    <h3>Avaliações do Produto</h3>
-
-    @{
-        var avaliacaoCliente = ViewBag.ComentarioCliente as List<Avaliacao>;
-        var avaliacaoGeral = ViewBag.ComentarioGeral as List<Avaliacao>;
-        var usuarios = ViewBag.Usuarios as List<Usuario>;
-    }
-
-    <!-- =====================================================
-         1) ÁREA DA AVALIAÇÃO DO CLIENTE (avaliacaoCliente)
-    ====================================================== -->
-   @if(role == "Cliente" || role == "Funcionario" || role == "Admin")
-    {
-
-    
-    <div id="avaliacaoCliente" class="mb-5 p-3 border rounded">
-
-        <h4>Sua avaliação</h4>
-
-        @{
-            bool clienteAvaliou = avaliacaoCliente != null && avaliacaoCliente.Any();
-            Avaliacao minhaAvaliacao = clienteAvaliou ? avaliacaoCliente.First() : null;
-        }
-
-        <!-- SE O CLIENTE JÁ AVALIOU -->
-        @if (clienteAvaliou)
-        {
-            <div id="avaliacaoExistente">
-                <h6>Sua nota:</h6>
-
-                <div>
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        var img = i <= minhaAvaliacao.nota ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
-                        <img src="@img" width="28" />
-                    }
-                </div>
-
-                <p class="mt-2"><strong>Comentário:</strong></p>
-                <p>@minhaAvaliacao.comentario</p>
-
-                <button class="btn btn-warning" onclick="habilitarEdicao()">Editar</button>
-                <button class="btn btn-danger" onclick="deletarAvaliacao()">Excluir</button>
-            </div>
-        }
-
-        <!-- FORMULÁRIO (NOVA AVALIAÇÃO OU EDIÇÃO) -->
-
-      
-        <div id="formAvaliacao" style="display:@(clienteAvaliou ? "none" : "block")" class="mt-3">
-
-            <h5>@(clienteAvaliou ? "Editar sua avaliação" : "Faça sua avaliação")</h5>
-
-            <div id="rating" class="d-flex mt-2">
-                @for (int i = 1; i <= 5; i++)
-                {
-                    <label class="me-1">
-                        <input type="radio"
-                               name="estrela"
-                               value="@i"
-                               hidden
-                               @(clienteAvaliou && minhaAvaliacao.nota == i ? "checked" : "") />
-
-                        <img class="star"
-                             src="@((clienteAvaliou && i <= minhaAvaliacao.nota) ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg")"
-                             width="28" />
-                    </label>
+                if (tipo === "Imagem") {
+                    midia = document.createElement("img");
+                    midia.src = src;
+                    midia.alt = "Imagem Principal";
+                } else if (tipo === "Video") {
+                    midia = document.createElement("video");
+                    midia.controls = true;
+                    const source = document.createElement("source");
+                    source.src = src;
+                    source.type = "video/mp4";
+                    midia.appendChild(source);
                 }
-            </div>
 
-            <textarea id="comentario" class="form-control mt-2" placeholder="Escreva um comentário...">@((clienteAvaliou ? minhaAvaliacao.comentario : ""))</textarea>
-                     
-
-            <button class="btn btn-primary mt-3"
-                    onclick="@(clienteAvaliou ? "salvarEdicao()" : "enviarAvaliacao()")">
-                @(clienteAvaliou ? "Salvar alterações" : "Enviar avaliação")
-            </button>
-        </div>
-
-    </div>
-
-    }
-
-    <!-- =====================================================
-         2) ÁREA DE AVALIAÇÕES GERAIS (avaliacaoGeral)
-    ====================================================== -->
-    <div id="avaliacaoGeral" class="p-3 border rounded">
-
-        <h4>Comentários de outros clientes</h4>
-
-        @if (avaliacaoGeral != null && avaliacaoGeral.Any())
-        {
-            foreach (var av in avaliacaoGeral)
-            {
-                var usuario = usuarios.FirstOrDefault(u => u.CodUsuario == av.codUsuario);
-                string nome = usuario?.Nome ?? "Usuário";
-              string data = av.dataAvaliacao.HasValue
-                     ? av.dataAvaliacao.Value.ToString("dd/MM/yyyy HH:mm")
-                     : "-";
-
-                <div class="border rounded p-2 mb-3 bg-light">
-
-                    <strong>@nome</strong> <span class="text-muted">(@data)</span>
-
-                    <div>
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            var img = i <= av.nota ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
-                            <img src="@img" width="22" />
-                        }
-                    </div>
-
-                    <p class="mt-2">@av.comentario</p>
-
-                </div>
-            }
-        }
-        else
-        {
-            <p><i>Nenhuma avaliação ainda.</i></p>
-        }
-
-    </div>
-
-</div>
-
-
-
-
-    </section>
-
-
-    <script>
-
-        var rotaFavoritoAdicionar = "/sistema/favorito/adicionar";
-        var rotaFavoritoRemover = "/sistema/favorito/remover";
-
-        function trocarMidiaCentral(tipo, src) {
-            const container = document.getElementById("midiaCenterContainer");
-            container.innerHTML = "";
-
-            let midia;
-
-            if (tipo === "Imagem") {
-                midia = document.createElement("img");
-                midia.src = src;
-                midia.alt = "Imagem Principal";
-            } else if (tipo === "Video") {
-                midia = document.createElement("video");
-                midia.controls = true;
-                const source = document.createElement("source");
-                source.src = src;
-                source.type = "video/mp4";
-                midia.appendChild(source);
+                if (midia) {
+                    midia.className = "img-fluid rounded shadow-sm fade-in";
+                    container.appendChild(midia);
+                }
             }
 
-            if (midia) {
-                midia.className = "img-fluid rounded shadow-sm fade-in"; 
-                container.appendChild(midia);
-            }
-        }
+            // Define a primeira mídia automaticamente ao carregar
+            document.addEventListener("DOMContentLoaded", function () {
+                const firstThumb = document.querySelector(".thumb[data-src]");
+                if (firstThumb) {
+                    trocarMidiaCentral(firstThumb.dataset.tipo, firstThumb.dataset.src);
+                }
+            });
 
-        // Define a primeira mídia automaticamente ao carregar
-        document.addEventListener("DOMContentLoaded", function () {
-            const firstThumb = document.querySelector(".thumb[data-src]");
-            if (firstThumb) {
-                trocarMidiaCentral(firstThumb.dataset.tipo, firstThumb.dataset.src);
+            async function AdicionarFavorito() {
+                const codProd = document.getElementById("codProd").value;
+
+                const response = await fetch(rotaFavoritoAdicionar, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ codProd })
+                });
+
+                const ret = await response.json();
+
+                if (ret.sucesso) {
+                    const btn = document.getElementById("btnFavorito");
+                    const img = document.getElementById("imgFavorito");
+
+                    btn.onclick = RemoverFavorito;
+                    btn.className = "btn-remover";
+
+                    img.src = "/img/CoracaoCheio.png";
+                    img.className = "imagem-remover";
+                    img.alt = "Remover";
+                }
+            }
+
+            async function RemoverFavorito() {
+                const codProd = document.getElementById("codProd").value;
+
+                const response = await fetch(rotaFavoritoRemover, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ codProd })
+                });
+
+                const ret = await response.json();
+
+                if (ret.sucesso) {
+                    const btn = document.getElementById("btnFavorito");
+                    const img = document.getElementById("imgFavorito");
+
+                    btn.onclick = AdicionarFavorito;
+                    btn.className = "btn-favorito";
+
+                    img.src = "/img/CoracaoVazio.png";
+                    img.className = "imagem-adicionar";
+                    img.alt = "Adicionar";
+                }
+
+            }
+
+    const estrelas = document.querySelectorAll("#rating label");
+
+    estrelas.forEach((label, index) => {
+        label.addEventListener("click", () => {
+            const total = estrelas.length;
+
+            for (let i = 0; i < total; i++) {
+                const img = estrelas[i].querySelector("img");
+                img.src = i <= index ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
             }
         });
-
-        async function AdicionarFavorito() {
-            const codProd = document.getElementById("codProd").value;
-
-            const response = await fetch(rotaFavoritoAdicionar, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ codProd })
-            });
-
-            const ret = await response.json();
-
-            if (ret.sucesso) {
-                const btn = document.getElementById("btnFavorito");
-                const img = document.getElementById("imgFavorito");
-
-                btn.onclick = RemoverFavorito;
-                btn.className = "btn-remover";
-
-                img.src = "/img/CoracaoCheio.png";
-                img.className = "imagem-remover";
-                img.alt = "Remover";
-            }
-        }
-
-        async function RemoverFavorito() {
-            const codProd = document.getElementById("codProd").value;
-
-            const response = await fetch(rotaFavoritoRemover, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ codProd })
-            });
-
-            const ret = await response.json();
-
-            if (ret.sucesso) {
-                const btn = document.getElementById("btnFavorito");
-                const img = document.getElementById("imgFavorito");
-
-                btn.onclick = AdicionarFavorito;
-                btn.className = "btn-favorito";
-
-                img.src = "/img/CoracaoVazio.png";
-                img.className = "imagem-adicionar";
-                img.alt = "Adicionar";
-            }
-
-        }
-
-
-
-const estrelas = document.querySelectorAll("#rating label");
-
-estrelas.forEach((label, index) => {
-    label.addEventListener("click", () => {
-        const total = estrelas.length;
-
-        for (let i = 0; i < total; i++) {
-            const img = estrelas[i].querySelector("img");
-            img.src = i <= index ? "/img/EstrelaOn.jpeg" : "/img/EstrelaOff.jpeg";
-        }
-    });
-});
-
-// Ativa modo edição
-function habilitarEdicao() {
-    document.getElementById("avaliacaoExistente").style.display = "none";
-    document.getElementById("formAvaliacao").style.display = "block";
-}
-
-// Envia nova avaliação
-async function enviarAvaliacao() {
-    const nota = document.querySelector("input[name='estrela']:checked");
-    const comentario = document.getElementById("comentario").value.trim();
-    const codProd = document.getElementById("codProd").value;
-
-    if (!nota) return alert("Selecione uma nota.");
-
-    const body = {
-        codProd,
-        nota: parseInt(nota.value),
-        comentario
-    };
-
-            const resp = await fetch("/sistema/avaliacao/Inserir", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
     });
 
-    location.reload();
-}
+    // Ativa modo edição
+    function habilitarEdicao() {
+        document.getElementById("avaliacaoExistente").style.display = "none";
+        document.getElementById("formAvaliacao").style.display = "block";
+    }
 
-// Salvar edição
-async function salvarEdicao() {
-    const nota = document.querySelector("input[name='estrela']:checked");
-    const comentario = document.getElementById("comentario").value.trim();
-    const codProd = document.getElementById("codProd").value;
+    // Envia nova avaliação
+    async function enviarAvaliacao() {
+        const nota = document.querySelector("input[name='estrela']:checked");
+        const comentario = document.getElementById("comentario").value.trim();
+        const codProd = document.getElementById("codProd").value;
 
-    const body = {
-        codProd,
-        nota: parseInt(nota.value),
-        comentario
-    };
+        if (!nota) return alert("Selecione uma nota.");
 
-    const resp = await fetch("/sistema/avaliacao/atualizar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-    });
+        const body = {
+            codProd,
+            nota: parseInt(nota.value),
+            comentario
+        };
 
-    location.reload();
-}
+                const resp = await fetch("/sistema/avaliacao/Inserir", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
 
-// Excluir avaliação
-async function deletarAvaliacao() {
-    if (!confirm("Tem certeza que deseja excluir sua avaliação?")) return;
+        location.reload();
+    }
 
-    const codProd = document.getElementById("codProd").value;
+    // Salvar edição
+    async function salvarEdicao() {
+        const nota = document.querySelector("input[name='estrela']:checked");
+        const comentario = document.getElementById("comentario").value.trim();
+        const codProd = document.getElementById("codProd").value;
 
-    await fetch("/sistema/avaliacao/deletar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ codProd })
-    });
+        const body = {
+            codProd,
+            nota: parseInt(nota.value),
+            comentario
+        };
 
-    location.reload();
-}
+        const resp = await fetch("/sistema/avaliacao/atualizar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
 
-    </script>
+        location.reload();
+    }
 
+    // Excluir avaliação
+    async function deletarAvaliacao() {
+        if (!confirm("Tem certeza que deseja excluir sua avaliação?")) return;
 
+        const codProd = document.getElementById("codProd").value;
 
-</body>
+        await fetch("/sistema/avaliacao/deletar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ codProd })
+        });
+
+        location.reload();
+    }
+</script>

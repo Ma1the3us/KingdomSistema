@@ -8,10 +8,7 @@
 
 <link href="~/css/lista.css" rel="stylesheet" />
 
-
-
-
-<h2>Subcategorias da Categoria: @(categoria?.FirstOrDefault()?.Text ?? "-")</h2>
+<h2>Subcategorias de @(categoria?.FirstOrDefault()?.Text ?? "-")</h2>
 
 @if (TempData["MensagemS"] != null)
 {
@@ -29,7 +26,7 @@
         <thead>
             <tr>
                 <th>Código</th>
-                <th>Nome da Subcategoria</th>
+                <th>Nome</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -41,12 +38,6 @@
                     <td>@item.nomeSubcategoria</td>
 
                     <td>
-                        <a class="btn btn-warning btn-sm"
-                           asp-action="Editar"
-                           asp-route-codSub="@item.codSub">
-                            Editar
-                        </a>
-
                         <form asp-action="Excluir"
                               method="post"
                               style="display:inline;"
@@ -55,7 +46,7 @@
                             <input type="hidden" name="codSub" value="@item.codSub" />
                             <input type="hidden" name="codCat" value="@codCat" />
 
-                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm" title="Excluir subcategoria"><img src="~/img/excluir.png" /></button>
                         </form>
                     </td>
                 </tr>
@@ -68,18 +59,7 @@ else
     <p>Nenhuma subcategoria encontrada.</p>
 }
 
-<div style="margin-top: 15px;">
-    <a class="btn btn-primary"
-       asp-action="Cadastrar"
-       asp-route-codCat="@codCat">
-        Nova Subcategoria
-    </a>
-</div>
-
-<div>
-    <a class="btn btn-primary"
-    asp-action="Index",
-    asp-controller="Categorias">
-    Voltar
-    </a>
+<div id="dBtn">
+    <a class="btn btn-primary" asp-action="Cadastrar" asp-route-codCat="@codCat"> Nova Subcategoria </a>
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Categorias"> Voltar </a>
 </div>

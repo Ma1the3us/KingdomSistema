@@ -1,105 +1,74 @@
 ﻿@model List<MeuProjetoMVC.Models.Produto>
-
-<h2 style="margin-bottom:20px;">Produtos mais recentes</h2>
-<link href="~/css/vitrine.css" rel="stylesheet" />
-
 @{
+    ViewData["Title"] = "Início";
 
     var categorias = ViewBag.produtosCategoria as List<MeuProjetoMVC.Models.CategoriaProdutos>;
     var busca = ViewBag.busca as string;
-
 }
+<link href="~/css/vitrine.css" rel="stylesheet" />
 
-
-@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
-{
-    <p style="color:red;">@ViewBag.Mensagem</p>
-}
-
-
-
-<form method="get" asp-controller="Home" asp-action="Index" style="margin-bottom:20px;">
-    <div class="input-group">
-        <input type="text" class="form-control"
-               placeholder="Buscar produto..."
-               name="busca"
-               value="@ViewBag.Busca" />
-
-        <button type="submit" class="btn btn-primary">
-            Buscar
-        </button>
+<div class="hero-banner">
+    <div class="hero-content">
+        <h1>Bem-vindo ao Kingdom of Games</h1>
+        <p>Os melhores jogos, preços justos e atualizações constantes.</p>
     </div>
+</div>
+
+<form method="get" asp-controller="Home" asp-action="Index" class="search-form">
+    <input type="text" name="busca" placeholder="Buscar produto..." value="@busca" class="search-input" />
+    <button type="submit" class="search-btn">Buscar</button>
 </form>
 
+<h2 id="hRec" class="section-title">Lançamentos Recentes</h2>
 
-
-@if (Model != null && Model.Count >= 5)
+@if (Model != null && Model.Count > 0)
 {
-    <div id="secItensWrapper">
-        <section id="secItens">
+    <div class="featured-carousel">
+        <div id="featuredInner">
             @foreach (var produto in Model)
             {
-                <div class="dItem">
-                    <h1 style="text-align:center;">@produto.nomeProduto</h1>
-
-                    @if (produto.Imagens != null && produto.Imagens.Length > 0)
-                    {
-                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))"
-                             alt="@produto.nomeProduto" />
-                    }
-                    else
-                    {
-                        <span style="color:gray;">(Sem imagem)</span>
-                    }
-
-                    <div style="display: flex; flex-direction: column;">
-                        <span>Preço: R$ @produto.Valor</span>
-                        <span>@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
-                    </div>
-                    <a asp-controller="Produto" asp-action="Detalhes" asp-route-codProd="@produto.codProd" class="btn btn-primary btn-adicionar">
-                        Saiba mais
-                    </a>
+                <div class="featured-item">
+                    <div class="featured-left">
+                        @if (produto.Imagens != null && produto.Imagens.Length > 0)
+                        {
+                            <img class="featured-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))" />
+                        }
+                        else
+                        {
+                            <img class="featured-img" src="~/img/placeholder-game.png" />
+                        }
                 </div>
-            }
-        </section>
-    </div>
 
-    <div class="carousel-controls" style="margin-bottom: 80px;">
-        <button class="carousel-button" id="btnAnterior">◀ Anterior</button>
-        <button class="carousel-button" id="btnProximo">Próximo ▶</button>
-    </div>
-}
-else if (Model != null && Model.Count > 0)
-{
-    <section id="secItens" style="display: flex; justify-content:center;">
-        @foreach (var produto in Model)
+                <div class="featured-right">
+                    <h2 class="featured-title">@produto.nomeProduto</h2>
+                    <span class="featured-price">R$ @produto.Valor</span>
+
+                    <p class="featured-description">
+                        @(string.IsNullOrEmpty(produto.Descricao)
+                                            ? "Sem descrição."
+                                            : produto.Descricao.Length > 250
+                                            ? produto.Descricao.Substring(0, 250) + "..."
+                                            : produto.Descricao)
+                </p>
+
+                        <a asp-controller="Produto"
+                           asp-action="Detalhes"
+                           asp-route-codProd="@produto.codProd"
+                           class="btn btn-primary">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+                }
+        </div>
+        @if (Model.Count > 1)
         {
-            <div class="dItem">
-                <h4 style="text-align:center;">@produto.nomeProduto</h4>
-
-                @if (produto.Imagens != null && produto.Imagens.Length > 0)
-                {
-                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(produto.Imagens))"
-                         alt="@produto.nomeProduto"
-                         style="margin: 10px 0px; max-height: 200px; max-width: 200px;" />
-                }
-                else
-                {
-                    <span style="color:gray;">(Sem imagem)</span>
-                }
-                <div>
-                    <div style="display: flex; flex-direction: column; margin: 5px 0px;">
-                        <span style="margin: 2px 0px;">Preço: R$ @produto.Valor</span>
-                        <span style="font-size: 14px; margin: 2px 0px;">@(string.IsNullOrEmpty(produto.Descricao) ? "Sem descrição" : produto.Descricao)</span>
-                    </div>
-
-                    <a asp-controller="Produto" asp-action="Detalhes" asp-route-codProd="@produto.codProd" class="btn btn-primary btn-adicionar">
-                        Saiba mais
-                    </a>
-                </div>
+            <div class="featured-controls">
+                <button id="fPrev">❮</button>
+                <button id="fNext">❯</button>
             </div>
         }
-    </section>
+    </div>
 }
 else
 {
@@ -108,167 +77,141 @@ else
 
 @if (categorias != null && categorias.Count > 0 && busca == null)
 {
-    <hr />
-    <h2 style="margin-top:40px;">Produtos por Categoria</h2>
+    <h2 class="section-title" style="margin-top:40px;">Produtos por Categoria</h2>
 
     @foreach (var cat in categorias)
     {
         <div class="categoria-bloco" style="margin-top:40px;">
-
             <h3>@cat.nomeCategoria</h3>
 
-            <div class="carousel-wrapper">
-
-                <!-- Botão anterior -->
-                <button class="carousel-btn btn-prev" data-target="@cat.codCat">◀</button>
-
-                <!-- Área de itens -->
-                <div class="carousel-container" id="carousel-@cat.codCat">
+            <div id="carouselWrapper-@cat.codCat">
+                <div id="carouselInner-@cat.codCat">
                     @foreach (var p in cat.Produtos)
                     {
-                        <div class="carousel-item dItem" style="width:220px;">
-                            <h4 style="text-align:center;">@p.nomeProduto</h4>
-
+                        <div class="game-card">
                             @if (p.Imagens != null && p.Imagens.Length > 0)
                             {
-                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Imagens))"
-                                     style="width:200px;height:200px;object-fit:cover;margin:5px auto;display:block;" />
+                                <img class="game-img"
+                                     src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Imagens))"
+                                     alt="@p.nomeProduto" />
                             }
                             else
                             {
-                                <div style="width:200px;height:200px;background:#ddd;display:flex;align-items:center;justify-content:center;">
-                                    <span style="color:gray;">Sem imagem</span>
-                                </div>
+                                <img class="game-img" src="~/img/placeholder-game.png" />
                             }
 
-                            <div style="margin-top:5px;text-align:center;">
-                                <span>Preço: R$ @p.Valor</span><br />
-                                <a asp-controller="Produto"
-                                   asp-action="Detalhes"
-                                   asp-route-codProd="@p.codProd"
-                                   class="btn btn-primary btn-sm"
-                                   style="margin-top:5px;">
-                                    Saiba mais
-                                </a>
+                            <div class="game-info">
+                                <h3>@p.nomeProduto</h3>
+                                <span class="price">R$ @p.Valor</span>
                             </div>
+
+                            <a asp-controller="Produto"
+                               asp-action="Detalhes"
+                               asp-route-codProd="@p.codProd"
+                               class="btn-card">
+                                Ver Detalhes
+                            </a>
                         </div>
                     }
                 </div>
-
-                <!-- Botão próximo -->
-                <button class="carousel-btn btn-next" data-target="@cat.codCat">▶</button>
-
             </div>
+            @if (Model.Count > 5)
+            {
+                <div class="carousel-buttons">
+                    <button class="btn-prev" data-target="@cat.codCat">❮</button>
+                    <button class="btn-next" data-target="@cat.codCat">❯</button>
+                </div>
+            }
+
         </div>
     }
 }
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const featuredInner = document.getElementById("featuredInner");
+        const fNext = document.getElementById("fNext");
+        const fPrev = document.getElementById("fPrev");
 
+        if (featuredInner && fNext && fPrev) {
+            const featuredItems = featuredInner.children.length;
+            let index = 0;
+            let autoplay;
 
-@section Scripts {
-    <script>
-        
-        document.addEventListener("DOMContentLoaded", () => {
+            function updateFeatured() {
+                featuredInner.style.transform = `translateX(-${index * 100}%)`;
+            }
 
-    function setupCarousel(id) {
-        const container = document.getElementById("carousel-" + id);
-        const itemWidth = 240; // largura + margem
-        let anim = false;
+            function startAutoplay() {
+                clearInterval(autoplay);
+                autoplay = setInterval(() => {
+                    index = (index + 1) % featuredItems;
+                    updateFeatured();
+                }, 5000);
+            }
 
-        function next() {
-            if (anim) return;
-            anim = true;
+            fNext.onclick = () => {
+                index = (index + 1) % featuredItems;
+                updateFeatured();
+                startAutoplay();
+            };
 
-            container.style.transition = "transform 0.5s ease-in-out";
-            container.style.transform = `translateX(-${itemWidth}px)`;
+            fPrev.onclick = () => {
+                index = (index - 1 + featuredItems) % featuredItems;
+                updateFeatured();
+                startAutoplay();
+            };
 
-            setTimeout(() => {
-                let first = container.children[0];
-                container.appendChild(first);
-
-                container.style.transition = "none";
-                container.style.transform = "translateX(0)";
-                anim = false;
-            }, 500);
+            startAutoplay();
         }
 
-        function prev() {
-            if (anim) return;
-            anim = true;
+        function setupCategoryCarousel(id) {
+            const container = document.getElementById("carouselInner-" + id);
+            if (!container) return;
 
-            let last = container.children[container.children.length - 1];
-            container.insertBefore(last, container.firstChild);
+            const card = container.querySelector(".game-card");
+            const cardWidth = card.offsetWidth + 25;
+            let anim = false;
 
-            container.style.transition = "none";
-            container.style.transform = `translateX(-${itemWidth}px)`;
+            const btnNext = document.querySelector(`.btn-next[data-target='${id}']`);
+            const btnPrev = document.querySelector(`.btn-prev[data-target='${id}']`);
 
-            setTimeout(() => {
-                container.style.transition = "transform 0.5s ease-in-out";
-                container.style.transform = "translateX(0)";
-                anim = false;
-            }, 20);
-        }
-
-        document.querySelector(`.btn-next[data-target='${id}']`).onclick = next;
-        document.querySelector(`.btn-prev[data-target='${id}']`).onclick = prev;
-    }
-
-    // Inicializa todos os carrosséis da página
-    document.querySelectorAll(".btn-next").forEach(btn => {
-        setupCarousel(btn.dataset.target);
-    });
-
-});
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('secItens');
-            const itemsToMove = 1;
-            const item = container.querySelector('.dItem');
-            const itemWidth = item.offsetWidth + 20;
-            let isAnimating = false;
-
-            function moveNext() {
-                if (isAnimating) return;
-                isAnimating = true;
-
-                container.style.transition = 'transform 0.5s ease-in-out';
-                container.style.transform = `translateX(-${itemWidth * itemsToMove}px)`;
-
-                setTimeout(() => {
-                    for (let i = 0; i < itemsToMove; i++) {
+            if (btnNext) {
+                btnNext.onclick = () => {
+                    if (anim) return;
+                    anim = true;
+                    container.style.transition = "transform 0.5s ease-in-out";
+                    container.style.transform = `translateX(-${cardWidth}px)`;
+                    setTimeout(() => {
                         const first = container.children[0];
                         container.appendChild(first);
-                    }
-                    container.style.transition = 'none';
-                    container.style.transform = 'translateX(0)';
-                    isAnimating = false;
-                }, 500);
+                        container.style.transition = "none";
+                        container.style.transform = "translateX(0)";
+                        anim = false;
+                    }, 500);
+                };
             }
 
-            function movePrev() {
-                if (isAnimating) return;
-                isAnimating = true;
-
-                for (let i = 0; i < itemsToMove; i++) {
+            if (btnPrev) {
+                btnPrev.onclick = () => {
+                    if (anim) return;
+                    anim = true;
                     const last = container.children[container.children.length - 1];
                     container.insertBefore(last, container.firstChild);
-                }
-
-                container.style.transition = 'none';
-                container.style.transform = `translateX(-${itemWidth * itemsToMove}px)`;
-
-                setTimeout(() => {
-                    container.style.transition = 'transform 0.5s ease-in-out';
-                    container.style.transform = 'translateX(0)';
-                }, 20);
-
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 520);
+                    container.style.transition = "none";
+                    container.style.transform = `translateX(-${cardWidth}px)`;
+                    setTimeout(() => {
+                        container.style.transition = "transform 0.5s ease-in-out";
+                        container.style.transform = "translateX(0)";
+                        anim = false;
+                    }, 20);
+                };
             }
+        }
 
-            document.getElementById('btnProximo').addEventListener('click', moveNext);
-            document.getElementById('btnAnterior').addEventListener('click', movePrev);
+        document.querySelectorAll(".btn-next").forEach(btn => {
+            setupCategoryCarousel(btn.dataset.target);
         });
-    </script>
-}
+    });
+</script>
+

@@ -2,6 +2,8 @@
 h2 {
     text-align: center;
     margin-top: 20px;
+    font-size: 2rem;
+    color: var(--cor-texto-principal);
 }
 
 #mensagemSucesso {
@@ -9,124 +11,113 @@ h2 {
     font-weight: bold;
     text-align: center;
     margin: 10px 0;
+    font-size: 1.1rem;
 }
 
 /* ---------- CONTAINER DA TABELA ---------- */
-#dTableCarrinho {
-    background-color: rgba(46, 29, 84, 0.8);
-    max-width: fit-content;
-    margin: 20px auto;
-    padding: 30px 25px;
+.cart-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 60px;
+}
+
+.cart-table-section {
+    background-color: rgba(46, 29, 84, 0.85);
+    padding: 30px;
     border-radius: 20px;
+    flex: 1;
+    max-width: 800px;
 }
 
 /* ---------- TABELA ---------- */
-#tabelaCarrinho {
-    background-color: #57005780;
-    margin: 0 auto;
-    border-radius: 15px;
-    border-collapse: collapse;
-    width: 100%;
-    color: white;
-}
-
-    #tabelaCarrinho thead {
-        background-color: rgb(104, 0, 104);
-    }
-
-        #tabelaCarrinho thead th {
-            text-align: center;
-            padding: 10px 20px;
-            font-weight: bold;
-        }
-
-        #tabelaCarrinho thead tr th:first-child {
-            border-top-left-radius: 15px;
-        }
-
-        #tabelaCarrinho thead tr th:last-child {
-            border-top-right-radius: 15px;
-        }
-
-    #tabelaCarrinho tbody td {
-        text-align: center;
-        padding: 10px 15px;
-    }
-
-    #tabelaCarrinho input[type="number"] {
-        width: 60px;
-        text-align: center;
-        border-radius: 5px;
-        border: none;
-        padding: 5px;
-        background-color: white;
-        color: black;
-    }
-
-    #tabelaCarrinho button {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #a020f0;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-        #tabelaCarrinho button:hover {
-            background-color: #c236f5;
-        }
 
 /* ---------- TOTAL ---------- */
 #totalCompra {
     text-align: center;
+    font-size: 1.5rem;
     margin-top: 20px;
-    font-size: 1.3rem;
 }
 
     #totalCompra strong {
-        color: limegreen;
+        color: var(--cor-neon);
     }
 
-/* ---------- FORMULÁRIO DE CHECKOUT ---------- */
-#formCheckout {
-    background-color: rgba(46, 29, 84, 0.8);
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 30px 25px;
-    border-radius: 20px;
+/* ---------- BOTÃO FINALIZAR ---------- */
+.cart-checkout {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
-    #formCheckout label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    #formCheckout input,
-    #formCheckout select {
-        width: 100%;
-        padding: 10px;
-        border-radius: 8px;
-        border: none;
-        background-color: white;
-        color: black;
-    }
-
-    #formCheckout button {
-        margin-top: 10px;
-        padding: 10px;
-        border: none;
-        border-radius: 8px;
-        background-color: #a020f0;
+    .cart-checkout .btn {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        font-weight: 600;
         color: white;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
+        background-color: var(--cor-botao-principal);
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: var(--shadow-soft);
+        transition: all 0.3s;
     }
 
-        #formCheckout button:hover {
-            background-color: #c236f5;
+        .cart-checkout .btn:hover {
+            background-color: var(--cor-botao-principal-hover);
+            box-shadow: 0 6px 18px rgba(91, 74, 245, 0.55);
         }
+
+input[type="number"] {
+    background: #1e1e2e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 60px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    transition: 0.25s;
+    font-weight: 600;
+    font-size: 0.95rem;
+    -moz-appearance: textfield;
+}
+
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0 6px 16px rgba(91, 74, 245, 0.5);
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"]::-moz-inner-spin-button,
+    input[type="number"]::-moz-outer-spin-button {
+        -moz-appearance: none;
+        margin: 0;
+    }
+
+
+/* ---------- RESPONSIVIDADE ---------- */
+@media (max-width: 768px) {
+    .cart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-table-section {
+        width: 100%;
+        padding: 20px;
+    }
+
+    #tabelaCarrinho {
+        font-size: 0.9rem;
+    }
+
+    .cart-checkout {
+        margin-top: 20px;
+    }
+}

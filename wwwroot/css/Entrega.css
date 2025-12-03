@@ -1,0 +1,32 @@
+﻿/* Títulos neon */
+.text-neon {
+    color: var(--cor-neon);
+    text-shadow: var(--glow-neon-soft);
+}
+
+/* Inputs e selects dentro de cards */
+.perfil-section .form-control,
+.perfil-section .form-select {
+    background-color: var(--cor-fundo-ele2);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cor-texto-principal);
+    border-radius: 10px;
+}
+
+/* Tabela estilizada */
+table.table-dark th {
+    background: var(--cor-fundo-ele);
+    color: var(--cor-texto-principal);
+}
+
+table.table-dark td {
+    background: var(--cor-fundo-ele2);
+    color: var(--cor-texto-principal);
+}
+
+/* Botões */
+button.btn-sm {
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+}

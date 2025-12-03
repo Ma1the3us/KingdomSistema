@@ -3,12 +3,14 @@
     var produto = ViewBag.Produto;
     int codProd = ViewBag.codProd;
 }
+<link href="~/css/lista.css" rel="stylesheet" />
 
 <h2 class="mb-3">Mídias do Produto: @produto?.nomeProduto</h2>
-<a class="btn btn-success mb-3" href="/ProdutoMidia/Cadastrar?codProd=@codProd">Cadastrar Nova Mídia</a>
-<a class="btn btn-sucess mb-3" href="~/Produto/Detalhes?codProd=@codProd">Voltar</a>
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
+
+@if (Model != null && Model.Count > 0)
+{
+<table>
+    <thead>
         <tr>
             <th>#</th>
             <th>Tipo</th>
@@ -30,7 +32,7 @@
                 </td>
 
                 <td>
-                                                       @*Está passando por rota os campos para o editar*@
+                    @*Está passando por rota os campos para o editar*@
                     <a class="btn btn-primary btn-sm" href="/ProdutoMidia/Editar?codMidia=@item.codMidia&codProd=@item.codProd">Editar</a>
 
                     <form method="post" action="/ProdutoMidia/Excluir"
@@ -45,3 +47,12 @@
         }
     </tbody>
 </table>
+}
+else
+{
+    <p>Nenhuma mídia cadastrada.</p>
+}
+<div id="dBtn">
+    <a class="btn btn-success mb-3" href="/ProdutoMidia/Cadastrar?codProd=@codProd">Cadastrar Nova Mídia</a>
+    <a class="btn btn-secondary mb-3" asp-controller="Produto" asp-action="List" @* href="~/Produto/Detalhes?codProd=@codProd" *@>Voltar</a>
+</div>

@@ -4,10 +4,9 @@
     var produto = ViewBag.Produto as MeuProjetoMVC.Models.Produto;
     var subcategorias = ViewBag.Subcategorias as List<MeuProjetoMVC.Models.Sub_Categoria>;
 }
+<link href="~/css/lista.css" rel="stylesheet" />
 
-
-<h2 class="text-xl font-semibold mb-4">Vincular Subcategorias ao Produto</h2>
-
+<h2>Vincular Subcategorias ao Produto</h2>
 
 @if (produto != null)
 {
@@ -16,33 +15,40 @@
     </div>
 }
 
-
-<a asp-action="Cadastrar" asp-route-codProd="@ViewBag.codProd" class="btn btn-primary mb-3">Adicionar Subcategoria</a>
-
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Subcategoria</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            var nomeSub = subcategorias?.FirstOrDefault(s => s.codSub == item.codSub)?.nomeSubcategoria ?? "-";
-
-
+@if (Model != null && Model.Any())
+{
+<div id="dTable">
+    <table>
+        <thead>
             <tr>
-                <td>@nomeSub</td>
-                <td>
-                    <form asp-action="Excluir" asp-route-codProd="@item.codProd" asp-route-codSub="@item.codSub" method="post">
-                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                    </form>
-                </td>
+                <th>Subcategoria</th>
+                <th>Ações</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var nomeSub = subcategorias?.FirstOrDefault(s => s.codSub == item.codSub)?.nomeSubcategoria ?? "-";
 
-<a asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@(Model?.FirstOrDefault()?.codProd  ?? 0)">Voltar</a>
+
+                <tr>
+                    <td>@nomeSub</td>
+                    <td>
+                        <form asp-action="Excluir" asp-route-codProd="@item.codProd" asp-route-codSub="@item.codSub" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+}
+else
+{
+    <p>Nenhuma subcategoria encontrada.</p>
+}
+<div id="dBtn">
+    <a asp-action="Cadastrar" asp-route-codProd="@ViewBag.codProd" class="btn btn-primary btn-sm">Adicionar Subcategoria</a>
+    <a class="btn btn-secondary btn-sm" asp-action="Detalhes" asp-controller="Produto" asp-route-codProd="@(Model?.FirstOrDefault()?.codProd ?? 0)">Voltar</a>
+</div>

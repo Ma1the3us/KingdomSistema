@@ -4,7 +4,7 @@
     ViewData["Title"] = "Carrinho de Compras";
     var produtos = ViewBag.Produtos as List<MeuProjetoMVC.Models.Produto> ?? new List<MeuProjetoMVC.Models.Produto>();
 }
-
+<link href="~/css/lista.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/carrinho.css" />
 
 @if (TempData["Mensagem"] != null)
@@ -39,7 +39,7 @@ else
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            var produto = produtos.FirstOrDefault(p => p.codProd == item.codProd);
+                            dynamic produto = produtos.FirstOrDefault(p => p.codProd == item.codProd);
                             double desconto = Convert.ToDouble(produto.Desconto);
                             double valor = Convert.ToDouble(produto.Valor);
                             var precoUnitario = desconto > 0 ? valor * (1 - desconto / 100)
@@ -63,8 +63,8 @@ else
                                 <td>
                                     <form asp-action="UpdateQuantity" method="post" style="display:inline;">
                                         <input type="hidden" name="produtoId" value="@item.codProd" />
-                                        <input type="number" name="quantidade" value="@item.Quantidade" min="1" />
-                                        <button type="submit">Atualizar</button>
+                                        <input type="number" name="quantidade" value="@item.Quantidade" min="1" style="width:fit-content; border-radius: 10px"/>
+                                        <button type="submit" class="btn btn-success btn-sm">Atualizar</button>
                                     </form>
                                 </td>
                                 <td>@produto.Desconto</td>
@@ -76,15 +76,15 @@ else
                         }
                     </tbody>
                 </table>
+                <hr />
                 <h3 id="totalCompra">
                     Total da Compra: <strong>R$ @ViewBag.TotalCompra</strong>
                 </h3>
             </div>
-
-
+            <div id="dBtn">
+                <a href="/sistema/Venda/Index" class="btn btn-success">Finalizar Compra</a>
+            </div>
         </section>
-        <section>
-                 <a href="/sistema/Venda/Index" class="btn btn-success">Finalizar Compra</a>
-        </section>
+
     </div>
 }

@@ -15,33 +15,53 @@
     <div class="alert alert-danger">@TempData["MensagemErro"]</div>
 }
 
-<div class="favoritos-container">
+@if (Model != null && Model.Any())
+{
+    <div class="favoritos-container">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var item = Model[i];
+            var prod = produtos[i];
+            string imgSrc = prod.Imagens.Length > 0
+            ? $"data:image/png;base64,{Convert.ToBase64String(prod.Imagens)}"
+            : "/img/sem-imagem.png";
 
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        var item = Model[i];
-        var prod = produtos[i];
-        string imgSrc = prod.Imagens.Length > 0
-        ? $"data:image/png;base64,{Convert.ToBase64String(prod.Imagens)}"
-        : "/img/sem-imagem.png";
+            <div class="card-fav">
+                <img src="@imgSrc" alt="@prod.nomeProduto" />
+                <h3>@prod.nomeProduto</h3>
+                <p>@prod.Descricao</p>
+                <span class="valor">R$ @prod.Valor</span>
 
-        <div class="card-fav">
-            <img src="@imgSrc" />
+                <form method="post" asp-action="ExcluirFavoritoIndex" asp-controller="Favoritos">
+                    <input type="hidden" name="codProd" value="@prod.codProd" />
+                    <button type="submit" class="btn-remover">Remover</button>
+                </form>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Nenhum produto marcado como favorito.</p>
+}
 
-            <h3>@prod.nomeProduto</h3>
-            <p>@prod.Descricao</p>
-            <span class="valor">R$ @prod.Valor</span>
-
-            <form method="post" asp-action="ExcluirFavoritoIndex" asp-controller="Favoritos">
-                <input type="hidden" name="codProd" value="@prod.codProd" />
-                <button type="submit" class="btn-remover">Remover</button>
-            </form>
-        </div>
-    }
+<div id="dBtn" style="margin-top:20px;">
+    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Voltar</a>
 </div>
-<a asp-action="Index" asp-controller="Home">Voltar</a>
 
 <style>
+    body {
+        background: #0D1117;
+        color: #E4E6EB;
+        font-family: 'Inter', sans-serif;
+        padding: 20px;
+    }
+
+    h2 {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
     .favoritos-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -50,43 +70,77 @@
     }
 
     .card-fav {
-        background: #fff;
-        padding: 15px;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        background: #161B22;
+        color: #E4E6EB;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         text-align: center;
-        transition: .2s;
+        transition: 0.3s;
     }
 
         .card-fav:hover {
-            transform: scale(1.03);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.55);
         }
 
         .card-fav img {
             max-width: 100%;
-            height: 170px;
+            height: 180px;
             object-fit: contain;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .card-fav h3 {
+            font-weight: 600;
+            margin: 10px 0 5px 0;
+        }
+
+        .card-fav p {
+            font-size: 0.9rem;
             margin-bottom: 10px;
+            color: #C3C3D6;
         }
 
     .valor {
         display: block;
         margin: 10px 0;
-        font-weight: bold;
-        color: #007bff;
+        font-weight: 700;
+        color: #4FF1D5;
+        font-size: 1.1rem;
     }
 
     .btn-remover {
-        background: #e63946;
+        background: linear-gradient(135deg, #e63946, #c71c2b);
         color: white;
         border: none;
-        padding: 8px 12px;
-        border-radius: 8px;
+        padding: 10px 18px;
+        border-radius: 12px;
         cursor: pointer;
-        transition: .2s;
+        font-weight: 600;
+        transition: 0.3s;
     }
 
         .btn-remover:hover {
-            background: #c71c2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(199,28,43,0.55);
+        }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #5B4AF5, #7C43FF);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(91,74,245,0.55);
         }
 </style>

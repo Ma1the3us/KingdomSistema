@@ -1,14 +1,13 @@
 ﻿@model MeuProjetoMVC.Models.ZetaJogos
-
-<div class="container mt-4">
-    <h2>Excluir Jogo</h2>
-
-    <div class="alert alert-danger mt-3">
-        Tem certeza que deseja excluir o jogo <strong>@Model.nomeJogo</strong>?
-    </div>
-
+<link href="~/css/form.css" rel="stylesheet" />
     <form method="post">
-        <button class="btn btn-danger">Excluir</button>
-        <a href="/ZetaJogos" class="btn btn-secondary">Cancelar</a>
+        <h2>Excluir Jogo</h2>
+
+        <div class="alert alert-danger mt-3">
+            Tem certeza que deseja excluir o jogo <strong>@Model.nomeJogo</strong>?
+        </div>
+        <div id="dBtn">
+            <button class="btn btn-danger">Excluir</button>
+            <a href="/ZetaJogos" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
-</div>

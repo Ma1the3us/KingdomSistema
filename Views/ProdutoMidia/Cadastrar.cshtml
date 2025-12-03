@@ -2,36 +2,29 @@
 @{
     ViewData["Title"] = "Cadastrar Mídia";
 }
+<link href="~/css/form.css" rel="stylesheet" />
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">📤 Adicionar Nova Mídia ao Produto</h2>
+<h2 class="text-center mb-4">📤 Adicionar Nova Mídia ao Produto</h2>
 
-    <form asp-action="Cadastrar" asp-controller="ProdutoMidia" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+<form asp-action="Cadastrar" asp-controller="ProdutoMidia" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="codProd" />
 
-        <!-- CODPROD CORRETO -->
-        <input type="hidden" asp-for="codProd" />
+    <div class="form-class">
+        <label for="tipoMidia" class="form-label">Tipo da Mídia</label>
+        <select class="form-select" asp-for="tipoMidia" required>
+            <option value="">Selecione...</option>
+            <option value="Imagem">Imagem</option>
+            <option value="Video">Vídeo</option>
+        </select>
+    </div>
 
-        <div class="mb-3">
-            <label for="tipoMidia" class="form-label">Tipo da Mídia</label>
-            <select class="form-select" asp-for="tipoMidia" required>
-                <option value="">Selecione...</option>
-                <option value="Imagem">Imagem</option>
-                <option value="Video">Vídeo</option>
-            </select>
-        </div>
+    <div class="form-class">
+        <label for="midia" class="form-label">Arquivo</label>
+        <input type="file" class="form-control" name="midia" accept="image/*,video/*" required />
+    </div>
 
-        <div class="mb-3">
-            <label for="midia" class="form-label">Arquivo</label>
-            <input type="file" class="form-control" name="midia" accept="image/*,video/*" required />
-        </div>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-success px-4">Salvar</button>
-
-            <!-- VOLTAR CORRETO -->
-            <a asp-action="Index" asp-route-codProd="@Model.codProd" class="btn btn-secondary ms-2">
-                Voltar
-            </a>
-        </div>
-    </form>
-</div>
+    <div id="dBtn">
+        <button type="submit" class="btn btn-success px-4">Salvar</button>
+        <a asp-action="Index" asp-route-codProd="@Model.codProd" class="btn btn-secondary">Voltar</a>
+    </div>
+</form>

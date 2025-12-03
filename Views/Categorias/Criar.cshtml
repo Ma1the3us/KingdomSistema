@@ -6,13 +6,15 @@
 <h2>Criar Categoria</h2>
 
 <form asp-action="Criar" method="post" class="w-50">
-    <div class="form-group mb-3">
+    <div class="form-group">
         <label asp-for="NomeCategoria" class="form-label"></label>
         <input asp-for="NomeCategoria" class="form-control" />
         <span asp-validation-for="NomeCategoria"
               class="text-danger"></span>
     </div>
+    <div id="dBtn">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
 
-    <button type="submit" class="btn btn-success">Salvar</button>
-    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
 </form>

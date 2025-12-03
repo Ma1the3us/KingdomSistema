@@ -3,43 +3,41 @@
 @{
     ViewData["Title"] = "Meus Cartões";
 }
+<link href="~/css/lista.css" rel="stylesheet" />
 
 <h2>@ViewData["Title"]</h2>
 
-@if (TempData["Sucesso"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Sucesso"]
-    </div>
-}
-
-<a asp-action="AdicionarCartao" asp-controller="Conta" class="btn btn-primary">Adicionar Novo Cartão</a>
-
-<table class="table mt-3">
-    <thead>
-        <tr>
-            <th>Número do Cartão</th>
-            <th>Últimos 4 Dígitos</th>
-            <th>Bandeira</th>
-            <th>Tipo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cartao in Model)
-        {
+<div id="dTable">
+    <table>
+        <thead>
             <tr>
-                <td>@cartao.Numero</td>
-                <td>@cartao.digitos</td>
-                <td>@cartao.bandeira</td>
-                <td>@cartao.tipoCart</td>
-                <td>
-                    <form method="post" asp-action="ExcluirCartao" onsubmit="return confirm('Tem certeza que deseja excluir este cartão?');">
-                        <input type="hidden" name="codCart" value="@cartao.codCart" />
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
-                </td>
+                <th>Número do Cartão</th>
+                <th>Últimos 4 Dígitos</th>
+                <th>Bandeira</th>
+                <th>Tipo</th>
+                <th>Ações</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var cartao in Model)
+            {
+                <tr>
+                    <td>@cartao.Numero</td>
+                    <td>@cartao.digitos</td>
+                    <td>@cartao.bandeira</td>
+                    <td>@cartao.tipoCart</td>
+                    <td>
+                        <form method="post" asp-action="ExcluirCartao" onsubmit="return confirm('Tem certeza que deseja excluir este cartão?');">
+                            <input type="hidden" name="codCart" value="@cartao.codCart" />
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="dBtn">
+    <a asp-action="AdicionarCartao" asp-controller="Conta" class="btn btn-primary">Adicionar Novo Cartão</a>
+</div>

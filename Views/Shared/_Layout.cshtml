@@ -6,7 +6,6 @@
     var userName = HttpContextAccessor.HttpContext?.Session?.GetString(SessionKeys.UserName) ?? "";
     var userEmail = HttpContextAccessor.HttpContext?.Session?.GetString("UserEmail") ?? "";
     var userId = HttpContextAccessor.HttpContext?.Session?.GetString("UserId") ?? "";
-    var plano = Context.Session.GetString(SessionKeys.UserPlanoZeta) ?? "N";
 }
 
 <!DOCTYPE html>
@@ -55,13 +54,12 @@
                         <div class="d-flex align-items-center">
                             @if (!string.IsNullOrEmpty(role) && (role == "Funcionario" || role == "Admin"))
                             {
-                                <img src="~/img/editar.png" id="edicao" alt="Editar" />
+                                <img src="~/img/editarTab.png" id="edicao" alt="Editar" />
                             }
                             <img src="~/img/usuario.png" id="imgUsuario" alt="Usuário"
                                  data-username="@userName"
                                  data-role="@role"
                                  data-email="@userEmail" />
-                            <p class="text-white" style="min-width:fit-content">Olá, @userName</p>
                         </div>
                     }
                 </div>
@@ -69,26 +67,25 @@
         </nav>
     </header>
 
-    <div id="linkModal" class="hide">
-        <h4><strong>Informações da Conta</strong></h4>
-        <p><strong>Nome:</strong> <span id="modalUserName"></span></p>
-        <p><strong>Cargo:</strong> <span id="modalUserRole"></span></p>
-        <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
-        <div class="flex-row">
-            <a class="nav-link text-white" asp-controller="Conta" asp-action="Perfil">Perfil</a>
+    <div id="linkModal" class="hide"">
+        <h4><strong>Olá, @userName!</strong></h4>
+        <div id="dBtnL" style="">
+            <a class="btn btn-primary" asp-controller="Conta" asp-action="Perfil">Perfil</a>
             @if (Context.Session.GetString(SessionKeys.UserPlanoZeta) == "S")
             {
-                    <a class="nav-link text-warning" asp-controller="PlanoZeta" asp-action="ZetaJogos">
-                        Jogos Zeta ⭐
-                    </a>
+                <a class="btn btn-primary" asp-controller="PlanoZeta" asp-action="ZetaJogos">
+                    Jogos Zeta
+                </a>
             }
             else
             {
-                    <a class="nav-link text-white" href="/PlanoZeta/Index">Contratar Plano Zeta</a>
+                <a class="btn btn-dark" href="/PlanoZeta/Index">Plano Zeta</a>
             }
             <a class="btn btn-primary" asp-controller="Favoritos" asp-action="Index">Favoritos</a>
-            <a class="btn btn-danger" asp-controller="Auth" asp-action="Logout">Sair</a>
+
         </div>
+        <hr />
+        <a class="btn btn-danger" asp-controller="Auth" asp-action="Logout">Sair</a>
     </div>
 
     <div id="edicaoModal" class="hide">
@@ -99,11 +96,7 @@
         <a class="nav-link text-white" asp-controller="Entrega" asp-action="CentralEntrega">Entregas</a>
         @if (role == "Admin")
         {
-                
-                    <a class="nav-link text-white" asp-controller="ZetaJogos" asp-action="Index">
-                        Gerenciar Jogos 🎮
-                    </a>
-            
+            <a class="nav-link text-white" asp-controller="ZetaJogos" asp-action="Index">Jogos</a>
         }
 
         @if (!string.IsNullOrEmpty(role) && role == "Admin")
@@ -118,7 +111,7 @@
         </main>
     </div>
 
-    <footer class="footer text-muted">
+    <footer class="teste">
         <div id="dFtr">
             <img src="~/img/KingdomOfGamesLogoVet1.svg" alt="Logo" style="width: 40px;">
             <div id="dConteudo">
@@ -142,31 +135,19 @@
         let modalAberto = false;
 
         const preencherModal = (target) => {
-            const userName = target.dataset.username || 'Não disponível';
-            const role = target.dataset.role || 'Não disponível';
-            const email = target.dataset.email || 'Não disponível';
-            document.getElementById('modalUserName').textContent = userName;
-            document.getElementById('modalUserRole').textContent = role;
-            document.getElementById('modalUserEmail').textContent = email;
         };
 
-        const showModalAtMousePosition = (event, target) => {
-            preencherModal(target);
-            const mouseX = event.clientX + 10;
-            const mouseY = event.clientY + 10;
+        const showModalAtElement = (target, modal) => {
+            const rect = target.getBoundingClientRect();
+            const top = rect.bottom + 8;
+            const modalWidth = modal.offsetWidth;
+            const left = rect.right - modalWidth;
 
-            if (target === imgUsuario) {
-                linkModal.style.left = `${mouseX}px`;
-                linkModal.style.top = `${mouseY}px`;
-                linkModal.classList.remove('hide');
-                linkModal.classList.add('show');
-            } else {
-                edicaoModal.style.left = `${mouseX}px`;
-                edicaoModal.style.top = `${mouseY}px`;
-                edicaoModal.classList.remove('hide');
-                edicaoModal.classList.add('show');
-            }
+            modal.style.top = `${top}px`;
+            modal.style.left = `${left}px`;
 
+            modal.classList.remove('hide');
+            modal.classList.add('show');
             modalAberto = true;
         };
 
@@ -178,24 +159,25 @@
             modalAberto = false;
         };
 
-        if (edicao) {
-            edicao.addEventListener('click', (event) => {
-                event.stopPropagation();
-                if (modalAberto) {
-                    fecharModal();
-                } else {
-                    showModalAtMousePosition(event, edicao);
-                }
-            });
-        }
-
         if (imgUsuario) {
             imgUsuario.addEventListener('click', (event) => {
                 event.stopPropagation();
                 if (modalAberto) {
                     fecharModal();
                 } else {
-                    showModalAtMousePosition(event, imgUsuario);
+                    preencherModal(imgUsuario);
+                    showModalAtElement(imgUsuario, linkModal);
+                }
+            });
+        }
+
+        if (edicao) {
+            edicao.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (modalAberto) {
+                    fecharModal();
+                } else {
+                    showModalAtElement(edicao, edicaoModal);
                 }
             });
         }

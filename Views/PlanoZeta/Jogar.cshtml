@@ -4,39 +4,128 @@
     ViewData["Title"] = "Jogando " + Model.nomeJogo;
 }
 
-<a asp-action="ZetaJogos" asp-controller="PlanoZeta">Voltar</a>
+<div class="game-page container">
+    <a asp-action="ZetaJogos" asp-controller="PlanoZeta" class="btn btn-secondary">Voltar</a>
 
+    <h2 class="game-title">@Model.nomeJogo</h2>
+    <p class="game-rating">Categoria Indicativa: @Model.classificacaoEtaria+</p>
 
-<h2>@Model.nomeJogo</h2>
-<p>Categoria Indicativa: @Model.classificacaoEtaria+</p>
+    <div class="game-container" id="gameContainer">
+        <iframe id="gameFrame" src="~/@Model.caminhoJogo"
+                allowfullscreen
+                webkitallowfullscreen
+                mozallowfullscreen
+                allow="fullscreen"
+                class="game-frame">
+        </iframe>
 
-<div class="game-container">
-    <iframe src="~/@Model.caminhoJogo"
-            class="game-frame"
-            allowfullscreen
-            webkitallowfullscreen
-            mozallowfullscreen
-            allow="fullscreen">
-    </iframe>
+        <button id="btnFullscreen" class="btn-fullscreen"><img src="~/img/telacheia.png" /></button>
+    </div>
 </div>
 
 <style>
+    .game-page {
+        width: 90%;
+        max-width: 1200px;
+        margin: 40px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
 
-.game-container {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* proporção 16:9 */
-    background: #000;
-    overflow: hidden;
-}
+    .btn-voltar {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #41e6ff;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
 
-.game-frame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+        .btn-voltar:hover {
+            color: #7b74ff;
+        }
 
+    .game-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    .game-rating {
+        text-align: center;
+        font-size: 1rem;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .game-container {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 */
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    .game-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .btn-fullscreen {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background-color: dimgray;
+        color: #000;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+        .btn-fullscreen:hover {
+            background: rgba(65, 230, 255, 1);
+            transform: scale(1.05);
+        }
 </style>
+
+<script>
+    const btnFullscreen = document.getElementById("btnFullscreen");
+    const gameContainer = document.getElementById("gameContainer");
+    const gameFrame = document.getElementById("gameFrame");
+
+    btnFullscreen.addEventListener("click", () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            if (gameContainer.requestFullscreen) {
+                gameContainer.requestFullscreen();
+            } else if (gameContainer.webkitRequestFullscreen) { /* Safari */
+                gameContainer.webkitRequestFullscreen();
+            } else if (gameContainer.mozRequestFullScreen) { /* Firefox */
+                gameContainer.mozRequestFullScreen();
+            } else if (gameContainer.msRequestFullscreen) { /* IE/Edge */
+                gameContainer.msRequestFullscreen();
+            }
+        }
+    });
+
+    // Ajusta iframe em tela cheia
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement) {
+            gameFrame.style.width = '100vw';
+            gameFrame.style.height = '100vh';
+        } else {
+            gameFrame.style.width = '100%';
+            gameFrame.style.height = '100%';
+        }
+    });
+</script>

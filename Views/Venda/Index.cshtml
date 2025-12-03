@@ -6,12 +6,14 @@
     var venda = vendas.FirstOrDefault();
     var cartoes = ViewBag.Cartao as List<cartaoCli>;
 }
+<link href="~/css/concvenda.css" rel="stylesheet" />
 
 <input type="hidden" id="codVenda" value="@venda.codVenda" />
 
 <h2>Finalização da Compra</h2>
 
 <h4>Itens do Pedido</h4>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -31,7 +33,7 @@
                 <td>@prod.nomeProduto</td>
                 <td>@item.Quantidade</td>
                 <td>R$ @item.Valor</td>
-                <td>R$ @(item.Valor * item.Quantidade)</td>
+                <td>R$ @(item.Valor* item.Quantidade)</td>
             </tr>
         }
     </tbody>

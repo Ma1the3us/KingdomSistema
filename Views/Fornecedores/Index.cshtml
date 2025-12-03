@@ -7,7 +7,7 @@
 <h2>Fornecedores</h2>
 @if (Model != null && Model.Any())
 {
-    <div style="max-height: 300px; overflow-y: auto;">
+    <div id="dTable">
         <table>
             <thead>
                 <tr>
@@ -36,8 +36,8 @@
 }
 else
 {
-    <p>Nenhum Fornecedor encontrado.</p>
+    <p>Nenhum fornecedor encontrado.</p>
 }
-<div style="display: flex; justify-content: center; margin-top: 10px;">
+<div id="dBtn">
     <a class="btn btn-primary" asp-action="Criar">Novo Fornecedor</a>
 </div>

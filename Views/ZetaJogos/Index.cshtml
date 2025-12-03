@@ -1,11 +1,14 @@
 ﻿@model List<MeuProjetoMVC.Models.ZetaJogos>
 
-<div class="container mt-4">
-    <h2 class="mb-3">Lista de Jogos</h2>
-    <a class="btn btn-primary mb-3" href="/ZetaJogos/Criar">Adicionar Novo</a>
+@{
+    ViewData["Title"] = "Zeta Jogos";
+}
+<link href="~/css/lista.css" rel="stylesheet" />
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
+<div id="dTable">
+    <h2>Lista de Jogos</h2>
+    <table>
+        <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
@@ -23,11 +26,14 @@
                     <td>@j.classificacaoEtaria</td>
                     <td>@j.categoria</td>
                     <td>
-                        <a class="btn btn-warning btn-sm" href="/ZetaJogos/Editar/@j.codZetaJ">Editar</a>
-                        <a class="btn btn-danger btn-sm" href="/ZetaJogos/Excluir/@j.codZetaJ">Excluir</a>
+                        <a class="btn btn-warning btn-sm" asp-action="Editar" asp-route-id="@j.codZetaJ"><img src="~/img/editar.png" title="Editar jogo" /></a>
+                        <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@j.codZetaJ"><img src="~/img/excluir.png" title="Excluir jogo" /></a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+<div id="dBtn">
+    <a class="btn btn-primary" href="/ZetaJogos/Criar">Adicionar jogo</a>
 </div>

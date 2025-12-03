@@ -1,12 +1,553 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\3mod\\Desktop\\KingdomSistema\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\conta\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\conta\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\entrega\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\entrega\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\venda\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\venda\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\zetajogos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\zetajogos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\entrega\\dadosentrega.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\entrega\\dadosentrega.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\carrinho.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\carrinho.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\concvenda.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\concvenda.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\vitrine.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\vitrine.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\conta\\cartoes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\conta\\cartoes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\conta\\adicionarcartao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\conta\\adicionarcartao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\itemsub\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\itemsub\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produto\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produto\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\planozeta\\zetajogos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\planozeta\\zetajogos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produtomidia\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produtomidia\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produto\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produto\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\zetajogos\\excluir.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\zetajogos\\excluir.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\categorias\\excluir.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\categorias\\excluir.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\zetajogos\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\zetajogos\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\zetajogos\\criar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\zetajogos\\criar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\planozeta\\jogar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\planozeta\\jogar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\proddetalhes.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\proddetalhes.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produto\\associarsub.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produto\\associarsub.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\planozeta\\contratar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\planozeta\\contratar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\wwwroot\\css\\itemsub.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:wwwroot\\css\\itemsub.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produto\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produto\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produto\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produto\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produtomidia\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produtomidia\\detalhes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|c:\\users\\kevin\\desktop\\kingdomsistema\\views\\produtomidia\\cadastrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9ECEC86-B664-2EE2-4D57-DC496250CC83}|MeuProjetoMVC.csproj|solutionrelative:views\\produtomidia\\cadastrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ZetaJogos\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Index.cshtml",
+              "RelativeToolTip": "Views\\ZetaJogos\\Index.cshtml",
+              "ViewState": "AgIAAAEAAAAAAAAAAADwvyYAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:20:28.88Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Venda\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Venda\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Venda\\Index.cshtml",
+              "RelativeToolTip": "Views\\Venda\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:53:41.344Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Perfil.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\Perfil.cshtml",
+              "RelativeDocumentMoniker": "Views\\Conta\\Perfil.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\Perfil.cshtml",
+              "RelativeToolTip": "Views\\Conta\\Perfil.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T14:27:06.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Detalhes.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Entrega\\Detalhes.cshtml",
+              "RelativeDocumentMoniker": "Views\\Entrega\\Detalhes.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Entrega\\Detalhes.cshtml",
+              "RelativeToolTip": "Views\\Entrega\\Detalhes.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T14:27:04.565Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAIBAAAAAAAAAAAuwCcBAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T14:14:20.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DadosEntrega.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Entrega\\DadosEntrega.cshtml",
+              "RelativeDocumentMoniker": "Views\\Entrega\\DadosEntrega.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Entrega\\DadosEntrega.cshtml",
+              "RelativeToolTip": "Views\\Entrega\\DadosEntrega.cshtml",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAAIsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T14:09:20.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:49:57.119Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Cart\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Cart\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Cart\\Index.cshtml",
+              "RelativeToolTip": "Views\\Cart\\Index.cshtml",
+              "ViewState": "AgIAAAgAAAAAAAAAAADwvxwAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:37:09.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Cartoes.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\Cartoes.cshtml",
+              "RelativeDocumentMoniker": "Views\\Conta\\Cartoes.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\Cartoes.cshtml",
+              "RelativeToolTip": "Views\\Conta\\Cartoes.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:57:28.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "carrinho.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\carrinho.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\carrinho.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\carrinho.css",
+              "RelativeToolTip": "wwwroot\\css\\carrinho.css",
+              "ViewState": "AgIAADwAAAAAAAAAAAAuwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T13:50:27.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "concVenda.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\concVenda.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\concVenda.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\concVenda.css",
+              "RelativeToolTip": "wwwroot\\css\\concVenda.css",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAqwIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T14:05:40.708Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "vitrine.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\vitrine.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\vitrine.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\vitrine.css",
+              "RelativeToolTip": "wwwroot\\css\\vitrine.css",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAewBwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T13:30:53.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AdicionarCartao.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
+              "RelativeDocumentMoniker": "Views\\Conta\\AdicionarCartao.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Conta\\AdicionarCartao.cshtml",
+              "RelativeToolTip": "Views\\Conta\\AdicionarCartao.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:55:31.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ItemSub\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ItemSub\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ItemSub\\Index.cshtml",
+              "RelativeToolTip": "Views\\ItemSub\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:54:35.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Categorias\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Categorias\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Categorias\\Index.cshtml",
+              "RelativeToolTip": "Views\\Categorias\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:22:16.144Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\Produto\\List.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\List.cshtml",
+              "RelativeToolTip": "Views\\Produto\\List.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:48:37.107Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ZetaJogos.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\ZetaJogos.cshtml",
+              "RelativeDocumentMoniker": "Views\\PlanoZeta\\ZetaJogos.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\ZetaJogos.cshtml",
+              "RelativeToolTip": "Views\\PlanoZeta\\ZetaJogos.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:45:17.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Excluir.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Categorias\\Excluir.cshtml",
+              "RelativeDocumentMoniker": "Views\\Categorias\\Excluir.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Categorias\\Excluir.cshtml",
+              "RelativeToolTip": "Views\\Categorias\\Excluir.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:33:41.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Excluir.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Excluir.cshtml",
+              "RelativeDocumentMoniker": "Views\\ZetaJogos\\Excluir.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Excluir.cshtml",
+              "RelativeToolTip": "Views\\ZetaJogos\\Excluir.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:33:22.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Jogar.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\Jogar.cshtml",
+              "RelativeDocumentMoniker": "Views\\PlanoZeta\\Jogar.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\Jogar.cshtml",
+              "RelativeToolTip": "Views\\PlanoZeta\\Jogar.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:25:35.61Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Editar.cshtml",
+              "RelativeDocumentMoniker": "Views\\ZetaJogos\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Editar.cshtml",
+              "RelativeToolTip": "Views\\ZetaJogos\\Editar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:23:26.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Criar.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Criar.cshtml",
+              "RelativeDocumentMoniker": "Views\\ZetaJogos\\Criar.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ZetaJogos\\Criar.cshtml",
+              "RelativeToolTip": "Views\\ZetaJogos\\Criar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T13:18:28.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAIwNkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T12:39:16.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ProdutoMidia\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Index.cshtml",
+              "RelativeToolTip": "Views\\ProdutoMidia\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADgAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T10:05:27.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Detalhes.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Detalhes.cshtml",
+              "RelativeDocumentMoniker": "Views\\Produto\\Detalhes.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Detalhes.cshtml",
+              "RelativeToolTip": "Views\\Produto\\Detalhes.cshtml",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJEAAAB8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T08:18:52.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "prodDetalhes.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\prodDetalhes.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\prodDetalhes.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\prodDetalhes.css",
+              "RelativeToolTip": "wwwroot\\css\\prodDetalhes.css",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAowKQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T10:01:15.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AssociarSub.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\AssociarSub.cshtml",
+              "RelativeDocumentMoniker": "Views\\Produto\\AssociarSub.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\AssociarSub.cshtml",
+              "RelativeToolTip": "Views\\Produto\\AssociarSub.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T12:50:52.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Contratar.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\Contratar.cshtml",
+              "RelativeDocumentMoniker": "Views\\PlanoZeta\\Contratar.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\PlanoZeta\\Contratar.cshtml",
+              "RelativeToolTip": "Views\\PlanoZeta\\Contratar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T12:55:21.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "itemSub.css",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\itemSub.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\itemSub.css",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\wwwroot\\css\\itemSub.css",
+              "RelativeToolTip": "wwwroot\\css\\itemSub.css",
+              "ViewState": "AgIAABIAAAAAAAAAAAAwwDsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-03T12:52:34.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Produto\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Produto\\Edit.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAD4AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T12:38:37.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Produto\\Create.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\Produto\\Create.cshtml",
+              "RelativeToolTip": "Views\\Produto\\Create.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T12:38:17.512Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Detalhes.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Detalhes.cshtml",
+              "RelativeDocumentMoniker": "Views\\ProdutoMidia\\Detalhes.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Detalhes.cshtml",
+              "RelativeToolTip": "Views\\ProdutoMidia\\Detalhes.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T10:09:31.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Cadastrar.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Cadastrar.cshtml",
+              "RelativeDocumentMoniker": "Views\\ProdutoMidia\\Cadastrar.cshtml",
+              "ToolTip": "C:\\Users\\kevin\\Desktop\\KingdomSistema\\Views\\ProdutoMidia\\Cadastrar.cshtml",
+              "RelativeToolTip": "Views\\ProdutoMidia\\Cadastrar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-03T10:07:24.306Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
